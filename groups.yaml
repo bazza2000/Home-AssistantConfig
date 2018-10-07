@@ -1,0 +1,92 @@
+tracker:
+  name: People
+  entities:
+    - device_tracker.8c4500aad0bf
+    - device_tracker.84c7eac09c53
+    - device_tracker.58e28f6772fe
+home:
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.kitchen
+    - group.toy_room
+    - group.living_room
+kitchen:
+  name: Kitchen
+  entities:
+    - switch.aquarium_light
+    - sensor.aquarium_temperature
+    - sensor.aquarium_temperature_2
+toy_room:
+  name: Toy Room
+  entities:
+    - switch.toy_room_light
+living_room:
+  name: Living Room
+  entities:
+    - switch.living_room_light
+heating:
+  name: Hive Heating
+  entities:
+    - climate.heating
+    - climate.hotwater
+    - sensor.hive_hub_status
+master_bedroom:
+  name: Master Bedroom
+  entities:
+computer_room:
+  name: Computer Room
+  entities:
+weather:
+  name: Weather
+  entities:
+    - sun.sun
+    - sensor.yr_symbol
+    - sensor.outside_temperature
+    - sensor.dark_sky_icon
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_apparent_temperature
+    - sensor.dark_sky_daily_high_temperature
+    - sensor.dark_sky_daytime_high_temperature
+    - sensor.dark_sky_daytime_high_apparent_temperature
+    - sensor.dark_sky_overnight_low_temperature
+    - sensor.dark_sky_overnight_low_apparent_temperature
+    - sensor.dark_sky_cloud_coverage
+    - sensor.dark_sky_daily_max_precip_intensity
+    - sensor.dark_sky_daily_summary
+    - sensor.dark_sky_dew_point
+    - sensor.dark_sky_hourly_summary
+    - sensor.dark_sky_humidity
+    - sensor.dark_sky_minutely_summary
+    - sensor.dark_sky_moon_phase
+    - sensor.dark_sky_ozone
+    - sensor.dark_sky_precip
+    - sensor.dark_sky_precip_accumulation
+    - sensor.dark_sky_precip_intensity
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_pressure
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_uv_index
+    - sensor.dark_sky_visibility
+    - sensor.dark_sky_wind_bearing
+    - sensor.dark_sky_wind_speed
+    - sensor.dark_sky_nearest_storm_distance
+speakers:
+  view: yes
+  icon: mdi:speaker
+  entities:
+    - sensor.kitchen_state
+    - media_player.computer_room
+    - media_player.computer_room_mini
+    - media_player.downstairs
+    - media_player.kitchen
+    - media_player.kitchen_mini
+    - media_player.kitchen_tv
+    - media_player.living_room_speaker
+    - media_player.living_room_tv
+    - media_player.living_room_ue48h6200
+    - media_player.master_bedroom
+    - media_player.toy_room_speaker
+    - media_player.west_wing
+    - media_player.whole_house

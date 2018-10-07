@@ -1,0 +1,8 @@
+'1538479498809':
+  alias: New Script
+  sequence:
+  - condition: state
+    entity_id: device_tracker.8c4500aad0bf
+    state: ''
+  - event: ''
+    event_data: {}

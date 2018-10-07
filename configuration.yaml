@@ -1,0 +1,167 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 53.395311
+  longitude: -2.885974
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 52
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/London
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Notifications
+notify:
+  - name: barry
+    platform: pushbullet
+    api_key: !secret pushbullet_api
+
+# Webcams
+#camera:
+#- platform: mjpeg
+#  mjpeg_url: http://192.168.0.65/html/cam_pic_new.php?pDelay=400000
+#  name: AquaCam
+
+# Weather prediction
+sensor:
+  - platform: yr
+  - platform: command_line
+    name: Aquarium Temperature
+    command: "curl --silent -X GET http://192.168.0.65/html/28-041685bc33ff_temp.txt"
+    # If errors occur, remove degree symbol below
+    unit_of_measurement: "°C"
+  - platform: command_line
+    name: Aquarium Temperature 2
+    command: "curl --silent -X GET http://192.168.0.65/html/28-020291771148_temp.txt"
+    # If errors occur, remove degree symbol below
+    unit_of_measurement: "°C"
+  - platform: darksky
+    api_key: !secret darksky_api
+    update_interval: '00:30'
+    monitored_conditions:
+      - summary
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - precip_accumulation
+      - temperature
+      - apparent_temperature
+      - dew_point
+      - wind_speed
+      - wind_bearing
+      - cloud_cover
+      - humidity
+      - pressure
+      - visibility
+      - ozone
+      - minutely_summary
+      - hourly_summary
+      - daily_summary
+      - temperature_high
+      - temperature_low
+      - apparent_temperature_high
+      - apparent_temperature_low
+      - precip_intensity_max
+      - uv_index
+      - moon_phase
+#  - platform: uk_transport
+#    app_id: !secret uk_transport_appid
+#    app_key: !secret uk_transport_appkey
+#    queries:
+#      - mode: train
+#        origin: BGE
+#        destination: LIV
+#  - platform: template
+#    sensors:
+#      kitchen_state:
+#        value_template: '{{ states("media_player.kitchen") }}'
+#        friendly_name: 'Kitchen Chromecast'
+
+
+
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+mqtt:
+  discovery: true
+  discovery_prefix: sonoffs
+
+switch:
+  - platform: command_line
+    switches:
+      toy_room_light:
+        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey2"
+        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey10"
+        friendly_name: 'Toy Room Light'
+      living_room_light:
+        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
+        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
+        friendly_name: 'Living Room Light'
+      aquarium_light:
+        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
+        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
+        friendly_name: 'Aquarium Light'
+
+hive:
+  username: !secret hive_user
+  password: !secret hive_pass
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.0.200-254
+    home_interval: 10
+  - platform: bluetooth_tracker
+    home_interval: 10
+    interval_seconds: 60 
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
