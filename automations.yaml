@@ -1,96 +1,85 @@
 - alias: Weather Forecast
   trigger:
     platform: time
-    at: '08:30:00'
+    at: 08:30:00
   action:
-    - service: media_player.volume_set
-      data_template:
-        entity_id: media_player.kitchen
-        volume_level: 0.5
-    - service: tts.google_say
+  - service: media_player.volume_set
+    data_template:
       entity_id: media_player.kitchen
-      data_template:
-        message: >
-          {% set hour = now().strftime("%H") %}
-          {% set weekday_full_name = now().strftime("%A") %}
-          {% set month_full_name = now().strftime("%B") %}
-          {% set year_with_century = now().strftime("%Y") %}
-          {% set day = now().strftime("%-d") %}
-          {% set weekday = now().strftime("%w") %}
-          Good
-          {% if now().strftime("%H")|int < 12 %}
-          morning 
-          {% elif now().strftime("%H")|int < 18 %}
-          afternoon
-          {% else %}
-          evening
-          {% endif %}
-          everyone. 
-          This is Izzy, your new home assistant.
-          Todays date is {{ weekday_full_name }} {{ month_full_name }} the
-              {% if day | int == 1 or day | int == 21 or day | int == 31 %}
-                {{ day }}st
-              {% elif day | int == 2 or day | int == 22 %}
-                {{ day }}nd
-              {% elif day | int == 3 or day | int == 23 %}
-                {{ day }}rd
-              {% else %}
-                {{ day }}th
-              {% endif %}.
-          {{ year_with_century }}.
-          Todays Daily Announcements.
-          The house internal temperature is {{  states.climate.heating.attributes.current_temperature | replace("."," point ") }} degrees celsius.
-          The thermostat is set to {{  states.climate.heating.attributes.temperature | replace("."," point ") }} degrees celcius.
-          It's currently {{states.sensor.dark_sky_summary.state}} and {{states.sensor.dark_sky_temperature.state|round}} degrees in Childwall. 
-          Today will be {{states.sensor.dark_sky_hourly_summary.state|replace(".", "")}}, with a high of {{states.sensor.dark_sky_daytime_high_temperature.state|round}} degrees, 
-          and a low of {{states.sensor.dark_sky_overnight_low_temperature.state|round}} degrees.
-          End of Announcements, have a nice day!
- 
-#          Todays weather forcast is {{ states ('sensor.dark_sky_hourly_summary') }} with a high of {{ states ( 'sensor.dark_sky_daytime_high_temperature' ) }} degrees
-#          and a low of {{ sensor.dark_sky_overnight_low_temperature }} degrees
-#          The weather for the next 24 hours is {{states ('sensor.dark_sky_hourly_summary') }}. The Thermostat is set to {{ states.climate.heating.attributes.temperature }}
-
-
-- alias: 'Home Greeting Luke'
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: "{% set hour = now().strftime(\"%H\") %} {% set weekday_full_name =\
+        \ now().strftime(\"%A\") %} {% set month_full_name = now().strftime(\"%B\"\
+        ) %} {% set year_with_century = now().strftime(\"%Y\") %} {% set day = now().strftime(\"\
+        %-d\") %} {% set weekday = now().strftime(\"%w\") %} Good {% if now().strftime(\"\
+        %H\")|int < 12 %} morning  {% elif now().strftime(\"%H\")|int < 18 %} afternoon\
+        \ {% else %} evening {% endif %} everyone.  This is Izzy, your new home assistant.\
+        \ Todays date is {{ weekday_full_name }} {{ month_full_name }} the\n    {%\
+        \ if day | int == 1 or day | int == 21 or day | int == 31 %}\n      {{ day\
+        \ }}st\n    {% elif day | int == 2 or day | int == 22 %}\n      {{ day }}nd\n\
+        \    {% elif day | int == 3 or day | int == 23 %}\n      {{ day }}rd\n   \
+        \ {% else %}\n      {{ day }}th\n    {% endif %}.\n{{ year_with_century }}.\
+        \ Todays Daily Announcements. The house internal temperature is {{  states.climate.heating.attributes.current_temperature\
+        \ | replace(\".\",\" point \") }} degrees celsius. The thermostat is set to\
+        \ {{  states.climate.heating.attributes.temperature | replace(\".\",\" point\
+        \ \") }} degrees celcius. It's currently {{states.sensor.dark_sky_summary.state}}\
+        \ and {{states.sensor.dark_sky_temperature.state|round}} degrees in Childwall.\
+        \  Today will be {{states.sensor.dark_sky_hourly_summary.state|replace(\"\
+        .\", \"\")}}, with a high of {{states.sensor.dark_sky_daytime_high_temperature.state|round}}\
+        \ degrees,  and a low of {{states.sensor.dark_sky_overnight_low_temperature.state|round}}\
+        \ degrees. End of Announcements, have a nice day!\n"
+  id: 80d435c19d70418b95e3f07130c65147
+- alias: Home Greeting Luke
   trigger:
     platform: state
     entity_id: device_tracker.58e28f6772fe
-    from: 'not_home'
-    to: 'home'
+    from: not_home
+    to: home
   condition:
     condition: time
     after: '15:00:00'
     before: '19:00:00'
     weekday:
-      - mon
-      - tue
-      - wed
-      - thu
-      - fri
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
   action:
-    - service: notify.barry
-      data_template:
-        title: "Home Alert!"
-        message: "Luke has arrived Home"
-    - service: media_player.volume_set
-      data_template:
-        entity_id: media_player.kitchen
-        volume_level: 0.5
-    - service: tts.google_say
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Luke has arrived Home
+  - service: media_player.volume_set
+    data_template:
       entity_id: media_player.kitchen
-      data_template:
-        message: >
-          Welcome Home Luke, hope you had a great day at school!
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: 'Welcome Home Luke, hope you had a great day at school!
 
-- alias: 'Luke Leave'
+        '
+  id: bdafbbc66f41401d99c0218d3d7a97e1
+- alias: Luke Leave
   trigger:
     platform: state
     entity_id: device_tracker.58e28f6772fe
-    from: 'home'
-    to: 'not_home'
+    from: home
+    to: not_home
   action:
-    - service: notify.barry
-      data_template:
-        title: "Home Alert!"
-        message: "Luke has gone out"
-
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Luke has gone out
+  id: 823dc4806423463f957e0be4f22b039d
+- id: '1538941282605'
+  alias: Refresh Birthday Sensors
+  trigger:
+  - at: 01:00
+    platform: time
+  condition: []
+  action:
+  - service: python_script.birthdays

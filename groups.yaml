@@ -74,6 +74,14 @@ weather:
     - sensor.dark_sky_wind_bearing
     - sensor.dark_sky_wind_speed
     - sensor.dark_sky_nearest_storm_distance
+calendar:
+  name: Calendar
+  entities:
+    - sensor.baz_birthday
+    - sensor.ruth_birthday
+    - sensor.luke_birthday
+    - sensor.zak_birthday
+    - sensor.christmas_day
 speakers:
   view: yes
   icon: mdi:speaker

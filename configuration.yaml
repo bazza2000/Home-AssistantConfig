@@ -13,6 +13,8 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+logger:
+
 # Show links to resources in log and frontend
 #introduction:
 
@@ -171,6 +173,8 @@ device_tracker:
   - platform: bluetooth_tracker
     home_interval: 10
     interval_seconds: 60 
+
+python_script:
 
 group: !include groups.yaml
 automation: !include automations.yaml
