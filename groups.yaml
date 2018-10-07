@@ -31,6 +31,8 @@ heating:
     - climate.heating
     - climate.hotwater
     - sensor.hive_hub_status
+    - sensor.hot_water_temperature
+    - sensor.garage_temperature
 master_bedroom:
   name: Master Bedroom
   entities:

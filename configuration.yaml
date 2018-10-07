@@ -78,6 +78,16 @@ sensor:
     command: "curl --silent -X GET http://192.168.0.65/html/28-020291771148_temp.txt"
     # If errors occur, remove degree symbol below
     unit_of_measurement: "°C"
+  - platform: command_line
+    name: Garage Temperature
+    command: "curl --silent -X GET http://192.168.0.63/1-wire/temp"
+    # If errors occur, remove degree symbol below
+    unit_of_measurement: "°C"
+  - platform: command_line
+    name: Hot Water Temperature
+    command: "curl --silent -X GET http://192.168.0.63/1-wire/temp2"
+    # If errors occur, remove degree symbol below
+    unit_of_measurement: "°C"
   - platform: darksky
     api_key: !secret darksky_api
     update_interval: '00:30'
