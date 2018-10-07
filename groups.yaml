@@ -4,6 +4,7 @@ tracker:
     - device_tracker.8c4500aad0bf
     - device_tracker.84c7eac09c53
     - device_tracker.58e28f6772fe
+    - device_tracker.zak_pc
 home:
   view: yes
   icon: mdi:home

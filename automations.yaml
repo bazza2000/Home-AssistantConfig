@@ -59,9 +59,7 @@
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:
-      message: 'Welcome Home Luke, hope you had a great day at school!
-
-        '
+      message: 'Welcome Home Luke, hope you had a great day at school!'
   id: bdafbbc66f41401d99c0218d3d7a97e1
 - alias: Luke Leave
   trigger:
@@ -83,3 +81,33 @@
   condition: []
   action:
   - service: python_script.birthdays
+
+- alias: Home Greeting Zak
+  trigger:
+    platform: state
+    entity_id: device_tracker.zak_pc
+    from: not_home
+    to: home
+  condition:
+    condition: time
+    after: '12:00:00'
+    before: '19:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Zak has arrived Home
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.computer_room_mini
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.computer_room_mini
+    data_template:
+      message: 'Welcome Home Zak, hope you had a great day at school!'

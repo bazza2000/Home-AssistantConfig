@@ -173,6 +173,9 @@ device_tracker:
   - platform: bluetooth_tracker
     home_interval: 10
     interval_seconds: 60 
+  - platform: ping
+    hosts:
+      zak_pc: 192.168.0.20
 
 python_script:
 
