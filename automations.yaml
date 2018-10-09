@@ -40,7 +40,7 @@
   condition:
     condition: time
     after: '15:00:00'
-    before: '19:00:00'
+    before: '17:00:00'
     weekday:
     - mon
     - tue
@@ -59,7 +59,7 @@
   - service: tts.google_say
     entity_id: media_player.kitchen
     data_template:
-      message: 'Welcome Home Luke, hope you had a great day at school!'
+      message: Welcome Home Luke, hope you had a great day at school!
   id: bdafbbc66f41401d99c0218d3d7a97e1
 - alias: Luke Leave
   trigger:
@@ -81,7 +81,6 @@
   condition: []
   action:
   - service: python_script.birthdays
-
 - alias: Home Greeting Zak
   trigger:
     platform: state
@@ -90,8 +89,8 @@
     to: home
   condition:
     condition: time
-    after: '12:00:00'
-    before: '19:00:00'
+    after: '15:00:00'
+    before: '17:00:00'
     weekday:
     - mon
     - tue
@@ -110,4 +109,94 @@
   - service: tts.google_say
     entity_id: media_player.computer_room_mini
     data_template:
-      message: 'Welcome Home Zak, hope you had a great day at school!'
+      message: Welcome Home Zak, hope you had a great day at school!
+  id: b1da6243437041e685bde7bbb2de53af
+- id: '1539030610493'
+  alias: 5 Min Game Warning
+  trigger:
+  - at: '19:55'
+    platform: time
+  condition:
+    condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.downstairs
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The time is 19:55, Luke & Zak, you have 5 minutes to finish your games
+- alias: Game Over
+  trigger:
+  - at: '20:00'
+    platform: time
+  condition:
+    condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.downstairs
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The time is 8 Oclock, time to turn off all electronics.
+  id: d0e63fa7400c498c857966da6d157931
+- alias: School Time
+  trigger:
+  - at: 08:45
+    platform: time
+  condition:
+    condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.downstairs
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The time is 08:45, Zak, time to leave for school, have a great day!
+  id: 32627922fe1245609515b2488f2644f2
+- id: '1539075329069'
+  alias: Playstation Time Limit
+  trigger:
+  - above: '4'
+    below: '0'
+    entity_id: sensor.ps4_today
+    platform: numeric_state
+  condition:
+    condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.downstairs
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The playstation has been on for more than 4 hours, please finish your game and turn it off. 

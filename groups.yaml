@@ -22,10 +22,15 @@ toy_room:
   name: Toy Room
   entities:
     - switch.toy_room_light
+    - device_tracker.1c5a3eb7902b
+    - device_tracker.6cadf8ab9ef0
 living_room:
   name: Living Room
   entities:
     - switch.living_room_light
+    - sensor.ps4
+    - sensor.ps4_today
+    - sensor.ps4_today_time
 heating:
   name: Hive Heating
   entities:
@@ -34,6 +39,7 @@ heating:
     - sensor.hive_hub_status
     - sensor.hot_water_temperature
     - sensor.garage_temperature
+    - sensor.outside_temperature
 master_bedroom:
   name: Master Bedroom
   entities:
@@ -82,6 +88,8 @@ calendar:
     - sensor.ruth_birthday
     - sensor.luke_birthday
     - sensor.zak_birthday
+    - sensor.julie_birthday
+    - sensor.amy_birthday
     - sensor.christmas_day
 speakers:
   view: yes

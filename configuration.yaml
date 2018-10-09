@@ -90,6 +90,14 @@ sensor:
     command: "curl --silent -X GET http://192.168.0.63/1-wire/temp2"
     # If errors occur, remove degree symbol below
     unit_of_measurement: "°C"
+#  - platform: template
+#    sensors:
+#      playstation:
+#        value_template: "{% if is_state('device_tracker.0cfe45d692b7', 'home') %}ON{% else %}OFF{% endif %}"
+#        friendly_name: 'Playstation 4'
+#      280dfc4c0320:
+#        value_template: "{% if is_state('device_tracker.280dfc4c0320', 'home') %}ON{% else %}OFF{% endif %}"
+
   - platform: darksky
     api_key: !secret darksky_api
     update_interval: '00:30'
@@ -119,6 +127,20 @@ sensor:
       - precip_intensity_max
       - uv_index
       - moon_phase
+
+  - platform: history_stats
+    name: PS4 today
+    entity_id: switch.ps4
+    state: 'on'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+
+  - platform: template
+    sensors:
+      ps4_today_time:
+        value_template: '{{ states.sensor.ps4_today.attributes.value }}'
+
 #  - platform: uk_transport
 #    app_id: !secret uk_transport_appid
 #    app_key: !secret uk_transport_appkey
@@ -131,7 +153,6 @@ sensor:
 #      kitchen_state:
 #        value_template: '{{ states("media_player.kitchen") }}'
 #        friendly_name: 'Kitchen Chromecast'
-
 
 
 
@@ -161,6 +182,11 @@ switch:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
         friendly_name: 'Aquarium Light'
+      ps4:
+        command_on: "echo on"
+        command_off: "echo off"
+        command_state: "nc -z -w 5 192.168.0.207 9295"
+        friendly_name: PS4
 
 hive:
   username: !secret hive_user
