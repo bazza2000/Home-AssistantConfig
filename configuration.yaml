@@ -90,6 +90,17 @@ sensor:
     command: "curl --silent -X GET http://192.168.0.63/1-wire/temp2"
     # If errors occur, remove degree symbol below
     unit_of_measurement: "°C"
+  - platform: speedtest
+    minute: 5
+    hour:
+      - 0
+      - 6
+      - 12
+      - 18
+    monitored_conditions:
+      - ping
+      - download
+      - upload
 #  - platform: template
 #    sensors:
 #      playstation:
@@ -202,6 +213,12 @@ device_tracker:
   - platform: ping
     hosts:
       zak_pc: 192.168.0.20
+
+weblink:
+  entities:
+    - name: Aqua Cam
+      url:  http://127.0.0.1/
+      icon: mdi:fish
 
 python_script:
 

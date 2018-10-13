@@ -5,6 +5,8 @@ tracker:
     - device_tracker.84c7eac09c53
     - device_tracker.58e28f6772fe
     - device_tracker.zak_pc
+    - device_tracker.a43135e4e5e8
+    - device_tracker.0c8ffff7fe2c
 home:
   view: yes
   icon: mdi:home
@@ -18,6 +20,7 @@ kitchen:
     - switch.aquarium_light
     - sensor.aquarium_temperature
     - sensor.aquarium_temperature_2
+    - weblink.aqua_cam
 toy_room:
   name: Toy Room
   entities:

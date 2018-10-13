@@ -104,10 +104,10 @@
       message: Zak has arrived Home
   - service: media_player.volume_set
     data_template:
-      entity_id: media_player.computer_room_mini
+      entity_id: media_player.downstairs
       volume_level: 0.5
   - service: tts.google_say
-    entity_id: media_player.computer_room_mini
+    entity_id: media_player.downstairs
     data_template:
       message: Welcome Home Zak, hope you had a great day at school!
   id: b1da6243437041e685bde7bbb2de53af
@@ -199,4 +199,43 @@
   - service: tts.google_say
     entity_id: media_player.downstairs
     data_template:
-      message: The playstation has been on for more than 4 hours, please finish your game and turn it off. 
+      message: The playstation has been on for more than 4 hours, please finish your game and turn it off.
+
+- alias: "Aquarium Light On"
+  trigger:
+    platform: time
+    at: '19:00:00'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: Turning Aquarium Light on
+  - delay: '00:00:02'
+  - service: switch.turn_on
+    entity_id: switch.aquarium_light
+
+- alias: "Aquarium Light Off"
+  trigger:
+    platform: time
+    at: '22:00:00'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: Turning Aquarium Light off
+  - delay: '00:00:02'
+  - service: switch.turn_off
+    entity_id: switch.aquarium_light
+
+- alias: "Aquarium Light Off"
+  trigger:
+    platform: time
+    at: '19:33:30'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.computer_room
+    data_template:
+      message: Turning Toy Room Lights off
+  - delay: '00:00:02'
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
