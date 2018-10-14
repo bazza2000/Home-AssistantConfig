@@ -1,0 +1,171 @@
+title: Our Home
+# Include external resources
+resources:
+  - url: /local/my-custom-card.js
+    type: js
+  - url: /local/my-webfont.css
+    type: css
+  - url: /local/dual-gauge-card.js
+    type: js
+
+# Optional background for all views. Check https://developer.mozilla.org/en-US/docs/Web/CSS/background for more examples.
+background: center / cover no-repeat url("/background.png") fixed
+# Exclude entities from "Unused entities" view
+excluded_entities:
+  - weblink.router
+views:
+    # View tab title.
+  - title: Example
+    # Optional unique id for direct access /lovelace/${id}
+    id: example
+    # Optional background (overwrites the global background).
+    background: radial-gradient(crimson, skyblue)
+    # Each view can have a different theme applied. Theme should be defined in the frontend.
+    theme: dark-mode
+    # The cards to show on this view.
+    cards:
+        # The filter card will filter entities for their state
+      - type: entity-filter
+        entities:
+          - device_tracker.8c4500aad0bf
+          - device_tracker.84c7eac09c53
+          - device_tracker.58e28f6772fe
+          - device_tracker.zak_pc
+
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: People that are home
+
+        # The picture entity card will represent an entity with a picture
+      - type: picture-entity
+        image: https://www.home-assistant.io/images/default-social.png
+        entity: switch.toy_room_light
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            title: Aquarium Temperature
+            unit_of_measurement: 'C'
+            entity: sensor.aquarium_temperature
+            min: 20
+            max: 29
+            severity:
+              green: 0
+              yellow: 26
+              red: 27
+          - type: gauge
+            title: Aquarium Temperature 2
+            unit_of_measurement: 'C'
+            entity: sensor.aquarium_temperature_2
+            min: 20
+            max: 29
+            severity:
+              green: 0
+              yellow: 26
+              red: 27
+      - type: horizontal-stack
+        cards:
+          - type: custom:dual-gauge-card
+            title: Aquarium
+            min: 20
+            max: 29
+            outer:
+              entity: sensor.aquarium_temperature
+              label: "Current"
+              unit: "°C"
+            colors:
+              - color: "var(--label-badge-red)"
+                value: 27
+              - color: "var(--label-badge-yellow)"
+                value: 26
+              - color: "var(--label-badge-green)"
+                value: 25
+              - color: "var(--paper-blue-400)"
+                value: 21
+            inner:
+              entity: sensor.aquarium_temperature_2
+              label: "Target"
+              unit: "°C"
+            colors:
+              - color: "var(--label-badge-red)"
+                value: 27
+              - color: "var(--label-badge-yellow)"
+                value: 26
+              - color: "var(--label-badge-green)"
+                value: 24.5
+              - color: "var(--label-badge-red)"
+                value: 23
+              - color: "var(--paper-blue-400)"
+                value: 21
+      - type: horizontal-stack
+        cards:
+          - type: gauge
+            title: Hall Thermostat
+            unit_of_measurement: 'C'
+            entity: sensor.hall_temperature
+            min: 15
+            max: 25
+            severity:
+              green: 0
+              yellow: 23
+              red: 24
+          - type: custom:dual-gauge-card
+            title: Hall Thermostat room
+            min: 5
+            max: 25
+            outer:
+              entity: climate.heating
+              attribute: current_temperature
+              label: "Current"
+              unit: "°C"
+            colors:
+              - color: "var(--label-badge-red)"
+                value: 23.5
+              - color: "var(--label-badge-yellow)"
+                value: 21
+              - color: "var(--label-badge-green)"
+                value: 20
+              - color: "var(--label-badge-blue)"
+                value: 20
+              - color: "var(--paper-blue-400)"
+                value: 21
+            inner:
+              entity: climate.heating
+              label: "Target"
+              attribute: temperature
+              unit: "°C"
+            colors:
+              - color: "var(--label-badge-red)"
+                value: 23.5
+              - color: "var(--label-badge-yellow)"
+                value: 21
+              - color: "var(--label-badge-green)"
+                value: 20
+              - color: "var(--label-badge-blue)"
+                value: 20
+              - color: "var(--paper-blue-400)"
+                value: 21
+
+    # Specify a tab icon if you want the view tab to be an icon.
+  - icon: mdi:home-assistant
+    # Title of the view. Will be used as the tooltip for tab icon
+    title: Second view
+    cards:
+        # Entities card will take a list of entities and show their state.
+      - type: entities
+        # Title of the entities card
+        title: Example
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - switch.toy_room_light
+          - switch.aquarium_light
+          - switch.living_room_light
+
+        # The markdown card will render markdown text.
+      - type: markdown
+        title: Lovelace
+        content: >
+          Welcome to your **Lovelace UI**.
+
