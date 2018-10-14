@@ -1,3 +1,8 @@
+hassio:
+  name: Home Assistant
+  entities:
+    - sensor.current_version
+    - sensor.uptime
 tracker:
   name: People
   entities:
@@ -55,6 +60,7 @@ weather:
   entities:
     - sun.sun
     - sensor.yr_symbol
+    - sensor.season
     - sensor.outside_temperature
     - sensor.dark_sky_icon
     - sensor.dark_sky_summary
