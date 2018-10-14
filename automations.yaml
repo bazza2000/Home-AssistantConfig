@@ -204,7 +204,7 @@
 - alias: "Aquarium Light On"
   trigger:
     platform: time
-    at: '19:00:00'
+    at: '18:00:00'
   action:
   - service: tts.google_say
     entity_id: media_player.downstairs
@@ -219,23 +219,5 @@
     platform: time
     at: '22:00:00'
   action:
-  - service: tts.google_say
-    entity_id: media_player.downstairs
-    data_template:
-      message: Turning Aquarium Light off
-  - delay: '00:00:02'
   - service: switch.turn_off
     entity_id: switch.aquarium_light
-
-- alias: "Aquarium Light Off"
-  trigger:
-    platform: time
-    at: '19:33:30'
-  action:
-  - service: tts.google_say
-    entity_id: media_player.computer_room
-    data_template:
-      message: Turning Toy Room Lights off
-  - delay: '00:00:02'
-  - service: switch.turn_off
-    entity_id: switch.toy_room_light

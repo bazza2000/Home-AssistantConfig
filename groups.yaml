@@ -39,6 +39,7 @@ heating:
   entities:
     - climate.heating
     - climate.hotwater
+    - sensor.hall_temperature
     - sensor.hive_hub_status
     - sensor.hot_water_temperature
     - sensor.garage_temperature
@@ -94,6 +95,20 @@ calendar:
     - sensor.julie_birthday
     - sensor.amy_birthday
     - sensor.christmas_day
+broadband:
+  name: Broadband
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    - sensor.arris_tg2492lg85_router_bytes_received
+    - sensor.arris_tg2492lg85_router_bytes_sent
+    - sensor.arris_tg2492lg85_router_kbytesec_received
+    - sensor.arris_tg2492lg85_router_kbytesec_sent
+    - sensor.arris_tg2492lg85_router_packets_received
+    - sensor.arris_tg2492lg85_router_packets_sent
+    - sensor.arris_tg2492lg85_router_packetssec_received
+    - sensor.arris_tg2492lg85_router_packetssec_sent
 speakers:
   view: yes
   icon: mdi:speaker

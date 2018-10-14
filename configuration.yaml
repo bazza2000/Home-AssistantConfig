@@ -101,6 +101,10 @@ sensor:
       - ping
       - download
       - upload
+  - platform: season
+    type: astronomical
+  - platform: uptime
+  - platform: version
 #  - platform: template
 #    sensors:
 #      playstation:
@@ -151,6 +155,12 @@ sensor:
     sensors:
       ps4_today_time:
         value_template: '{{ states.sensor.ps4_today.attributes.value }}'
+
+  - platform: template
+    sensors:
+       hall_temperature:
+          friendly_name: "Hall Temperature"
+          value_template: "{{  states.climate.heating.attributes.current_temperature }}"
 
 #  - platform: uk_transport
 #    app_id: !secret uk_transport_appid
