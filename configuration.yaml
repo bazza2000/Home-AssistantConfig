@@ -62,20 +62,37 @@ sun:
 # Notifications
 notify:
   - name: barry
+    platform: command_line
+    command: 'read input ; /usr/bin/curl -u o.nXQZM8hHjAaBOkcnLWuzn74JQNpz11wX: https://api.pushbullet.com/v2/pushes -d type=note -d title="Home Alert!" -d "body=${input}"'
+  - name: ruth
     platform: pushbullet
-    api_key: !secret pushbullet_api
+    api_key: !secret pushbullet_api_ruth
 
 # Webcams
 #camera:
 #- platform: mjpeg
 #  mjpeg_url: http://192.168.0.65/html/cam_pic_new.php?pDelay=400000
 #  name: AquaCam
+camera:
+  - platform: generic
+    name: Fish Cam
+    still_image_url: http://192.168.0.65/html/cam_pic.php
 
 ifttt:
   key: by3u5tQhR__RQFMYDypgzG
 
 # Weather prediction
 sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+      - 'time_utc'
+  - platform: worldclock
+    name: New York
+    time_zone: America/New_York
   - platform: yr
   - platform: command_line
     name: Aquarium Temperature
@@ -160,6 +177,50 @@ sensor:
 
   - platform: template
     sensors:
+      formatted_router_bytes_received:
+        friendly_name: "Virgin Bytes Received"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_bytes_received')  | filesizeformat() }}"
+
+  - platform: template
+    sensors:
+      formatted_router_bytes_sent:
+        friendly_name: "Virgin Bytes Sent"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_bytes_sent')  | filesizeformat() }}"
+
+  - platform: template
+    sensors:
+      formatted_router_kbytes_received:
+        friendly_name: "Virgin KBytes Received"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_kbytesec_received')  | filesizeformat() }}"
+  - platform: template
+    sensors:
+      formatted_router_kbytes_sent:
+        friendly_name: "Virgin KBytes Sent"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_kbytesec_sent')  | filesizeformat() }}"
+  - platform: template
+    sensors:
+      formatted_router_packets_received:
+        friendly_name: "Virgin Packets Received"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_packets_received')  | filesizeformat() }}"
+  - platform: template
+    sensors:
+      formatted_router_packets_sent:
+        friendly_name: "Virgin Packets Received"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_packets_sent')  | filesizeformat() }}"
+  - platform: template
+    sensors:
+      formatted_router_packets_s_received:
+        friendly_name: "Virgin Packets/s Received"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_packetssec_received')  | filesizeformat() }}"
+  - platform: template
+    sensors:
+      formatted_router_packets_s_sent:
+        friendly_name: "Virgin Packets/s Sent"
+        value_template: "{{ states('sensor.arris_tg2492lg85_router_packetssec_sent')  | filesizeformat() }}"
+
+
+  - platform: template
+    sensors:
       ps4_today_time:
         value_template: '{{ states.sensor.ps4_today.attributes.value }}'
 
@@ -168,6 +229,16 @@ sensor:
        hall_temperature:
           friendly_name: "Hall Temperature"
           value_template: "{{  states.climate.heating.attributes.current_temperature }}"
+
+  - platform: template
+    sensors:
+      sunset_time:
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)  | timestamp_custom("%H:%M") }}'
+
+  - platform: template
+    sensors:
+      sunrise_time:
+        value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)  | timestamp_custom("%H:%M") }}'
 
 #  - platform: uk_transport
 #    app_id: !secret uk_transport_appid
@@ -203,8 +274,8 @@ switch:
         command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey10"
         friendly_name: 'Toy Room Light'
       living_room_light:
-        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
-        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
+        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey4"
+        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey12"
         friendly_name: 'Living Room Light'
       aquarium_light:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"

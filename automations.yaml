@@ -31,6 +31,7 @@
         \ degrees,  and a low of {{states.sensor.dark_sky_overnight_low_temperature.state|round}}\
         \ degrees. End of Announcements, have a nice day!\n"
   id: 80d435c19d70418b95e3f07130c65147
+
 - alias: Home Greeting Luke
   trigger:
     platform: state
@@ -48,6 +49,10 @@
     - thu
     - fri
   action:
+  - service: notify.ruth
+    data_template:
+      title: Home Alert!
+      message: Luke has arrived Home
   - service: notify.barry
     data_template:
       title: Home Alert!
@@ -61,6 +66,46 @@
     data_template:
       message: Welcome Home Luke, hope you had a great day at school!
   id: bdafbbc66f41401d99c0218d3d7a97e1
+
+- alias: Home Greeting Luke via ps4 use
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ps4_today
+    value_template: '{{ states.sensor.ps4_today.state }}'
+    above: 0
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: '15:00:00'
+        before: '17:00:00'
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: state
+        entity_id: 'device_tracker.58e28f6772fe'
+        state: 'not_home'
+  action:
+  - service: notify.ruth
+    data_template:
+      title: Home Alert!
+      message: Luke has arrived Home
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Luke has arrived Home
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: Welcome Home Luke, hope you had a great day at school!
+
 - alias: Luke Leave
   trigger:
     platform: state
@@ -99,6 +144,10 @@
     - fri
   action:
   - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Zak has arrived Home
+  - service: notify.ruth
     data_template:
       title: Home Alert!
       message: Zak has arrived Home
@@ -180,10 +229,10 @@
 - id: '1539075329069'
   alias: Playstation Time Limit
   trigger:
-  - above: '4'
-    below: '0'
-    entity_id: sensor.ps4_today
     platform: numeric_state
+    entity_id: sensor.ps4_today
+    value_template: '{{ states.sensor.ps4_today.state }}'
+    above: 4
   condition:
     condition: time
     weekday:
@@ -221,6 +270,7 @@
   action:
   - service: switch.turn_off
     entity_id: switch.aquarium_light
+
 - alias: Startup Notification
   trigger:
     platform: homeassistant
@@ -228,6 +278,60 @@
   action:
     service: ifttt.trigger
     data: {"event":"TestHA_Trigger", "value1":"Hello World!"}
+
+- alias: "Dusk Lights on"
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "-00:30:00"
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: Turning Lights on at dusk
+  - delay: '00:00:02'
+  - service: switch.turn_on
+    entity_id: switch.toy_room_light
+  - service: switch.turn_on
+    entity_id: switch.living_room_light
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Dusk lights activated
+
+- alias: "Bedtime Lights Off Weekday"
+  trigger:
+    platform: time
+    at: '23:00:00'
+  condition:
+    condition: time
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+  action:
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
+  - service: switch.turn_off
+    entity_id: switch.living_room_light
+
+- alias: "Bedtime Lights Off Weekend"
+  trigger:
+    platform: time
+    at: '23:30:00'
+  condition:
+    condition: time
+    weekday:
+    - fri
+    - sat
+  action:
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
+  - service: switch.turn_off
+    entity_id: switch.living_room_light
+
 - alias: IFTTT WebHook Received
   trigger:
     platform: event

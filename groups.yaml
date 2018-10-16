@@ -1,8 +1,22 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - group.hassio
+    - group.tracker
+    - group.heating
+    - group.weather
+    - group.kitchen
+    - group.toy_room
+    - group.living_room
 hassio:
   name: Home Assistant
   entities:
     - sensor.current_version
     - sensor.uptime
+    - sensor.time
+    - sensor.date
+    - sensor.new_york
 tracker:
   name: People
   entities:
@@ -12,16 +26,10 @@ tracker:
     - device_tracker.zak_pc
     - device_tracker.a43135e4e5e8
     - device_tracker.0c8ffff7fe2c
-home:
-  view: yes
-  icon: mdi:home
-  entities:
-    - group.kitchen
-    - group.toy_room
-    - group.living_room
 kitchen:
   name: Kitchen
   entities:
+    - camera.generic_camera
     - switch.aquarium_light
     - sensor.aquarium_temperature
     - sensor.aquarium_temperature_2
@@ -32,6 +40,10 @@ toy_room:
     - switch.toy_room_light
     - device_tracker.1c5a3eb7902b
     - device_tracker.6cadf8ab9ef0
+dusk_lights:
+  name: Dusk Light Group
+    - switch.toy_room_light
+    - switch.living_room_light
 living_room:
   name: Living Room
   entities:
@@ -61,36 +73,18 @@ weather:
     - sun.sun
     - sensor.yr_symbol
     - sensor.season
+    - sensor.sunset_time
+    - sensor.sunrise_time
     - sensor.outside_temperature
     - sensor.dark_sky_icon
     - sensor.dark_sky_summary
     - sensor.dark_sky_apparent_temperature
-    - sensor.dark_sky_daily_high_temperature
-    - sensor.dark_sky_daytime_high_temperature
     - sensor.dark_sky_daytime_high_apparent_temperature
-    - sensor.dark_sky_overnight_low_temperature
     - sensor.dark_sky_overnight_low_apparent_temperature
-    - sensor.dark_sky_cloud_coverage
-    - sensor.dark_sky_daily_max_precip_intensity
-    - sensor.dark_sky_daily_summary
-    - sensor.dark_sky_dew_point
-    - sensor.dark_sky_hourly_summary
-    - sensor.dark_sky_humidity
-    - sensor.dark_sky_minutely_summary
-    - sensor.dark_sky_moon_phase
-    - sensor.dark_sky_ozone
-    - sensor.dark_sky_precip
-    - sensor.dark_sky_precip_accumulation
-    - sensor.dark_sky_precip_intensity
     - sensor.dark_sky_precip_probability
-    - sensor.dark_sky_pressure
-    - sensor.dark_sky_summary
     - sensor.dark_sky_temperature
     - sensor.dark_sky_uv_index
-    - sensor.dark_sky_visibility
-    - sensor.dark_sky_wind_bearing
     - sensor.dark_sky_wind_speed
-    - sensor.dark_sky_nearest_storm_distance
 calendar:
   name: Calendar
   entities:
@@ -107,14 +101,8 @@ broadband:
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
-    - sensor.arris_tg2492lg85_router_bytes_received
-    - sensor.arris_tg2492lg85_router_bytes_sent
-    - sensor.arris_tg2492lg85_router_kbytesec_received
-    - sensor.arris_tg2492lg85_router_kbytesec_sent
-    - sensor.arris_tg2492lg85_router_packets_received
-    - sensor.arris_tg2492lg85_router_packets_sent
-    - sensor.arris_tg2492lg85_router_packetssec_received
-    - sensor.arris_tg2492lg85_router_packetssec_sent
+    - sensor.formatted_router_bytes_received
+    - sensor.formatted_router_bytes_received
 speakers:
   view: yes
   icon: mdi:speaker
