@@ -4,11 +4,12 @@ home:
   entities:
     - group.hassio
     - group.tracker
+    - weather.dark_sky
     - group.heating
-    - group.weather
     - group.kitchen
     - group.toy_room
     - group.living_room
+    - group.weather
 hassio:
   name: Home Assistant
   entities:
