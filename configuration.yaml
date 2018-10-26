@@ -233,6 +233,7 @@ tts:
 cloud:
 
 mqtt:
+  password: !secret mqtt_api_password
   discovery: true
   discovery_prefix: sonoffs
 
