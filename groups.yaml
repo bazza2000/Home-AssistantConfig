@@ -57,7 +57,7 @@ heating:
   name: Hive Heating
   entities:
     - climate.heating
-    - climate.hotwater
+    - climate.hot_water
     - sensor.hall_temperature
     - sensor.hive_hub_status
     - sensor.hot_water_temperature
