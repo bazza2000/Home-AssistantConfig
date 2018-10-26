@@ -182,49 +182,6 @@ sensor:
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
     end: '{{ now() }}'
 
-  - platform: template
-    sensors:
-      formatted_router_bytes_received:
-        friendly_name: "Virgin Bytes Received"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_bytes_received')  | filesizeformat() }}"
-
-  - platform: template
-    sensors:
-      formatted_router_bytes_sent:
-        friendly_name: "Virgin Bytes Sent"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_bytes_sent')  | filesizeformat() }}"
-
-  - platform: template
-    sensors:
-      formatted_router_kbytes_received:
-        friendly_name: "Virgin KBytes Received"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_kbytesec_received')  | filesizeformat() }}"
-  - platform: template
-    sensors:
-      formatted_router_kbytes_sent:
-        friendly_name: "Virgin KBytes Sent"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_kbytesec_sent')  | filesizeformat() }}"
-  - platform: template
-    sensors:
-      formatted_router_packets_received:
-        friendly_name: "Virgin Packets Received"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_packets_received')  | filesizeformat() }}"
-  - platform: template
-    sensors:
-      formatted_router_packets_sent:
-        friendly_name: "Virgin Packets Received"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_packets_sent')  | filesizeformat() }}"
-  - platform: template
-    sensors:
-      formatted_router_packets_s_received:
-        friendly_name: "Virgin Packets/s Received"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_packetssec_received')  | filesizeformat() }}"
-  - platform: template
-    sensors:
-      formatted_router_packets_s_sent:
-        friendly_name: "Virgin Packets/s Sent"
-        value_template: "{{ states('sensor.arris_tg2492lg85_router_packetssec_sent')  | filesizeformat() }}"
-
 
   - platform: template
     sensors:
