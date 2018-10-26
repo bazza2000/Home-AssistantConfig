@@ -142,17 +142,6 @@ views:
               label: "Target"
               attribute: temperature
               unit: "°C"
-            colors:
-              - color: "var(--label-badge-red)"
-                value: 23.5
-              - color: "var(--label-badge-yellow)"
-                value: 21
-              - color: "var(--label-badge-green)"
-                value: 20
-              - color: "var(--label-badge-blue)"
-                value: 20
-              - color: "var(--paper-blue-400)"
-                value: 21
 
     # Specify a tab icon if you want the view tab to be an icon.
   - icon: mdi:home-assistant
@@ -171,6 +160,8 @@ views:
           - switch.living_room_light
 
         # The markdown card will render markdown text.
+      - type: weather-forecast
+        entity: weather.darksky
       - type: markdown
         title: Lovelace
         content: >

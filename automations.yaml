@@ -31,7 +31,6 @@
         \ degrees,  and a low of {{states.sensor.dark_sky_overnight_low_temperature.state|round}}\
         \ degrees. End of Announcements, have a nice day!\n"
   id: 80d435c19d70418b95e3f07130c65147
-
 - alias: Home Greeting Luke
   trigger:
     platform: state
@@ -66,7 +65,6 @@
     data_template:
       message: Welcome Home Luke, hope you had a great day at school!
   id: bdafbbc66f41401d99c0218d3d7a97e1
-
 - alias: Home Greeting Luke via ps4 use
   trigger:
     platform: numeric_state
@@ -76,18 +74,18 @@
   condition:
     condition: and
     conditions:
-      - condition: time
-        after: '15:00:00'
-        before: '17:00:00'
-        weekday:
-        - mon
-        - tue
-        - wed
-        - thu
-        - fri
-      - condition: state
-        entity_id: 'device_tracker.58e28f6772fe'
-        state: 'not_home'
+    - condition: time
+      after: '15:00:00'
+      before: '17:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: state
+      entity_id: device_tracker.58e28f6772fe
+      state: not_home
   action:
   - service: notify.ruth
     data_template:
@@ -105,7 +103,7 @@
     entity_id: media_player.kitchen
     data_template:
       message: Welcome Home Luke, hope you had a great day at school!
-
+  id: 466e25af68e24b9fb50177fd762587e1
 - alias: Luke Leave
   trigger:
     platform: state
@@ -232,9 +230,11 @@
     platform: numeric_state
     entity_id: sensor.ps4_today
     value_template: '{{ states.sensor.ps4_today.state }}'
-    above: 4
+    above: 5
   condition:
     condition: time
+    after: '19:00:00'
+    before: '21:00:00'
     weekday:
     - mon
     - tue
@@ -248,9 +248,9 @@
   - service: tts.google_say
     entity_id: media_player.downstairs
     data_template:
-      message: The playstation has been on for more than 4 hours, please finish your game and turn it off.
-
-- alias: "Aquarium Light On"
+      message: The playstation has been on for more than 4 hours, please finish your
+        game and turn it off.
+- alias: Aquarium Light On
   trigger:
     platform: time
     at: '18:00:00'
@@ -259,47 +259,53 @@
     entity_id: media_player.downstairs
     data_template:
       message: Turning Aquarium Light on
-  - delay: '00:00:02'
+  - delay: 00:00:02
   - service: switch.turn_on
     entity_id: switch.aquarium_light
-
-- alias: "Aquarium Light Off"
+  id: 07ac09c8b3d64dbd813cc63e9038649a
+- alias: Aquarium Light Off
   trigger:
     platform: time
     at: '22:00:00'
   action:
   - service: switch.turn_off
     entity_id: switch.aquarium_light
-
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.aquarium_light
+  id: 338a5aedb5024f228a66a258cb35cd93
 - alias: Startup Notification
   trigger:
     platform: homeassistant
     event: start
   action:
     service: ifttt.trigger
-    data: {"event":"TestHA_Trigger", "value1":"Hello World!"}
-
-- alias: "Dusk Lights on"
+    data:
+      event: TestHA_Trigger
+      value1: Hello World!
+  id: 65843367a4dd45cb8870252f43e3f845
+- alias: Dusk Lights on
   trigger:
     platform: sun
     event: sunset
-    offset: "-00:30:00"
+    offset: -00:30:00
   action:
   - service: tts.google_say
     entity_id: media_player.downstairs
     data_template:
       message: Turning Lights on at dusk
-  - delay: '00:00:02'
+  - delay: 00:00:02
   - service: switch.turn_on
     entity_id: switch.toy_room_light
+  - delay: 00:00:02
   - service: switch.turn_on
     entity_id: switch.living_room_light
   - service: notify.barry
     data_template:
       title: Home Alert!
       message: Dusk lights activated
-
-- alias: "Bedtime Lights Off Weekday"
+  id: 9befa5e676394e4286ed9c44d0159e88
+- alias: Bedtime Lights Off Weekday
   trigger:
     platform: time
     at: '23:00:00'
@@ -312,12 +318,20 @@
     - wed
     - thu
   action:
+  - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.toy_room_light
+  - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.living_room_light
-
-- alias: "Bedtime Lights Off Weekend"
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.living_room_light
+  id: 8cf26a22df39486f97c5c9be129e7a92
+- alias: Bedtime Lights Off Weekend
   trigger:
     platform: time
     at: '23:30:00'
@@ -327,11 +341,13 @@
     - fri
     - sat
   action:
+  - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.toy_room_light
+  - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.living_room_light
-
+  id: 1fadcb826b044baebda6d4bec347ab6b
 - alias: IFTTT WebHook Received
   trigger:
     platform: event
@@ -342,3 +358,20 @@
     service_template: '{{ trigger.event.data.service }}'
     data_template:
       entity_id: '{{ trigger.event.data.entity_id }}'
+  id: db17a12ec1d642f39024ad097d69e85f
+- id: '1540578279862'
+  alias: Hive OverTemp
+  trigger:
+  - above: '23'
+    entity_id: sensor.hall_thermostat_temp_setting
+    platform: numeric_state
+  condition: []
+  action:
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Hall thermostat set to {{ states.climate.heating.attributes.temperature }} resetting to MAX:23
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.heating
+      temperature: 23

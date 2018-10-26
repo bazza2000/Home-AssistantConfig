@@ -13,7 +13,13 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+recorder:
+  purge_keep_days: 1
+
 logger:
+  default: info
+  logs:
+    homeassistant.components.sensor.hive: debug
 
 # Show links to resources in log and frontend
 #introduction:
@@ -28,6 +34,7 @@ config:
 # http:
 #   base_url: example.duckdns.org:8123
 http:
+  api_password: !secret http_api_password
   base_url: https://bazza.duckdns.org:65531
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
@@ -81,6 +88,10 @@ camera:
 ifttt:
   key: by3u5tQhR__RQFMYDypgzG
 
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api
+
 # Weather prediction
 sensor:
   - platform: time_date
@@ -114,17 +125,6 @@ sensor:
     command: "curl --silent -X GET http://192.168.0.63/1-wire/temp2"
     # If errors occur, remove degree symbol below
     unit_of_measurement: "°C"
-  - platform: speedtest
-    minute: 5
-    hour:
-      - 0
-      - 6
-      - 12
-      - 18
-    monitored_conditions:
-      - ping
-      - download
-      - upload
   - platform: season
     type: astronomical
   - platform: uptime
@@ -136,6 +136,13 @@ sensor:
 #        friendly_name: 'Playstation 4'
 #      280dfc4c0320:
 #        value_template: "{% if is_state('device_tracker.280dfc4c0320', 'home') %}ON{% else %}OFF{% endif %}"
+  - platform: template
+    sensors:
+      barry_phone_battery:
+        friendly_name: Barry Phone Battery
+        unit_of_measurement: "%"
+        value_template: '{{ states.device_tracker.barry_phone.attributes.battery|int }}'
+        device_class: battery
 
   - platform: darksky
     api_key: !secret darksky_api
@@ -232,6 +239,12 @@ sensor:
 
   - platform: template
     sensors:
+       hall_thermostat_temp_setting:
+          friendly_name: "Hall Thermostat Temp Setting"
+          value_template: "{{  states.climate.heating.attributes.temperature }}"
+
+  - platform: template
+    sensors:
       sunset_time:
         value_template: '{{ as_timestamp(states.sun.sun.attributes.next_setting)  | timestamp_custom("%H:%M") }}'
 
@@ -291,13 +304,26 @@ hive:
   username: !secret hive_user
   password: !secret hive_pass
 
+konnected:
+  access_token: REPLACE_ME_WITH_A_RANDOM_STRING
+  devices:
+    - id: 438a388bcd53
+      binary_sensors:
+        - zone: 1
+          type: door
+      switches:
+        - zone: out
+    - id: 8bcd53438a38
+      binary_sensors:
+        - pin: 2
+          type: door
+      switches:
+        - pin: 5
+
 device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.0.200-254
-    home_interval: 10
-  - platform: bluetooth_tracker
-    home_interval: 10
-    interval_seconds: 60 
+    home_interval: 30
   - platform: ping
     hosts:
       zak_pc: 192.168.0.20

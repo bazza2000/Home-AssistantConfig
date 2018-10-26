@@ -1,4 +1,4 @@
-default_view:
+home:
   view: yes
   icon: mdi:home
   entities:
@@ -26,10 +26,12 @@ tracker:
     - device_tracker.zak_pc
     - device_tracker.a43135e4e5e8
     - device_tracker.0c8ffff7fe2c
+    - device_tracker.40cbc038d398
+    - device_tracker.a010814f9a80
 kitchen:
   name: Kitchen
   entities:
-    - camera.generic_camera
+    - camera.fish_cam
     - switch.aquarium_light
     - sensor.aquarium_temperature
     - sensor.aquarium_temperature_2
