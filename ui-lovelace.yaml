@@ -102,7 +102,14 @@ views:
         cards:
           - type: sensor
             entity: sensor.hall_temperature
+            graph: line
             name: Hall Temperature
+            height: 75
+            line_color: "#3498db"
+          - type: sensor
+            entity: sensor.aquarium_temperature
+            graph: line
+            name: Aquarium Temperature
             height: 75
             line_color: "#3498db"
       - type: horizontal-stack
@@ -161,7 +168,7 @@ views:
 
         # The markdown card will render markdown text.
       - type: weather-forecast
-        entity: weather.darksky
+        entity: weather.dark_sky
       - type: markdown
         title: Lovelace
         content: >
