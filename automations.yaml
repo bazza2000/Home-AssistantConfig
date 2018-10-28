@@ -15,13 +15,15 @@
         ) %} {% set year_with_century = now().strftime(\"%Y\") %} {% set day = now().strftime(\"\
         %-d\") %} {% set weekday = now().strftime(\"%w\") %} Good {% if now().strftime(\"\
         %H\")|int < 12 %} morning  {% elif now().strftime(\"%H\")|int < 18 %} afternoon\
-        \ {% else %} evening {% endif %} everyone.  This is Izzy, your new home assistant.\
+        \ {% else %} evening {% endif %} everyone. \
         \ Todays date is {{ weekday_full_name }} {{ month_full_name }} the\n    {%\
         \ if day | int == 1 or day | int == 21 or day | int == 31 %}\n      {{ day\
         \ }}st\n    {% elif day | int == 2 or day | int == 22 %}\n      {{ day }}nd\n\
         \    {% elif day | int == 3 or day | int == 23 %}\n      {{ day }}rd\n   \
         \ {% else %}\n      {{ day }}th\n    {% endif %}.\n{{ year_with_century }}.\
-        \ Todays Daily Announcements. The house internal temperature is {{  states.climate.heating.attributes.current_temperature\
+        \ Todays Daily Announcements. \
+        \ {% if states('sensor.christmas_day') | float < 60 %} There are {{ states.sensor.christmas_day.state | int - 1 }} more sleeps to Christmas. {%endif %} \
+        \ The house internal temperature is {{  states.climate.heating.attributes.current_temperature\
         \ | replace(\".\",\" point \") }} degrees celsius. The thermostat is set to\
         \ {{  states.climate.heating.attributes.temperature | replace(\".\",\" point\
         \ \") }} degrees celcius. It's currently {{states.sensor.dark_sky_summary.state}}\
@@ -250,19 +252,19 @@
     data_template:
       message: The playstation has been on for more than 4 hours, please finish your
         game and turn it off.
-- alias: Aquarium Light On
+- id: 07ac09c8b3d64dbd813cc63e9038649a
+  alias: Aquarium Light On
   trigger:
+  - at: '17:00:00'
     platform: time
-    at: '18:00:00'
   action:
-  - service: tts.google_say
-    entity_id: media_player.downstairs
-    data_template:
+  - data_template:
       message: Turning Aquarium Light on
+    entity_id: media_player.downstairs
+    service: tts.google_say
   - delay: 00:00:02
-  - service: switch.turn_on
-    entity_id: switch.aquarium_light
-  id: 07ac09c8b3d64dbd813cc63e9038649a
+  - entity_id: switch.aquarium_light
+    service: switch.turn_on
 - alias: Aquarium Light Off
   trigger:
     platform: time
@@ -281,8 +283,8 @@
   action:
     service: ifttt.trigger
     data:
-      event: TestHA_Trigger
-      value1: Hello World!
+      event: Home Alert!
+      value1: Home Assistant has restarted!
   id: 65843367a4dd45cb8870252f43e3f845
 - alias: Dusk Lights on
   trigger:
@@ -370,8 +372,57 @@
   - service: notify.barry
     data_template:
       title: Home Alert!
-      message: Hall thermostat set to {{ states.climate.heating.attributes.temperature }} resetting to MAX:23
+      message: Hall thermostat set to {{ states.climate.heating.attributes.temperature
+        }} resetting to MAX:23
   - service: climate.set_temperature
     data:
       entity_id: climate.heating
       temperature: 23
+- id: '1540642637828'
+  alias: Aquarium Temp Low
+  trigger:
+  - above: '0'
+    below: '24'
+    entity_id: sensor.aquarium_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The Aquarium Temperature is currently too low at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: The Aquarium Temperature is currently too low at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
+- id: '1540642647828'
+  alias: Aquarium Temp High
+  trigger:
+  - above: '26'
+    below: '99'
+    entity_id: sensor.aquarium_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The Aquarium Temperature is currently too high at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: The Aquarium Temperature is currently too high at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
+
+- alias: Test Christmas
+  trigger:
+    platform: time
+    at: 08:31:00
+  action:
+  - service: tts.google_say
+    entity_id: media_player.computer_room
+    data_template:
+      message: "{% if states('sensor.christmas_day') | float < 60 %} There are {{ states.sensor.christmas_day.state }} more sleeps to Christmas. {%endif %}"

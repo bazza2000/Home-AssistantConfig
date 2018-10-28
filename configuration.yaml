@@ -14,7 +14,7 @@ homeassistant:
   customize: !include customize.yaml
 
 recorder:
-  db_url: mysql://hass:hass@core-mariadb/homeassistant
+  db_url: !secret recorder_db_url
 
 logger:
   default: info
@@ -35,7 +35,7 @@ config:
 #   base_url: example.duckdns.org:8123
 http:
   api_password: !secret http_api_password
-  base_url: https://bazza.duckdns.org:65531
+  base_url: !secret base_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
@@ -255,22 +255,6 @@ switch:
 hive:
   username: !secret hive_user
   password: !secret hive_pass
-
-konnected:
-  access_token: REPLACE_ME_WITH_A_RANDOM_STRING
-  devices:
-    - id: 438a388bcd53
-      binary_sensors:
-        - zone: 1
-          type: door
-      switches:
-        - zone: out
-    - id: 8bcd53438a38
-      binary_sensors:
-        - pin: 2
-          type: door
-      switches:
-        - pin: 5
 
 device_tracker:
   - platform: nmap_tracker
