@@ -91,13 +91,25 @@ weather:
 calendar:
   name: Calendar
   entities:
+    - sensor.christmas_day
     - sensor.baz_birthday
     - sensor.ruth_birthday
     - sensor.luke_birthday
     - sensor.zak_birthday
     - sensor.julie_birthday
     - sensor.amy_birthday
-    - sensor.christmas_day
+    - sensor.phil_birthday
+    - sensor.charlotte_birthday
+    - sensor.sue_birthday
+    - sensor.bigalex_birthday
+    - sensor.shell_birthday
+    - sensor.littlealex_birthday
+    - sensor.sophie_birthday
+    - sensor.andy_birthday
+    - sensor.lorraine_birthday
+    - sensor.grandad_birthday
+    - sensor.grandma_birthday
+    - sensor.rachel_birthday
 speakers:
   view: yes
   icon: mdi:speaker

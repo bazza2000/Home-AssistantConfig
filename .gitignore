@@ -1,5 +1,6 @@
 *
 !*.yaml
 !.gitignore
+!python_scripts
 secrets.yaml
 known_devices.yaml
