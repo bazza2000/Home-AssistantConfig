@@ -202,7 +202,7 @@
   - service: tts.google_say
     entity_id: media_player.downstairs
     data_template:
-      message: The time is 8 Oclock, time to turn off all electronics.
+      message: The time is 8 Oclock, time to turn off all electronics.  The playstation has been on for {{states.sensor.ps4_today.state|round}} hours today.
   id: d0e63fa7400c498c857966da6d157931
 - alias: School Time
   trigger:
