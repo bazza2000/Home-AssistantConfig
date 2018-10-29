@@ -92,6 +92,7 @@ calendar:
   name: Calendar
   entities:
     - sensor.christmas_day
+    - sensor.new_years_day
     - sensor.baz_birthday
     - sensor.ruth_birthday
     - sensor.luke_birthday
