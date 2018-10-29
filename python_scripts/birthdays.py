@@ -1,4 +1,5 @@
 newyear=[1,1,'new_years_day','New Years Day']
+christmas=[25,12,'christmas_day','Christmas Day']
 baz=[11,10,'baz_birthday','Barrys Birthday']
 ruth=[29,4,'ruth_birthday','Ruths Birthday']
 zak=[11,9,'zak_birthday','Zaks Birthday']
@@ -25,6 +26,7 @@ def define_date(hass, date_array):
   hass.states.set('sensor.' + date_array[2] , diff.days + 1,{ 'unit_of_measurement': 'days', 'friendly_name': 'Days until ' + date_array[3], 'icon': 'mdi:calendar' })
 
 define_date(hass,newyear)
+define_date(hass,christmas)
 define_date(hass,baz)
 define_date(hass,ruth)
 define_date(hass,zak)
