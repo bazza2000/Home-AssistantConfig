@@ -1,0 +1,178 @@
+#
+# Main arguments, all optional
+#
+title: HOME
+widget_dimensions: [120, 120]
+widget_margins: [5, 5]
+columns: 8
+global_parameters:
+    precision: 1
+    use_hass_icon: 1
+
+header:
+    widget_type: label
+    widget_style: "font-size: 170%;"
+    text: Home Dashboard
+
+barry_presence:
+  widget_type: device_tracker
+  title: Barry
+  device: 8c4500aad0bf
+
+luke_presence:
+  widget_type: device_tracker
+  title: Luke
+  device: 58e28f6772fe
+
+ruth_presence:
+  widget_type: device_tracker
+  title: Ruth
+  device: 84c7eac09c53
+
+zak_presence:
+  widget_type: device_tracker
+  title: Zak
+  device: zak_pc
+
+outside_temp:
+  widget_type: sensor
+  title: Outside
+  entity: sensor.dark_sky_temperature
+  precision: 1
+
+hotwater_temp:
+  widget_type: sensor
+  title: Hot Water
+  entity: sensor.hot_water_temperature
+  precision: 1
+
+thermo_temp:
+  widget_type: sensor
+  title: Thermostat
+  units: "&deg;C"
+  entity: sensor.hall_thermostat_temp_setting
+  precision: 1
+
+xmas_sleeps:
+  widget_type: sensor
+  title: Xmas Sleeps
+  entity: sensor.christmas_day
+  value_style: "font-size: 700%;"
+  precision: 0
+  units: ""
+
+
+thermo:
+  widget_type: climate
+  title: Thermostat
+  entity: climate.heating
+  units: "&deg;C"
+  step: "0.5"
+  precision: 1
+
+
+hall_temp:
+  widget_type: sensor
+  title: Hall Temp
+  units: "&deg;C"
+  entity: sensor.hall_temperature
+  precision: 1
+
+aqua_temp:
+  widget_type: sensor
+  title: Aquarium
+  units: "&deg;C"
+  entity: sensor.aquarium_temperature
+
+
+clock:
+  widget_type: clock
+  widget_style: "font-size: 180%;"
+  date_style: "color: white"
+  time_style: "color: white"
+  time_format: "24hr"
+  date_format_options:
+    weekday: "long"
+
+toy_room_light:
+  widget_type: switch
+  title: Toy Room
+  entity: switch.toy_room_light
+
+master_bedroom_light:
+  widget_type: switch
+  title: Master Bedroom
+  entity: switch.master_bedroom_light
+
+living_room_light:
+  widget_type: switch
+  title: Living Room
+  entity: switch.living_room_light
+
+aquarium_light:
+  widget_type: switch
+  title: Aquarium
+  entity: switch.aquarium_light
+
+aqua_temp_gauge:
+  title: Aquarium
+  widget_type: sensor
+  entity: sensor.aquarium_temperature
+  units: "&deg;C"
+  precision: 1
+
+aqua_frame:
+    widget_type: iframe
+    title: AquaCam
+    refresh: 300
+    frame_style: ""
+    img_list:
+      - http://192.168.0.65/html/cam_pic.php
+
+alarm:
+    widget_type: alarm
+    title_style: "color: white"
+    state_style: "color: #00aaff;font-size: 170%;"
+    title: Alarm
+    entity: alarm_control_panel.home_alarm
+
+hive_battery:
+    widget_type: sensor
+    text_style: "color: #00aaff;font-size: 200%;"
+    title: Hive Battery
+    entity: sensor.hive_battery
+
+sunset:
+    widget_type: sensor
+    text_style: "font-size: 300%;"
+    title: Sunset
+    entity: sensor.sunset_time
+
+sunrise:
+    widget_type: sensor
+    text_style: "font-size: 300%;"
+    title: Sunrise
+    entity: sensor.sunrise_time
+
+garage_temp:
+  title: Garage Temp
+  widget_type: sensor
+  entity: sensor.garage_temperature
+  units: "&deg;C"
+  precision: 1
+    
+apparent_temp:
+  title: Feels Like
+  widget_type: sensor
+  entity: sensor.dark_sky_apparent_temperature
+  units: "&deg;C"
+  precision: 1
+    
+
+layout:
+   - clock(2x2), sunrise, weather.weather(2x2), xmas_sleeps(2x2)
+   - sunset
+   - toy_room_light, living_room_light, master_bedroom_light, aquarium_light, barry_presence, ruth_presence, zak_presence, luke_presence
+   - aqua_temp_gauge,hall_temp, thermo_temp, hotwater_temp, garage_temp, hive_battery
+   - alarm(2x2), aqua_frame(3x2)
+
