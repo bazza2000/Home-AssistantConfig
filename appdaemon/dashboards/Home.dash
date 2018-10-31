@@ -126,8 +126,12 @@ aqua_frame:
     frame_style: ""
     img_list:
       - http://192.168.0.65/html/cam_pic.php
+
+alarm:
+    widget_type: alarm
+    entity: alarm_control_panel.home_alarm
     
 layout:
    - toy_room_light, living_room_light, aquarium_light, barry_presence, ruth_presence, zak_presence, luke_presence
-   - aqua_temp_gauge,hall_temp, thermo, thermo_temp, hotwater_temp, outside_temp, xmas_sleeps
+   - aqua_temp_gauge,hall_temp, thermo_temp, hotwater_temp, outside_temp, xmas_sleeps , alarm
    - clock(2x2), weather.weather(2x2), aqua_frame(3x2)
