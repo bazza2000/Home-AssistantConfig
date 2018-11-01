@@ -37,7 +37,7 @@ zak_presence:
 outside_temp:
   widget_type: sensor
   title: Outside
-  entity: sensor.dark_sky_apparent_temperature
+  entity: sensor.dark_sky_temperature
   precision: 1
 
 hotwater_temp:
@@ -57,6 +57,8 @@ xmas_sleeps:
   widget_type: sensor
   title: Xmas Sleeps
   entity: sensor.christmas_day
+  value_style: "font-size: 700%;"
+  precision: 0
   units: ""
 
 
@@ -92,10 +94,20 @@ clock:
   date_format_options:
     weekday: "long"
 
+external_lights:
+  widget_type: switch
+  title: External Lights
+  entity: switch.external_lights
+
 toy_room_light:
   widget_type: switch
   title: Toy Room
   entity: switch.toy_room_light
+
+master_bedroom_light:
+  widget_type: switch
+  title: Master Bedroom
+  entity: switch.master_bedroom_light
 
 living_room_light:
   widget_type: switch
@@ -109,15 +121,10 @@ aquarium_light:
 
 aqua_temp_gauge:
   title: Aquarium
-  widget_type: gauge
+  widget_type: sensor
   entity: sensor.aquarium_temperature
-  units: "C"
-  low_color: "#FF0000"
-  med_color: "#008000"
-  high_color: "#FF0000"
-  color: "#008000"
-  min: 22
-  max: 27
+  units: "&deg;C"
+  precision: 1
 
 aqua_frame:
     widget_type: iframe
@@ -129,9 +136,48 @@ aqua_frame:
 
 alarm:
     widget_type: alarm
+    title_style: "color: white"
+    state_style: "color: #00aaff;font-size: 170%;"
+    title: Alarm
     entity: alarm_control_panel.home_alarm
+
+hive_battery:
+    widget_type: sensor
+    text_style: "color: #00aaff;font-size: 200%;"
+    title: Hive Battery
+    entity: sensor.hive_battery
+
+sunset:
+    widget_type: sensor
+    text_style: "font-size: 300%;"
+    title: Sunset
+    entity: sensor.sunset_time
+
+sunrise:
+    widget_type: sensor
+    text_style: "font-size: 300%;"
+    title: Sunrise
+    entity: sensor.sunrise_time
+
+garage_temp:
+  title: Garage Temp
+  widget_type: sensor
+  entity: sensor.garage_temperature
+  units: "&deg;C"
+  precision: 1
     
+apparent_temp:
+  title: Feels Like
+  widget_type: sensor
+  entity: sensor.dark_sky_apparent_temperature
+  units: "&deg;C"
+  precision: 1
+    
+
 layout:
-   - toy_room_light, living_room_light, aquarium_light, barry_presence, ruth_presence, zak_presence, luke_presence
-   - aqua_temp_gauge,hall_temp, thermo_temp, hotwater_temp, outside_temp, xmas_sleeps , alarm
-   - clock(2x2), weather.weather(2x2), aqua_frame(3x2)
+   - clock(2x2), sunrise, weather.weather(2x2), aqua_temp_gauge,hall_temp, thermo_temp
+   - sunset, hotwater_temp, garage_temp, hive_battery
+   - external_lights, toy_room_light, living_room_light, master_bedroom_light, aquarium_light, barry_presence, ruth_presence, zak_presence, luke_presence
+#   - aqua_temp_gauge,hall_temp, thermo_temp, hotwater_temp, garage_temp, hive_battery
+   - alarm(2x2), aqua_frame(3x2), xmas_sleeps(2x2)
+
