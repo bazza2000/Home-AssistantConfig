@@ -75,6 +75,19 @@ notify:
     platform: pushbullet
     api_key: !secret pushbullet_api_ruth
 
+alarm_control_panel:
+  - platform: manual
+    name: Home Alarm
+    code: 1234
+    pending_time: 30
+    delay_time: 20
+    trigger_time: 4
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      pending_time: 0
+      delay_time: 0
+
 # Webcams
 #camera:
 #- platform: mjpeg
@@ -190,6 +203,12 @@ sensor:
 
   - platform: template
     sensors:
+       hive_battery:
+          friendly_name: "Hive Battery"
+          value_template: "{{  states.climate.heating.attributes.battery_level }}"
+
+  - platform: template
+    sensors:
        hall_thermostat_temp_setting:
           friendly_name: "Hall Thermostat Temp Setting"
           value_template: "{{  states.climate.heating.attributes.temperature }}"
@@ -242,10 +261,18 @@ switch:
         command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey4"
         command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey12"
         friendly_name: 'Living Room Light'
+      master_bedroom_light:
+        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey7"
+        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey15"
+        friendly_name: 'Master Bedroom Light'
       aquarium_light:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
         friendly_name: 'Aquarium Light'
+      external_lights:
+        command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
+        command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'
+        friendly_name: 'External Lights'
       ps4:
         command_on: "echo on"
         command_off: "echo off"
