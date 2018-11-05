@@ -27,7 +27,7 @@ luke_presence:
 ruth_presence:
   widget_type: device_tracker
   title: Ruth
-  device: 84c7eac09c53
+  device: 8cf5a3e7097b
 
 zak_presence:
   widget_type: device_tracker
@@ -93,6 +93,11 @@ clock:
   time_format: "24hr"
   date_format_options:
     weekday: "long"
+
+external_lights:
+  widget_type: switch
+  title: External Lights
+  entity: switch.external_lights
 
 toy_room_light:
   widget_type: switch
@@ -167,12 +172,25 @@ apparent_temp:
   entity: sensor.dark_sky_apparent_temperature
   units: "&deg;C"
   precision: 1
+
+front_door:
+  title: Front Door
+  widget_type: icon
+  entity: binary_sensor.front_door
+  icons:
+    "on":
+      icon: mdi-walk
+      style: "color: white"
+    "off":
+      icon: mdi-checkbox-blank-circle-outline
+      style: "color: white"
     
 
 layout:
-   - clock(2x2), sunrise, weather.weather(2x2), xmas_sleeps(2x2)
-   - sunset
-   - toy_room_light, living_room_light, master_bedroom_light, aquarium_light, barry_presence, ruth_presence, zak_presence, luke_presence
-   - aqua_temp_gauge,hall_temp, thermo_temp, hotwater_temp, garage_temp, hive_battery
-   - alarm(2x2), aqua_frame(3x2)
+   - clock(2x2), sunrise, weather.weather(3x2), aqua_temp_gauge,hall_temp, thermo_temp
+   - sunset, hotwater_temp, garage_temp, hive_battery
+   - external_lights, toy_room_light, living_room_light, master_bedroom_light, aquarium_light
+   - hall_motion, kitchen_motion, landing_motion, living_room_motion, toy_room_motion, barry_presence, ruth_presence, zak_presence, luke_presence
+   - alarm(2x2), aqua_frame(3x2), xmas_sleeps(2x2)
+
 

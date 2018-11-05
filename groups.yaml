@@ -5,11 +5,28 @@ home:
     - group.hassio
     - group.tracker
     - weather.dark_sky
+    - group.alarm
     - group.heating
     - group.kitchen
     - group.toy_room
     - group.living_room
+    - group.external
     - group.weather
+external:
+  name: External
+  entities:
+    - switch.external_lights
+alarm:
+  name: Alarm
+  entities:
+    - alarm_control_panel.home_alarm
+    - device_tracker.807d3a6ef50f
+    - binary_sensor.front_door
+    - binary_sensor.hall_motion
+    - binary_sensor.kitchen_motion
+    - binary_sensor.landing_motion
+    - binary_sensor.living_room_motion
+    - binary_sensor.toy_room_motion
 hassio:
   name: Home Assistant
   entities:
@@ -22,7 +39,7 @@ tracker:
   name: People
   entities:
     - device_tracker.8c4500aad0bf
-    - device_tracker.84c7eac09c53
+    - device_tracker.8cf5a3e7097b
     - device_tracker.58e28f6772fe
     - device_tracker.zak_pc
     - device_tracker.a43135e4e5e8

@@ -20,6 +20,7 @@ logger:
   default: info
   logs:
     homeassistant.components.sensor.hive: debug
+    homeassistant.components.konnected: debug
 
 # Show links to resources in log and frontend
 #introduction:
@@ -34,10 +35,10 @@ config:
 # http:
 #   base_url: example.duckdns.org:8123
 http:
-  api_password: !secret http_api_password
+#  api_password: !secret http_api_password
   base_url: !secret base_url
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
+#  ssl_certificate: /ssl/fullchain.pem
+#  ssl_key: /ssl/privkey.pem
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -75,12 +76,26 @@ notify:
     platform: pushbullet
     api_key: !secret pushbullet_api_ruth
 
+panel_iframe:
+  nodered:
+    title: Node-RED
+    icon: mdi:sitemap
+    url: http://192.168.0.67:1880
+  influx:
+    title: Influx DB
+    icon: mdi:database
+    url: http://192.168.0.67:8888/
+  grafana:
+    title: Grafana
+    icon: mdi:chart-timeline
+    url: http://192.168.0.67:3000
+
 alarm_control_panel:
   - platform: manual
     name: Home Alarm
     code: 1234
-    pending_time: 30
-    delay_time: 20
+    pending_time: 5
+    delay_time: 5
     trigger_time: 4
     disarmed:
       trigger_time: 0
@@ -282,6 +297,30 @@ switch:
 hive:
   username: !secret hive_user
   password: !secret hive_pass
+
+konnected:
+#  api_host: !secret api_host
+  access_token: y0UBGvOWgj
+  devices:
+    - id: 807d3a6ef50f
+      binary_sensors:
+        - zone: 1
+          type: door
+          name: 'Front Door'
+      switches:
+        - zone: out
+          name: 'Beep Beep'
+          momentary: 65
+          pause: 55
+          repeat: 4
+        - zone: out
+          name: 'Entry Exit Delay'
+          momentary: 50
+          pause: 1000
+          repeat: 5
+        - zone: out
+          name: 'Chime'
+          momentary: 200 
 
 device_tracker:
   - platform: nmap_tracker
