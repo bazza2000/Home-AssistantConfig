@@ -81,14 +81,24 @@ panel_iframe:
     title: Node-RED
     icon: mdi:sitemap
     url: http://192.168.0.67:1880
-  influx:
-    title: Influx DB
-    icon: mdi:database
+  influxdb:
+    title: InfluxDB
+    icon: mdi:chart-areaspline
     url: http://192.168.0.67:8888/
   grafana:
     title: Grafana
     icon: mdi:chart-timeline
     url: http://192.168.0.67:3000
+
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: homeassistant
+  max_retries: 3
+  default_measurement: state
+
 
 alarm_control_panel:
   - platform: manual
@@ -302,11 +312,51 @@ konnected:
 #  api_host: !secret api_host
   access_token: y0UBGvOWgj
   devices:
-    - id: 807d3a6ef50f
+    - id: '600194744429'
       binary_sensors:
         - zone: 1
           type: door
-          name: 'Front Door'
+          name: 'Garage Door Open'
+        - zone: 2
+          type: door
+          name: 'Garage Door Closed'
+        - zone: 3
+          type: motion
+          name: 'Garage'
+        - zone: 4
+          type: motion
+          name: 'Hall'
+        - zone: 5
+          type: motion
+          name: 'Kitchen'
+        - zone: 6
+          type: motion
+          name: 'Living Room'
+      switches:
+        - zone: out
+          name: 'Garage Door'
+          activation: low
+          momentary: 500
+    - id: 807d3a6ef50f
+      binary_sensors:
+        - zone: 1
+          type: motion
+          name: 'Study'
+        - zone: 2
+          type: motion
+          name: 'Toy Room'
+        - zone: 3
+          type: motion
+          name: 'Office'
+        - zone: 4
+          type: motion
+          name: 'Landing'
+        - zone: 5
+          type: motion
+          name: 'Master Bedroom'
+        - zone: 6
+          type: motion
+          name: 'Lukes Room'
       switches:
         - zone: out
           name: 'Beep Beep'
