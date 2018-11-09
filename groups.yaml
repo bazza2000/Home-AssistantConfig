@@ -20,14 +20,26 @@ alarm:
   name: Alarm
   entities:
     - alarm_control_panel.home_alarm
-    - device_tracker.807d3a6ef50f
-    - device_tracker.600194744429
-    - binary_sensor.front_door
-    - binary_sensor.hall_motion
-    - binary_sensor.kitchen_motion
-    - binary_sensor.landing_motion
-    - binary_sensor.living_room_motion
-    - binary_sensor.toy_room_motion
+    - device_tracker.konnected1
+    - device_tracker.konnected2
+    - device_tracker.konnected3
+    - device_tracker.konnected4
+    - binary_sensor.garage_door
+    - binary_sensor.garage
+    - binary_sensor.garage_door
+    - binary_sensor.garage
+    - binary_sensor.rhall
+    - binary_sensor.kitchen
+    - binary_sensor.living_room
+    - binary_sensor.hall
+    - binary_sensor.kitchen
+    - binary_sensor.living_room
+    - binary_sensor.study
+    - binary_sensor.toy_room
+    - binary_sensor.office
+    - binary_sensor.landing
+    - binary_sensor.master_bedroom
+    - binary_sensor.lukes_room
 hassio:
   name: Home Assistant
   entities:
