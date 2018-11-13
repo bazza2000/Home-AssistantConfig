@@ -309,17 +309,17 @@ hive:
   password: !secret hive_pass
 
 konnected:
-#  api_host: !secret api_host
+  api_host: !secret api_host
   access_token: y0UBGvOWgj
   devices:
     - id: '600194744429'
       binary_sensors:
         - zone: 1
           type: door
-          name: 'Garage Door Open'
+          name: 'Garage Door'
         - zone: 2
-          type: door
-          name: 'Garage Door Closed'
+          type: motion
+          name: 'Spare 1'
         - zone: 3
           type: motion
           name: 'Garage'
@@ -371,6 +371,18 @@ konnected:
         - zone: out
           name: 'Chime'
           momentary: 200 
+        - zone: out
+          name: 'Siren'
+    - id: bcddc2018e2e
+      binary_sensors:
+        - zone: 1
+          type: motion
+          name: 'Spare 2'
+    - id: 84f3ebb35cae
+      binary_sensors:
+        - zone: 1
+          type: motion
+          name: 'Spare 3'
 
 device_tracker:
   - platform: nmap_tracker
@@ -379,6 +391,10 @@ device_tracker:
   - platform: ping
     hosts:
       zak_pc: 192.168.0.20
+      konnected1: 192.168.0.170
+      konnected2: 192.168.0.171
+      konnected3: 192.168.0.172
+      konnected4: 192.168.0.173
 
 weblink:
   entities:
