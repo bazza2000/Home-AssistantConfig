@@ -38,7 +38,7 @@ http:
 #  api_password: !secret http_api_password
   base_url: !secret base_url
 #  ssl_certificate: /ssl/fullchain.pem
-#  ssl_key: /ssl/privkey.pem
+  ssl_key: /ssl/privkey.pem
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -222,6 +222,17 @@ sensor:
 
   - platform: template
     sensors:
+      konnected_1:
+        value_template: "{% if is_state('device_tracker.konnected1', 'home') %}ON{% else %}OFF{% endif %}"
+      konnected_2:
+        value_template: "{% if is_state('device_tracker.konnected2', 'home') %}ON{% else %}OFF{% endif %}"
+      konnected_3:
+        value_template: "{% if is_state('device_tracker.konnected3', 'home') %}ON{% else %}OFF{% endif %}"
+      konnected_4:
+        value_template: "{% if is_state('device_tracker.konnected4', 'home') %}ON{% else %}OFF{% endif %}"
+
+  - platform: template
+    sensors:
        hall_temperature:
           friendly_name: "Hall Temperature"
           value_template: "{{  states.climate.heating.attributes.current_temperature }}"
@@ -271,9 +282,9 @@ tts:
 cloud:
 
 mqtt:
-  password: !secret mqtt_api_password
+  broker: 192.168.0.63
   discovery: true
-  discovery_prefix: sonoffs
+  discovery_prefix: homeassistant
 
 switch:
   - platform: command_line
@@ -294,6 +305,10 @@ switch:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
         friendly_name: 'Aquarium Light'
+      kitchen_lamp:
+        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey3"
+        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey11"
+        friendly_name: 'Kitchen Lamp'
       external_lights:
         command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
         command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'
@@ -342,6 +357,7 @@ konnected:
         - zone: 1
           type: motion
           name: 'Study'
+          inverse: true
         - zone: 2
           type: motion
           name: 'Toy Room'
@@ -387,10 +403,17 @@ konnected:
 device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.0.200-254
-    home_interval: 60
+    home_interval: 15
   - platform: ping
     hosts:
-      zak_pc: 192.168.0.20
+      zak_pc:     192.168.0.20
+      sonoff150:  192.168.0.150
+      sonoff151:  192.168.0.151
+      nas:        192.168.0.100
+      izzy:       192.168.0.63
+      aqua:       192.168.0.65
+      virgin_router: 192.168.0.1
+      asus_router:   192.168.0.3
       konnected1: 192.168.0.170
       konnected2: 192.168.0.171
       konnected3: 192.168.0.172
