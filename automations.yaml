@@ -5,10 +5,10 @@
   action:
   - service: media_player.volume_set
     data_template:
-      entity_id: media_player.kitchen
+      entity_id: media_player.downstairs
       volume_level: 0.5
   - service: tts.google_say
-    entity_id: media_player.kitchen
+    entity_id: media_player.downstairs
     data_template:
       message: "{% set hour = now().strftime(\"%H\") %} {% set weekday_full_name =\
         \ now().strftime(\"%A\") %} {% set month_full_name = now().strftime(\"%B\"\
@@ -265,17 +265,17 @@
   - delay: 00:00:02
   - entity_id: switch.aquarium_light
     service: switch.turn_on
-- alias: Aquarium Light Off
+- id: 338a5aedb5024f228a66a258cb35cd93
+  alias: Aquarium Light Off
   trigger:
+  - at: '22:00:00'
     platform: time
-    at: '21:00:00'
   action:
-  - service: switch.turn_off
-    entity_id: switch.aquarium_light
+  - entity_id: switch.aquarium_light
+    service: switch.turn_off
   - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.aquarium_light
-  id: 338a5aedb5024f228a66a258cb35cd93
+  - entity_id: switch.aquarium_light
+    service: switch.turn_off
 - alias: Startup Notification
   trigger:
     platform: homeassistant
@@ -302,6 +302,9 @@
   - delay: 00:00:02
   - service: switch.turn_on
     entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.kitchen_lamp
   - service: notify.barry
     data_template:
       title: Home Alert!
@@ -328,10 +331,16 @@
     entity_id: switch.living_room_light
   - delay: 00:00:02
   - service: switch.turn_off
+    entity_id: switch.kitchen_lamp
+  - delay: 00:00:02
+  - service: switch.turn_off
     entity_id: switch.toy_room_light
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.kitchen_lamp
   id: 8cf26a22df39486f97c5c9be129e7a92
 - alias: Bedtime Lights Off Weekend
   trigger:
@@ -349,6 +358,9 @@
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.kitchen_lamp
   id: 1fadcb826b044baebda6d4bec347ab6b
 - alias: IFTTT WebHook Received
   trigger:
