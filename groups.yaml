@@ -20,10 +20,13 @@ alarm:
   name: Alarm
   entities:
     - alarm_control_panel.home_alarm
-    - device_tracker.konnected1
-    - device_tracker.konnected2
-    - device_tracker.konnected3
-    - device_tracker.konnected4
+    - sensor.konnected_1
+    - sensor.konnected_2
+    - sensor.konnected_3
+    - sensor.konnected_4
+    - switch.siren
+    - switch.beep_beep
+    - switch.chime
     - binary_sensor.garage_door
     - binary_sensor.garage
     - binary_sensor.garage_door
@@ -67,6 +70,7 @@ kitchen:
     - sensor.aquarium_temperature
     - sensor.aquarium_temperature_2
     - weblink.aqua_cam
+    - switch.kitchen_lamp
 toy_room:
   name: Toy Room
   entities:
