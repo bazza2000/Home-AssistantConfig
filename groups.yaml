@@ -27,6 +27,7 @@ alarm:
     - switch.siren
     - switch.beep_beep
     - switch.chime
+    - binary_sensor.office_motion
     - binary_sensor.garage_door
     - binary_sensor.garage
     - binary_sensor.garage_door
@@ -38,6 +39,7 @@ alarm:
     - binary_sensor.kitchen
     - binary_sensor.living_room
     - binary_sensor.study
+    - binary_sensor.study_movement
     - binary_sensor.toy_room
     - binary_sensor.office
     - binary_sensor.landing
@@ -77,6 +79,24 @@ toy_room:
     - switch.toy_room_light
     - device_tracker.1c5a3eb7902b
     - device_tracker.6cadf8ab9ef0
+hosts:
+  name: Hosts
+  entities:
+    - device_tracker.zak_pc
+    - device_tracker.sonoff150
+    - device_tracker.sonoff151
+    - device_tracker.sonoff152
+    - device_tracker.nas
+    - device_tracker.izzy
+    - device_tracker.aqua
+    - device_tracker.virgin_router
+    - device_tracker.asus_router
+    - device_tracker.konnected1
+    - device_tracker.konnected2
+    - device_tracker.konnected3
+    - device_tracker.konnected4
+    - device_tracker.cc9ea21d3b9a
+
 dusk_lights:
   name: Dusk Light Group
     - switch.toy_room_light
