@@ -38,7 +38,7 @@ http:
 #  api_password: !secret http_api_password
   base_url: !secret base_url
 #  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
+#  ssl_key: /ssl/privkey.pem
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -223,13 +223,13 @@ sensor:
   - platform: template
     sensors:
       konnected_1:
-        value_template: "{% if is_state('device_tracker.konnected1', 'home') %}ON{% else %}OFF{% endif %}"
+        value_template: "{% if is_state('device_tracker.konnected1', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       konnected_2:
-        value_template: "{% if is_state('device_tracker.konnected2', 'home') %}ON{% else %}OFF{% endif %}"
+        value_template: "{% if is_state('device_tracker.konnected2', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       konnected_3:
-        value_template: "{% if is_state('device_tracker.konnected3', 'home') %}ON{% else %}OFF{% endif %}"
+        value_template: "{% if is_state('device_tracker.konnected3', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       konnected_4:
-        value_template: "{% if is_state('device_tracker.konnected4', 'home') %}ON{% else %}OFF{% endif %}"
+        value_template: "{% if is_state('device_tracker.konnected4', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
 
   - platform: template
     sensors:
@@ -258,6 +258,26 @@ sensor:
     sensors:
       sunrise_time:
         value_template: '{{ as_timestamp(states.sun.sun.attributes.next_rising)  | timestamp_custom("%H:%M") }}'
+
+binary_sensor:
+  - platform: template
+    sensors:
+      study_movement:
+        friendly_name: Study Movement
+        value_template: '{{(as_timestamp(now()) - as_timestamp(states.binary_sensor.study.last_changed) < 1800)}}'
+        device_class: motion
+        entity_id: sensor.time
+
+  - platform: mqtt
+    state_topic: "tele/sonoff151/RESULT"
+    name: 'Office Motion'
+    value_template: '{{value_json.RfReceived.Data}}'
+    payload_on: 'D19A0E'
+    payload_off: 'D19A0Eoff'
+    device_class: motion
+    optimistic: false
+    qos: 1
+    remain: false
 
 #  - platform: uk_transport
 #    app_id: !secret uk_transport_appid
@@ -361,18 +381,23 @@ konnected:
         - zone: 2
           type: motion
           name: 'Toy Room'
+          inverse: true
         - zone: 3
           type: motion
           name: 'Office'
+          inverse: true
         - zone: 4
           type: motion
           name: 'Landing'
+          inverse: true
         - zone: 5
           type: motion
           name: 'Master Bedroom'
+          inverse: true
         - zone: 6
           type: motion
           name: 'Lukes Room'
+          inverse: true
       switches:
         - zone: out
           name: 'Beep Beep'
@@ -409,6 +434,7 @@ device_tracker:
       zak_pc:     192.168.0.20
       sonoff150:  192.168.0.150
       sonoff151:  192.168.0.151
+      sonoff152:  192.168.0.152
       nas:        192.168.0.100
       izzy:       192.168.0.63
       aqua:       192.168.0.65
