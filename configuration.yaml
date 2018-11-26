@@ -124,7 +124,7 @@ camera:
     still_image_url: http://192.168.0.65/html/cam_pic.php
 
 ifttt:
-  key: by3u5tQhR__RQFMYDypgzG
+  key: !secret ifttt
 
 weather:
   - platform: darksky
