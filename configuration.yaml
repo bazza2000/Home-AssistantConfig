@@ -320,7 +320,7 @@ switch:
       master_bedroom_light:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey7"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey15"
-        friendly_name: 'Master Bedroom Light2'
+        friendly_name: 'Master Bedroom Light'
       aquarium_light:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
@@ -450,6 +450,27 @@ weblink:
     - name: Aqua Cam
       url:  http://127.0.0.1/
       icon: mdi:fish
+    - name: Sonoff 150
+      url:  http://192.168.0.150/
+      icon: mdi:wifi
+    - name: Sonoff 151
+      url:  http://192.168.0.151/
+      icon: mdi:wifi
+    - name: Sonoff 152
+      url:  http://192.168.0.152/
+      icon: mdi:wifi
+    - name: Konnected 1
+      url:  http://192.168.0.170:15619/
+      icon: mdi:wifi
+    - name: Konnected 2
+      url:  http://192.168.0.171:15271/
+      icon: mdi:wifi
+    - name: Konnected 3
+      url:  http://192.168.0.172:8101/
+      icon: mdi:wifi
+    - name: Konnected 4
+      url:  http://192.168.0.173:19754/
+      icon: mdi:wifi
 
 python_script:
 

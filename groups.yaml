@@ -4,6 +4,7 @@ home:
   entities:
     - group.hassio
     - group.tracker
+    - group.dusk_lights
     - weather.dark_sky
     - group.alarm
     - group.heating
@@ -84,27 +85,33 @@ hosts:
   entities:
     - device_tracker.zak_pc
     - device_tracker.sonoff150
+    - weblink.sonoff_150
     - device_tracker.sonoff151
+    - weblink.sonoff_151
     - device_tracker.sonoff152
+    - weblink.sonoff_152
     - device_tracker.nas
     - device_tracker.izzy
     - device_tracker.aqua
     - device_tracker.virgin_router
     - device_tracker.asus_router
     - device_tracker.konnected1
+    - weblink.konnected_1
     - device_tracker.konnected2
+    - weblink.konnected_2
     - device_tracker.konnected3
+    - weblink.konnected_3
     - device_tracker.konnected4
+    - weblink.konnected_4
     - device_tracker.cc9ea21d3b9a
-
 dusk_lights:
-  name: Dusk Light Group
+  name: Dusk Lights
+  entities:
     - switch.kitchen_lamp
     - switch.toy_room_light
     - switch.living_room_light
     - switch.external_lights
     - switch.master_bedroom_light
-    - switch.master_bedroom_light2
 living_room:
   name: Living Room
   entities:
@@ -125,6 +132,7 @@ heating:
 master_bedroom:
   name: Master Bedroom
   entities:
+    - switch.master_bedroom_light
 computer_room:
   name: Computer Room
   entities:
