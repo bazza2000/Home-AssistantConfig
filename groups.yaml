@@ -99,8 +99,12 @@ hosts:
 
 dusk_lights:
   name: Dusk Light Group
+    - switch.kitchen_lamp
     - switch.toy_room_light
     - switch.living_room_light
+    - switch.external_lights
+    - switch.master_bedroom_light
+    - switch.master_bedroom_light2
 living_room:
   name: Living Room
   entities:
