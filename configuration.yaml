@@ -167,6 +167,22 @@ sensor:
     type: astronomical
   - platform: uptime
   - platform: version
+  - platform: rest
+    resource: http://192.168.0.170:15619/status
+    name: konnected 1 wifi
+    value_template: '{{ value_json.rssi }}'
+  - platform: rest
+    resource: http://192.168.0.171:15271/status
+    name: konnected 2 wifi
+    value_template: '{{ value_json.rssi }}'
+  - platform: rest
+    resource: http://192.168.0.172:8101/status
+    name: konnected 3 wifi
+    value_template: '{{ value_json.rssi }}'
+  - platform: rest
+    resource: http://192.168.0.173:19754/status
+    name: konnected 4 wifi
+    value_template: '{{ value_json.rssi }}'
 
 #  - platform: template
 #    sensors:
@@ -219,6 +235,22 @@ sensor:
     sensors:
       ps4_today_time:
         value_template: '{{ states.sensor.ps4_today.attributes.value }}'
+  - platform: template
+    sensors:
+      konnected_1_wifi_strength:
+        value_template: '{{ (((( states.sensor.konnected_1_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
+  - platform: template
+    sensors:
+      konnected_2_wifi_strength:
+        value_template: '{{ (((( states.sensor.konnected_2_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
+  - platform: template
+    sensors:
+      konnected_3_wifi_strength:
+        value_template: '{{ (((( states.sensor.konnected_3_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
+  - platform: template
+    sensors:
+      konnected_4_wifi_strength:
+        value_template: '{{ (((( states.sensor.konnected_4_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
 
   - platform: template
     sensors:

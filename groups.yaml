@@ -112,6 +112,7 @@ dusk_lights:
     - switch.living_room_light
     - switch.external_lights
     - switch.master_bedroom_light
+    - switch.aquarium_light
 living_room:
   name: Living Room
   entities:
