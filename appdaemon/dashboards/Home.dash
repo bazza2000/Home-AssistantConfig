@@ -173,10 +173,10 @@ apparent_temp:
   units: "&deg;C"
   precision: 1
 
-front_door:
-  title: Front Door
+study:
+  title: Study
   widget_type: icon
-  entity: binary_sensor.front_door
+  entity: binary_sensor.study
   icons:
     "on":
       icon: mdi-door-open
@@ -190,7 +190,7 @@ layout:
    - clock(2x2), sunrise, weather.weather(3x2), aqua_temp_gauge,hall_temp, thermo_temp
    - sunset, hotwater_temp, garage_temp, hive_battery
    - external_lights, toy_room_light, living_room_light, master_bedroom_light, aquarium_light
-   - front_door, barry_presence, ruth_presence, zak_presence, luke_presence
+   - study, barry_presence, ruth_presence, zak_presence, luke_presence
    - alarm(2x2), aqua_frame(3x2), xmas_sleeps(2x2)
 
 
