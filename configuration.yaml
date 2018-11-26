@@ -377,7 +377,7 @@ hive:
 
 konnected:
   api_host: !secret api_host
-  access_token: y0UBGvOWgj
+  access_token: !secret konnected_access_token
   devices:
     - id: '600194744429'
       binary_sensors:
