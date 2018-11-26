@@ -318,9 +318,9 @@ switch:
         command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey12"
         friendly_name: 'Living Room Light'
       master_bedroom_light:
-        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey7"
-        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey15"
-        friendly_name: 'Master Bedroom Light'
+        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey7"
+        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey15"
+        friendly_name: 'Master Bedroom Light2'
       aquarium_light:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
