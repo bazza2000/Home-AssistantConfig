@@ -18,6 +18,8 @@ external:
   entities:
     - switch.external_lights
 alarm:
+  view: yes
+  icon: mdi:shield-home
   name: Alarm
   entities:
     - alarm_control_panel.home_alarm
@@ -65,6 +67,7 @@ tracker:
     - device_tracker.0c8ffff7fe2c
     - device_tracker.40cbc038d398
     - device_tracker.a010814f9a80
+    - device_tracker.f431c3caa767
 kitchen:
   name: Kitchen
   entities:
@@ -81,6 +84,8 @@ toy_room:
     - device_tracker.1c5a3eb7902b
     - device_tracker.6cadf8ab9ef0
 hosts:
+  view: yes
+  icon: mdi:laptop
   name: Hosts
   entities:
     - device_tracker.zak_pc
@@ -113,6 +118,34 @@ dusk_lights:
     - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
+lights:
+  view: yes
+  icon: mdi:lightbulb-on-outline
+  name: Lights
+  entities:
+    - switch.kitchen_lamp
+    - switch.toy_room_light
+    - switch.living_room_light
+    - switch.external_lights
+    - switch.master_bedroom_light
+    - switch.aquarium_light
+temperature:
+  view: yes
+  icon: mdi:oil-temperature
+  name: Temperature
+  entities:
+    - sensor.hall_temperature
+    - sensor.hive_hub_status
+    - sensor.hot_water_temperature
+    - sensor.garage_temperature
+    - sensor.outside_temperature
+    - sensor.outside_temperature
+    - sensor.aquarium_temperature
+    - sensor.aquarium_temperature_2
+    - sensor.dark_sky_apparent_temperature
+    - sensor.dark_sky_daytime_high_apparent_temperature
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_temperature
 living_room:
   name: Living Room
   entities:
