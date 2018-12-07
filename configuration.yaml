@@ -474,6 +474,8 @@ device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.0.200-254
     home_interval: 15
+  - platform: googlehome
+    host: 192.168.0.202
   - platform: ping
     hosts:
       zak_pc:     192.168.0.20
