@@ -1,0 +1,34 @@
+- id: '1542135100403'
+  alias: Hive Hub Offline
+  trigger:
+  - entity_id: sensor.hive_hub_status
+    from: Online
+    platform: state
+    to: Offline
+  condition: []
+  action:
+  - data_template:
+      message: Hive Hub has gone offline
+    entity_id: media_player.downstairs
+    service: tts.google_say
+  - data_template:
+      message: Hive Hub has gone offline
+      title: Home Alert!
+    service: notify.barry
+- id: '1542135100409'
+  alias: Hive Hub Online
+  trigger:
+  - entity_id: sensor.hive_hub_status
+    from: Offline
+    platform: state
+    to: Online
+  condition: []
+  action:
+  - data_template:
+      message: Hive Hub has come back online
+    entity_id: media_player.downstairs
+    service: tts.google_say
+  - data_template:
+      message: Hive Hub has come back online
+      title: Home Alert!
+    service: notify.barry

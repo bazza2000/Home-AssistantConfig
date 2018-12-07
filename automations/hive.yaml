@@ -1,0 +1,36 @@
+- id: '1540578279862'
+  alias: Hive OverTemp
+  trigger:
+  - above: '23'
+    entity_id: sensor.hall_thermostat_temp_setting
+    platform: numeric_state
+  condition: []
+  action:
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Hall thermostat set to {{ states.climate.heating.attributes.temperature
+        }} resetting to MAX:23
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.heating
+      temperature: 23
+
+- id: '1543081864376'
+  alias: Turn heating off >20C after midnight
+  trigger:
+  - at: '00:05:00'
+    platform: time
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.hall_thermostat_temp_setting
+    above: '20'
+  action:
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.heating
+      temperature: 7
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Thermostat was >20C @ 00:05 set to 7C

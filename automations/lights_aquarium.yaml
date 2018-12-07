@@ -1,0 +1,24 @@
+- id: 07ac09c8b3d64dbd813cc63e9038649a
+  alias: Aquarium Light On
+  trigger:
+  - at: '18:00:00'
+    platform: time
+  action:
+  - data_template:
+      message: Turning Aquarium Light on
+    entity_id: media_player.downstairs
+    service: tts.google_say
+  - delay: 00:00:02
+  - entity_id: switch.aquarium_light
+    service: switch.turn_on
+- id: 338a5aedb5024f228a66a258cb35cd93
+  alias: Aquarium Light Off
+  trigger:
+  - at: '22:00:00'
+    platform: time
+  action:
+  - entity_id: switch.aquarium_light
+    service: switch.turn_off
+  - delay: 00:00:02
+  - entity_id: switch.aquarium_light
+    service: switch.turn_off

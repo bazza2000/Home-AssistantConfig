@@ -1,0 +1,22 @@
+- alias: School Time
+  trigger:
+  - at: 08:45
+    platform: time
+  condition:
+    condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.downstairs
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The time is 08:45, Zak, time to leave for school, have a great day!
+  id: 32627922fe1245609515b2488f2644f2

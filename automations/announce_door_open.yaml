@@ -1,0 +1,20 @@
+- id: '1551573860629'
+  alias: door open to long
+  trigger:
+  - entity_id: binary_sensor.garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  - data_template:
+      message: "The Garage door has been open for than 1 minute and its {{states.sensor.dark_sky_temperature.state|round}} degrees outside, can someone please close the door."
+    entity_id: media_player.kitchen
+    service: tts.google_say

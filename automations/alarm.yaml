@@ -1,0 +1,26 @@
+- id: '1541363072998'
+  alias: Alarm Beep On Arm
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    from: disarmed
+    platform: state
+    to: armed_home
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: switch.beep_beep
+    service: switch.turn_on
+- id: '1541463072998'
+  alias: Alarm Beep On Disarm
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    from: armed_home
+    platform: state
+    to: disarmed
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: switch.chime
+    service: switch.turn_on

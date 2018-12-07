@@ -1,0 +1,32 @@
+- alias: Test Christmas
+  trigger:
+    platform: time
+    at: 08:31:00
+  action:
+  - service: tts.google_say
+    entity_id: media_player.computer_room
+#    data_template:
+#      message: '{% if states(''sensor.christmas_day'') | float < 60 %} There are {{
+#        states.sensor.christmas_day.state }} more sleeps to Christmas. {%endif %}'
+    data_template:
+      message: "{% set hour = now().strftime(\"%H\") %} {% set weekday_full_name =\
+        \ now().strftime(\"%A\") %} {% set month_full_name = now().strftime(\"%B\"\
+        ) %} {% set year_with_century = now().strftime(\"%Y\") %} {% set day = now().strftime(\"\
+        %-d\") %} {% set weekday = now().strftime(\"%w\") %} Good {% if now().strftime(\"\
+        %H\")|int < 12 %} morning  {% elif now().strftime(\"%H\")|int < 18 %} afternoon\
+        \ {% else %} evening {% endif %} everyone.  Todays date is {{ weekday_full_name\
+        \ }} {{ month_full_name }} the\n    {% if day | int == 1 or day | int == 21\
+        \ or day | int == 31 %}\n      {{ day }}st\n    {% elif day | int == 2 or\
+        \ day | int == 22 %}\n      {{ day }}nd\n    {% elif day | int == 3 or day\
+        \ | int == 23 %}\n      {{ day }}rd\n    {% else %}\n      {{ day }}th\n \
+        \   {% endif %}.\n{{ year_with_century }}. Todays Daily Announcements.  {%\
+        \ if states('sensor.christmas_day') | float < 60 %} There are {{ states.sensor.christmas_day.state\
+        \ | int - 1 }} more sleeps to Christmas. {%endif %}  The house internal temperature\
+        \ is {{  states.climate.heating.attributes.current_temperature | replace(\"\
+        .\",\" point \") }} degrees celsius. The thermostat is set to {{  states.climate.heating.attributes.temperature\
+        \ | replace(\".\",\" point \") }} degrees celcius. It's currently {{states.sensor.dark_sky_summary.state}}\
+        \ and {{states.sensor.dark_sky_temperature.state|round}} degrees in Childwall.\
+        \  Today will be {{states.sensor.dark_sky_hourly_summary.state|replace(\"\
+        .\", \"\")}}, . End of Announcements, have a nice day!\n"
+
+  id: a31777a54e274a76a9174a8eda380692

@@ -1,0 +1,108 @@
+- alias: Dusk Lights on
+  trigger:
+    platform: sun
+    event: sunset
+    offset: -00:30:00
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: Turning Lights on at dusk
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.toy_room_light
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.kitchen_lamp
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Dusk lights activated
+  id: 9befa5e676394e4286ed9c44d0159e88
+
+- alias: Bedroom Lights On
+  trigger:
+    platform: time
+    at: '19:04:00'
+  action:
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.master_bedroom_light
+
+- alias: Bedtime Lights Off Weekday
+  trigger:
+    platform: time
+    at: '22:30:00'
+  condition:
+    condition: time
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+  action:
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.kitchen_lamp
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.master_bedroom_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.kitchen_lamp
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.master_bedroom_light
+  id: 8cf26a22df39486f97c5c9be129e7a92
+
+- alias: Bedtime Lights Off Weekend
+  trigger:
+    platform: time
+    at: '23:00:00'
+  condition:
+    condition: time
+    weekday:
+    - fri
+    - sat
+  action:
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.kitchen_lamp
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.master_bedroom_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.toy_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.living_room_light
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.kitchen_lamp
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.master_bedroom_light
+  id: 1fadcb826b044baebda6d4bec347ab6b

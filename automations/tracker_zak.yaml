@@ -1,0 +1,34 @@
+- alias: Home Greeting Zak
+  trigger:
+    platform: state
+    entity_id: device_tracker.zak_pc
+    from: not_home
+    to: home
+  condition:
+    condition: time
+    after: '15:00:00'
+    before: '17:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Zak has arrived Home
+  - service: notify.ruth
+    data_template:
+      title: Home Alert!
+      message: Zak has arrived Home
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.downstairs
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: Welcome Home Zak, hope you had a great day at school!
+  id: b1da6243437041e685bde7bbb2de53af

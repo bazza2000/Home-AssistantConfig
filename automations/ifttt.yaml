@@ -1,0 +1,21 @@
+- alias: Startup Notification
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: ifttt.trigger
+    data:
+      event: Home Alert!
+      value1: Home Assistant has restarted!
+  id: 65843367a4dd45cb8870252f43e3f845
+- alias: IFTTT WebHook Received
+  trigger:
+    platform: event
+    event_type: ifttt_webhook_received
+    event_data:
+      action: call_service
+  action:
+    service_template: '{{ trigger.event.data.service }}'
+    data_template:
+      entity_id: '{{ trigger.event.data.entity_id }}'
+  id: db17a12ec1d642f39024ad097d69e85f

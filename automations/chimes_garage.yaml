@@ -1,0 +1,30 @@
+- id: '1541573860629'
+  alias: door chime
+  trigger:
+  - entity_id: binary_sensor.garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+    service: media_player.play_media
+    data:
+      entity_id: media_player.downstairs
+      media_content_id: http://192.168.0.67:8123/local/door_entry.mp3
+      media_content_type: 'audio/mp3'
+
+- id: '1541563860629'
+  alias: door chime
+  trigger:
+  - entity_id: binary_sensor.garage_door
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+    service: media_player.play_media
+    data:
+      entity_id: media_player.downstairs
+      media_content_id: http://192.168.0.67:8123/local/door_entry.mp3
+      media_content_type: 'audio/mp3'
+

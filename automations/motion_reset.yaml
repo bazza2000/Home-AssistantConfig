@@ -1,0 +1,16 @@
+- id: '1542135100509'
+  alias: Reset Office Motion
+  hide_entity: true
+  initial_state: 'on'
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.office_motion
+    from: 'off'
+    to: 'on'
+    for:
+      seconds: 60
+  action:
+  - service: mqtt.publish
+    data:
+      topic: tele/sonoff151/RESULT
+      payload: D19A0Eoff

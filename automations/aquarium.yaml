@@ -1,0 +1,38 @@
+- id: '1540642637828'
+  alias: Aquarium Temp Low
+  trigger:
+  - above: '0'
+    below: '24'
+    entity_id: sensor.aquarium_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The Aquarium Temperature is currently too low at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: The Aquarium Temperature is currently too low at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
+- id: '1540642647828'
+  alias: Aquarium Temp High
+  trigger:
+  - above: '26'
+    below: '99'
+    entity_id: sensor.aquarium_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.downstairs
+    data_template:
+      message: The Aquarium Temperature is currently too high at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: The Aquarium Temperature is currently too high at {{ states.sensor.aquarium_temperature.state
+        }} degrees.
