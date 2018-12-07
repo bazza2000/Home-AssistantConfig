@@ -2,5 +2,6 @@
 !*.yaml
 !.gitignore
 !python_scripts
+!automations
 secrets.yaml
 known_devices.yaml

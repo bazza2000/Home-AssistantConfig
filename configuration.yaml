@@ -311,6 +311,22 @@ binary_sensor:
     qos: 1
     remain: false
 
+  - platform: mqtt
+    state_topic: "tele/sonoff151/RESULT"
+    name: 'Front Door'
+    value_template: '{{value_json.RfReceived.Data}}'
+    payload_on: '14A70A'
+    payload_off: '14A70E'
+    device_class: door
+
+  - platform: mqtt
+    state_topic: "tele/sonoff151/RESULT"
+    name: 'Garage Door'
+    value_template: '{{value_json.RfReceived.Data}}'
+    payload_on: '168C0A'
+    payload_off: '168C0E'
+    device_class: door
+
 #  - platform: uk_transport
 #    app_id: !secret uk_transport_appid
 #    app_key: !secret uk_transport_appkey
@@ -381,9 +397,6 @@ konnected:
   devices:
     - id: '600194744429'
       binary_sensors:
-        - zone: 1
-          type: door
-          name: 'Garage Door'
         - zone: 2
           type: motion
           name: 'Spare 1'
@@ -401,7 +414,7 @@ konnected:
           name: 'Living Room'
       switches:
         - zone: out
-          name: 'Garage Door'
+          name: 'Outside Garage Door'
           activation: low
           momentary: 500
     - id: 807d3a6ef50f
@@ -507,5 +520,5 @@ weblink:
 python_script:
 
 group: !include groups.yaml
-automation: !include automations.yaml
+automation: !include_dir_merge_list automations/
 script: !include scripts.yaml

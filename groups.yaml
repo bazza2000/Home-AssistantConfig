@@ -31,6 +31,7 @@ alarm:
     - switch.beep_beep
     - switch.chime
     - binary_sensor.office_motion
+    - binary_sensor.front_door
     - binary_sensor.garage_door
     - binary_sensor.garage
     - binary_sensor.garage_door
