@@ -1,11 +1,14 @@
 - id: '1541573860629'
-  alias: door chime
+  alias: Garage Door Open Chime
   trigger:
   - entity_id: binary_sensor.garage_door
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+    condition: time
+    after:  '08:00'
+    before: '21:00'
   action:
     service: media_player.play_media
     data:
@@ -14,13 +17,16 @@
       media_content_type: 'audio/mp3'
 
 - id: '1541563860629'
-  alias: door chime
+  alias: Garage Door Close Chime
   trigger:
   - entity_id: binary_sensor.garage_door
     from: 'on'
     platform: state
     to: 'off'
-  condition: []
+  condition:
+    condition: time
+    after:  '08:00'
+    before: '21:00'
   action:
     service: media_player.play_media
     data:
