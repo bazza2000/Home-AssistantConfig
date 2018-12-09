@@ -34,14 +34,9 @@ alarm:
     - binary_sensor.front_door
     - binary_sensor.garage_door
     - binary_sensor.garage
-    - binary_sensor.garage_door
-    - binary_sensor.garage
-    - binary_sensor.rhall
     - binary_sensor.kitchen
     - binary_sensor.living_room
     - binary_sensor.hall
-    - binary_sensor.kitchen
-    - binary_sensor.living_room
     - binary_sensor.study
     - binary_sensor.study_movement
     - binary_sensor.toy_room
@@ -49,6 +44,12 @@ alarm:
     - binary_sensor.landing
     - binary_sensor.master_bedroom
     - binary_sensor.lukes_room
+door_sensors:
+  name: Door Sensors
+  entities:
+    - binary_sensor.front_door
+    - binary_sensor.garage_door
+    - binary_sensor.study
 hassio:
   name: Home Assistant
   entities:
@@ -101,13 +102,13 @@ hosts:
     - device_tracker.aqua
     - device_tracker.virgin_router
     - device_tracker.asus_router
-    - device_tracker.konnected1
+    - sensor.konnected_1
     - weblink.konnected_1
-    - device_tracker.konnected2
+    - sensor.konnected_2
     - weblink.konnected_2
-    - device_tracker.konnected3
+    - sensor.konnected_3
     - weblink.konnected_3
-    - device_tracker.konnected4
+    - sensor.konnected_4
     - weblink.konnected_4
     - device_tracker.cc9ea21d3b9a
 dusk_lights:
@@ -119,6 +120,7 @@ dusk_lights:
     - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
+    - switch.cloak_lamp
 lights:
   view: yes
   icon: mdi:lightbulb-on-outline
@@ -130,6 +132,14 @@ lights:
     - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
+    - switch.cloak_lamp
+    - switch.living_room_xmas_tree
+xmas:
+  view: yes
+  icon: mdi:snowman
+  name: Xmas
+  entities:
+    - switch.living_room_xmas_tree
 temperature:
   view: yes
   icon: mdi:oil-temperature

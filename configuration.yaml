@@ -262,6 +262,18 @@ sensor:
         value_template: "{% if is_state('device_tracker.konnected3', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       konnected_4:
         value_template: "{% if is_state('device_tracker.konnected4', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      sonoff_150:
+        value_template: "{% if is_state('device_tracker.sonoff150', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      sonoff_151:
+        value_template: "{% if is_state('device_tracker.sonoff151', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      sonoff_152:
+        value_template: "{% if is_state('device_tracker.sonoff152', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      nas_1:
+        value_template: "{% if is_state('device_tracker.nas', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      aqua_1:
+        value_template: "{% if is_state('device_tracker.aqua', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      izzy_1:
+        value_template: "{% if is_state('device_tracker.izzy', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
 
   - platform: template
     sensors:
@@ -377,6 +389,14 @@ switch:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey3"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey11"
         friendly_name: 'Kitchen Lamp'
+      cloak_lamp:
+        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
+        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
+        friendly_name: 'Cloak Lamp'
+      living_room_xmas_tree:
+        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey5"
+        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey13"
+        friendly_name: 'Living Room Xmas Tree'
       external_lights:
         command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
         command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'
@@ -473,7 +493,7 @@ konnected:
 device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.0.200-254
-    home_interval: 15
+    consider_home: 180
   - platform: googlehome
     host: 192.168.0.202
   - platform: ping

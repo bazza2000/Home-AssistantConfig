@@ -9,6 +9,10 @@
       hours: 0
       minutes: 1
       seconds: 0
+  condition:
+    condition: time
+    after:  '08:00'
+    before: '21:00'
   action:
   - service: media_player.volume_set
     data_template:

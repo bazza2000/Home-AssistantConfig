@@ -34,3 +34,24 @@
       media_content_id: http://192.168.0.67:8123/local/door_entry.mp3
       media_content_type: 'audio/mp3'
 
+- id: '1571563860629'
+  alias: Garage Door Open Pushbullet
+  trigger:
+  - entity_id: binary_sensor.garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: 'device_tracker.8c4500aad0bf'
+        state: 'not_home'
+      - condition: state
+        entity_id: 'device_tracker.8cf5a3e7097b'
+        state: 'not_home'
+  action:
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Garage Door Opened
