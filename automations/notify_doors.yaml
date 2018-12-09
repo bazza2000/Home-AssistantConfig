@@ -1,0 +1,22 @@
+- id: '1561573860629'
+  alias: Doors Notify
+  trigger:
+  - entity_id: group.door_sensors
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+    condition: time
+    after:  '09:00'
+    before: '17:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  action:
+  - data_template:
+      message: Door Sensor Activated
+      title: Home Alert!
+    service: notify.barry

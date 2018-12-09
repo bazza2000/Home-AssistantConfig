@@ -1,0 +1,40 @@
+- id: '1581563860629'
+  alias: Xmas Lights On
+  trigger:
+  - entity_id: device_tracker.8c4500aad0bf
+    from: 'not_home'
+    to: 'home'
+    platform: state
+  - entity_id: device_tracker.84c7eac09c53
+    from: 'not_home'
+    to: 'home'
+    platform: state
+  - entity_id: device_tracker.58e28f6772fe
+    from: 'not_home'
+    to: 'home'
+    platform: state
+  - entity_id: binary_sensor.study
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+    condition: or
+    conditions:
+      - condition: time
+        after: '15:00:00'
+        before: '21:00:00'
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: time
+        after: '08:00:00'
+        before: '22:00:00'
+        weekday:
+        - sat
+        - sun
+  action:
+  - service: switch.turn_on
+    entity_id: switch.living_room_xmas_tree
