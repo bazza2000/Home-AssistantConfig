@@ -118,10 +118,25 @@ alarm_control_panel:
 #- platform: mjpeg
 #  mjpeg_url: http://192.168.0.65/html/cam_pic_new.php?pDelay=400000
 #  name: AquaCam
+
+ffmpeg:
+
 camera:
   - platform: generic
     name: Fish Cam
     still_image_url: http://192.168.0.65/html/cam_pic.php
+  - platform: yi
+    name: Computer Room
+    host: '192.168.0.231'
+    password: !secret yi
+  - platform: yi
+    name: Living Room
+    host: '192.168.0.232'
+    password: !secret yi    
+  - platform: yi
+    name: Kitchen
+    host: '192.168.0.218'
+    password: !secret yi
 
 ifttt:
   key: !secret ifttt
@@ -494,8 +509,6 @@ device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.0.200-254
     consider_home: 180
-  - platform: googlehome
-    host: 192.168.0.202
   - platform: ping
     hosts:
       zak_pc:     192.168.0.20

@@ -19,7 +19,7 @@ external:
     - switch.external_lights
 alarm:
   view: yes
-  icon: mdi:shield-home
+  icon: mdi:home-alert
   name: Alarm
   entities:
     - alarm_control_panel.home_alarm
@@ -50,6 +50,15 @@ door_sensors:
     - binary_sensor.front_door
     - binary_sensor.garage_door
     - binary_sensor.study
+cameras:
+  view: yes
+  icon: mdi:camera
+  name: cameras
+  entities:
+    - camera.computer_room
+    - camera.living_room
+    - camera.kitchen
+    - camera.fish_cam
 hassio:
   name: Home Assistant
   entities:
