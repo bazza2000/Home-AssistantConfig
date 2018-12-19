@@ -388,30 +388,42 @@ switch:
         command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey2"
         command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey10"
         friendly_name: 'Toy Room Light'
+#      cloak_lamp:
+#        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
+#        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
+#        friendly_name: 'Cloak Lamp'
       living_room_light:
         command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey4"
         command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey12"
         friendly_name: 'Living Room Light'
-      master_bedroom_light:
-        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey7"
-        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey15"
-        friendly_name: 'Master Bedroom Light'
-      aquarium_light:
-        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
-        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
-        friendly_name: 'Aquarium Light'
+      cloak_xmas_lights:
+        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey6"
+        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey14"
+        friendly_name: 'Cloak Xmas Lights'
+      cloak_left_xmas_lights:
+        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
+        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
+        friendly_name: 'Cloak Left Xmas Lights'
       kitchen_lamp:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey3"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey11"
         friendly_name: 'Kitchen Lamp'
-      cloak_lamp:
-        command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
-        command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
-        friendly_name: 'Cloak Lamp'
+      aquarium_light:
+        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
+        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
+        friendly_name: 'Aquarium Light'
       living_room_xmas_tree:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey5"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey13"
         friendly_name: 'Living Room Xmas Tree'
+      master_bedroom_light:
+        command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey7"
+        command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey15"
+        friendly_name: 'Master Bedroom Light'
+      outside_xmas_lights:
+        command_on: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey1"
+        command_off: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey9"
+        friendly_name: 'Outside Xmas Lights'
       external_lights:
         command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
         command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'

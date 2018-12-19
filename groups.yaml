@@ -130,6 +130,7 @@ dusk_lights:
     - switch.master_bedroom_light
     - switch.aquarium_light
     - switch.cloak_lamp
+    - switch.outside_xmas_lights
 lights:
   view: yes
   icon: mdi:lightbulb-on-outline
@@ -143,12 +144,16 @@ lights:
     - switch.aquarium_light
     - switch.cloak_lamp
     - switch.living_room_xmas_tree
+    - switch.outside_xmas_lights
 xmas:
   view: yes
   icon: mdi:snowman
   name: Xmas
   entities:
     - switch.living_room_xmas_tree
+    - switch.outside_xmas_lights
+    - switch.cloak_left_xmas_lights
+    - switch.cloak_xmas_lights
 temperature:
   view: yes
   icon: mdi:oil-temperature

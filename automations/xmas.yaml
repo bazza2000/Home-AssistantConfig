@@ -38,3 +38,45 @@
   action:
   - service: switch.turn_on
     entity_id: switch.living_room_xmas_tree
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.cloak_left_xmas_lights
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.cloak_xmas_lights
+    
+
+- id: '1581763860629'
+  alias: Xmas Lights Off if no-one in
+  trigger:
+  - entity_id: group.tracker
+    from: 'home'
+    to: 'not_home'
+    platform: state
+  condition:
+    condition: or
+    conditions:
+      - condition: time
+        after: '15:00:00'
+        before: '23:00:00'
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: time
+        after: '08:00:00'
+        before: '23:00:00'
+        weekday:
+        - sat
+        - sun
+  action:
+  - service: switch.turn_off
+    entity_id: switch.living_room_xmas_tree
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.cloak_left_xmas_lights
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.cloak_xmas_lights
