@@ -131,6 +131,8 @@ dusk_lights:
     - switch.aquarium_light
     - switch.cloak_lamp
     - switch.outside_xmas_lights
+    - switch.exterior_lights
+    - input_select.exterior_light_type
 lights:
   view: yes
   icon: mdi:lightbulb-on-outline
@@ -139,12 +141,14 @@ lights:
     - switch.kitchen_lamp
     - switch.toy_room_light
     - switch.living_room_light
-    - switch.external_lights
+#    - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
     - switch.cloak_lamp
     - switch.living_room_xmas_tree
     - switch.outside_xmas_lights
+    - switch.exterior_lights
+    - input_select.exterior_light_type
 xmas:
   view: yes
   icon: mdi:snowman

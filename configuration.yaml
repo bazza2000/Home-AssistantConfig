@@ -376,12 +376,36 @@ tts:
 # Cloud
 cloud:
 
+input_select:
+  exterior_light_type:
+    name: Exterior Lights Settings
+    options:
+     - "White"
+     - "Red"
+     - "Blue"
+     - "Green"
+     - "Flash"
+     - "Strobe"
+     - "Fade"
+     - "Smooth"
+    initial: White
+    icon: mdi:lightbulb-on-online
+
 mqtt:
   broker: 192.168.0.63
   discovery: true
   discovery_prefix: homeassistant
 
 switch:
+  - platform: broadlink
+    host: 192.168.0.180
+    mac: 78:0F:77:47:89:80
+    type: rm_mini
+    switches:
+      exterior_lights:
+        friendly_name: "Exterior Lights"
+        command_on: "JgBYAAABKpQVERAUFBEVERAUFBEVERAVFDUROBI5FDURFBQ2ETgVNhQ1ETkUEREUFBEVEBEUFBEVEBEUFDYROBU2FDUROBI5FAAFOgABLUcSAAxEAAEtRxEADQU="
+        command_off: "JgCQAAABKZQUEhMRFREQFhMQFRERFBQQFTYUNRE5FDYUERQ2FDUSOBUQETkRFBEUFBEUEREUFBEVNRQRETkUNRE5FTUUNhM2FQAFOgABKksUAAxCAAEpSxQADEIAASpLEwAMQQABLUkTAAxDAAEqSxQADEIAAStJEwAMQwABKksSAAxEAAEsSRIADEMAASpJFQANBQAAAAAAAAAA"
   - platform: command_line
     switches:
       toy_room_light:
@@ -424,10 +448,10 @@ switch:
         command_on: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey1"
         command_off: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey9"
         friendly_name: 'Outside Xmas Lights'
-      external_lights:
-        command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
-        command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'
-        friendly_name: 'External Lights'
+#      external_lights:
+#        command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
+#        command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'
+#        friendly_name: 'External Lights'
       ps4:
         command_on: "echo on"
         command_off: "echo off"

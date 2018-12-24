@@ -6,31 +6,18 @@
     platform: state
     to: 'on'
   condition:
-    condition: time
-    after:  '08:00'
-    before: '21:00'
+    condition: and
+    conditions:
+      - condition: time
+        after:  '08:00'
+        before: '21:00'
+      - condition: state
+        entity_id: 'media_player.kitchen'
+        state: 'off'
   action:
     service: media_player.play_media
     data:
-      entity_id: media_player.downstairs
-      media_content_id: http://192.168.0.67:8123/local/door_entry.mp3
-      media_content_type: 'audio/mp3'
-
-- id: '1541563860629'
-  alias: Garage Door Close Chime
-  trigger:
-  - entity_id: binary_sensor.garage_door
-    from: 'on'
-    platform: state
-    to: 'off'
-  condition:
-    condition: time
-    after:  '08:00'
-    before: '21:00'
-  action:
-    service: media_player.play_media
-    data:
-      entity_id: media_player.downstairs
+      entity_id: media_player.kitchen
       media_content_id: http://192.168.0.67:8123/local/door_entry.mp3
       media_content_type: 'audio/mp3'
 

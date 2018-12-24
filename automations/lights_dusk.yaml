@@ -172,3 +172,121 @@
   - service: switch.turn_off
     entity_id: switch.cloak_xmas_lights
   id: 1fadcb826b044baebda6d4bec347ab6b
+
+
+- alias: Exterior Dusk Lights on
+  trigger:
+    platform: sun
+    event: sunset
+    offset: 00:00:00
+  action:
+  - service: switch.turn_on
+    entity_id: switch.exterior_lights
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Exterior lights activated
+  id: 9befa5e676394e4286fd9c44d0159e88
+
+- alias: Exterior Dusk Lights off
+  trigger:
+    platform: sun
+    event: sunrise
+    offset: 00:00:00
+  action:
+  - service: switch.turn_off
+    entity_id: switch.exterior_lights
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Exterior lights off
+  id: 9befa5e676394e4286fd9d44d0159e88
+
+- alias: Select Red Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "Red"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgCgAAABKZURFBQRFBIRExQRFBIRFBMRFTUSOBE4EzcUERU1FDYROBMTEhQTNREWExAVERIUExAVNhQ1ERUSNxE4FTYUNRE5FQAFOgABKksUAAxDAAEpSxQADEMAAStKFAAMQgABKksUAAxDAAEpTBQADEIAAStKFAAMQwABKUwUAAxDAAEsSBQADEMAAStKFAAMQwABK0oTAAxEAAErSRQADQUAAAAAAAAAAA=="
+  id:  9cefa5e676394e4286fd9d44d0159e88      
+
+- alias: Select White Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "White"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgC4AAABKpQRFRMRFRESFBIRFRETExIRFTYWMxE5EzcUERQ2FDUTNxU1FDYROBURExMSERUREhQREhgPEhMRNxE5FTUUNhE4FQAFOwABKUsUAAxDAAEpTBQADEIAASpLFAAMQwABKUwUAAxDAAEpSxQADEMAASpLFAAMQwABKUwUAAxDAAEpSxQADEMAAStKFAAMQwABK0kVAAxCAAErShQADEMAAStKFAAMQgABK0oUAAxDAAErSRQADQU="
+  id:  9cefa5e676394e4286fd9d44d0159e89  
+
+- alias: Select Blue Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "Blue"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgCoAAABKZURFBQRFRETEhMRFRETExIRFTUUNhE4FTYUEBU2FDURORQSEzUVNhQQFRETExISFBITNRURFBISNhE5FTUUNhE4FQAFOwABKUsUAAxDAAEpTBQADEIAAStKFAAMQwABK0oUAAxCAAEqSxQADEIAASxJFAAMQwABK0oTAAxDAAErShQADEMAAStJFAAMQwABK0oUAAxCAAErShQADEIAAStKEwANBQ=="
+  id:  9cefa5e676394e4286fd9d44d0159e90
+
+- alias: Select Green Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "Green"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgDIAAABKpQRFBQRFRARFRQQFRASFBQQFTYUNRE5FTUUERU1FDYROBU1FBEVNRQRFRARFRMRFREQFRQ1ERUUNRE5FTUUNhE4FQAFOwABKksUAAxEAAEpTBQADEMAASpLFAAMRAABKUwRAAxGAAEqSxQADEQAASlMFAAMQwABKksUAAxEAAEpTBMADEQAASxJFAAMRAABK0oUAAxDAAErShQADEQAAStJFAAMRAABK0oUAAxDAAErShQADEMAASpLFAAMRAABKUsUAA0F"
+  id:  9cefa5e676394e4286fd9d44d0159e91
+
+- alias: Select Flash Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "Flash"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgCgAAABKZUSExMSFBITEhISFBITEhISFDYUNRE5FTUUERQ2FDURORU1FDYRFRI2EhUSERUSExISEhQSEzUVERM2FTUUNhE4FQAFOwABKUsUAAxCAAEpTBMADEMAASlLFAAMQwABK0kUAAxCAAEtSBQADEIAASpLEwAMQwABKkoUAAxCAAErShMADEMAASpKFAAMQgABK0oUAAxCAAEpSxQADQUAAAAAAAAAAA=="
+  id:  9cefa5e676394e4286fd9d44d0159e92
+
+- alias: Select Strobe Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "Strobe"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgDAAAABKZUSExMSFBITEhISFBITEhISFTUUNRE5FTUUERQ2FDURORU1FDYROBU1FBEVERIUEhEVERIUERIVERM2FTUUNhE4FQAFOgABKksUAAxCAAEpTBMADEMAASlLFAAMQgABKksUAAxCAAEpTBQADEIAASlLFAAMQwABKUsUAAxCAAEpTBQADEIAASlLFAAMQwABKUsUAAxCAAEpSxQADEMAASlLFAAMQwABKEwUAAxCAAEpSxQADEMAASlLFAANBQAAAAAAAAAA"
+  id:  9cefa5e676394e4286fd9d44d0159e93
+
+- alias: Select Fade Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "Fade"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgDAAAABKZQTEhQRFRETEhMRFRETEhMRFTUUNhM2FTUUERU1FDUTNxU1FzMRFRISFDYUEBURExMSERgOEzYVNRQRFDYUNRE5FQAFOgABKUsUAAxCAAEpSxQADEIAASlLFAAMQgABKUsUAAxCAAEpSxQADEMAAShMEwAMQgABK0oUAAxCAAEpSxQADEIAASlLFAAMQgABKUsUAAxCAAEpSxQADEMAAShLFAAMQwABKEsUAAxDAAEoTBMADEMAASlLFAANBQAAAAAAAAAA"
+  id:  9cefa5e676394e4286fd9d44d0159e94
+
+- alias: Select Smooth Exterior Lights
+  trigger:
+    - platform: state
+      entity_id: input_select.exterior_light_type
+      to: "Smooth"
+  action:
+    - service: switch.broadlink_send_packet_192_168_0_180
+      data:
+        packet: "JgDIAAABLJITERURExMSERURExITERUREzYVNRQ2EjcVERM2FTUUNhI3FTUUNhMTEzYTEhQRFBITEhMRFRETNhQSEzUVNhQ1EwAFPAABLUcVAAxCAAEtRxUADEIAASxIFQAMQgABLEgVAAxCAAEsSBQADEIAAS1HFQAMQgABLUcVAAxCAAEtRxUADEIAASxIFQAMQgABLEgVAAxCAAEsSBQADEIAAS1HFQAMQgABLEgVAAxCAAEsSBQADEIAAS1HFQAMQgABLUcVAA0F"
+  id:  9cefa5e676394e4286fd9d44d0159e95
+

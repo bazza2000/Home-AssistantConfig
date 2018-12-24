@@ -13,6 +13,6 @@
     service: media_player.play_media
     data:
       entity_id: media_player.computer_room
-      media_content_id: http://192.168.0.67:8123/local/shooting_star.mp3
+      media_content_id: http://vis.media-ice.musicradio.com/CapitalLiverpoolMP3
       media_content_type: 'audio/mp3'
 
