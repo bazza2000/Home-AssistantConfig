@@ -3,7 +3,7 @@
   trigger:
   - entity_id: device_tracker.8c4500aad0bf
     from: 'not_home'
-    to: 'home'
+    to: 'not_home'
     platform: state
   - entity_id: device_tracker.84c7eac09c53
     from: 'not_home'
@@ -51,7 +51,7 @@
   trigger:
   - entity_id: group.tracker
     from: 'home'
-    to: 'not_home'
+    to: 'home'
     platform: state
   condition:
     condition: or

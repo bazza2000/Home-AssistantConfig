@@ -79,6 +79,9 @@ tracker:
     - device_tracker.40cbc038d398
     - device_tracker.a010814f9a80
     - device_tracker.f431c3caa767
+    - device_tracker.30074dbc1fb9
+    - device_tracker.dc56e78b0c83
+
 kitchen:
   name: Kitchen
   entities:
@@ -87,7 +90,8 @@ kitchen:
     - sensor.aquarium_temperature
     - sensor.aquarium_temperature_2
     - weblink.aqua_cam
-    - switch.kitchen_lamp
+    - switch.sonoff130
+    - switch.sonoff134
 toy_room:
   name: Toy Room
   entities:
@@ -123,14 +127,13 @@ hosts:
 dusk_lights:
   name: Dusk Lights
   entities:
-    - switch.kitchen_lamp
+    - switch.sonoff130
     - switch.toy_room_light
     - switch.living_room_light
     - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
-    - switch.cloak_lamp
-    - switch.outside_xmas_lights
+    - switch.sonoff135
     - switch.exterior_lights
     - input_select.exterior_light_type
 lights:
@@ -138,26 +141,15 @@ lights:
   icon: mdi:lightbulb-on-outline
   name: Lights
   entities:
-    - switch.kitchen_lamp
+    - switch.sonoff130
     - switch.toy_room_light
     - switch.living_room_light
 #    - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
-    - switch.cloak_lamp
-    - switch.living_room_xmas_tree
-    - switch.outside_xmas_lights
+    - switch.sonoff135
     - switch.exterior_lights
     - input_select.exterior_light_type
-xmas:
-  view: yes
-  icon: mdi:snowman
-  name: Xmas
-  entities:
-    - switch.living_room_xmas_tree
-    - switch.outside_xmas_lights
-    - switch.cloak_left_xmas_lights
-    - switch.cloak_xmas_lights
 temperature:
   view: yes
   icon: mdi:oil-temperature

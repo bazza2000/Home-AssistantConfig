@@ -16,13 +16,10 @@
     entity_id: switch.living_room_light
   - delay: 00:00:02
   - service: switch.turn_on
-    entity_id: switch.kitchen_lamp
-  #- delay: 00:00:02
-  #- service: switch.turn_on
-  #  entity_id: switch.cloak_lamp
+    entity_id: switch.sonoff130
   - delay: 00:00:02
   - service: switch.turn_on
-    entity_id: switch.outside_xmas_lights
+    entity_id: switch.sonoff135
   - service: notify.barry
     data_template:
       title: Home Alert!
@@ -59,25 +56,13 @@
     entity_id: switch.living_room_light
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.kitchen_lamp
+    entity_id: switch.sonoff130
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.master_bedroom_light
- # - delay: 00:00:02
- # - service: switch.turn_off
- #   entity_id: switch.cloak_lamp
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.living_room_xmas_tree
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.outside_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_left_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_xmas_lights
+    entity_id: switch.sonoff135
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.toy_room_light
@@ -86,25 +71,13 @@
     entity_id: switch.living_room_light
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.kitchen_lamp
+    entity_id: switch.sonoff130
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.master_bedroom_light
-#  - delay: 00:00:02
-#  - service: switch.turn_off
-#    entity_id: switch.cloak_lamp
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.living_room_xmas_tree
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.outside_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_left_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_xmas_lights
+    entity_id: switch.sonoff135
   id: 8cf26a22df39486f97c5c9be129e7a92
 
 - alias: Bedtime Lights Off Weekend
@@ -125,25 +98,13 @@
     entity_id: switch.living_room_light
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.kitchen_lamp
+    entity_id: switch.sonoff130
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.master_bedroom_light
-#  - delay: 00:00:02
-#  - service: switch.turn_off
-#    entity_id: switch.cloak_lamp
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.living_room_xmas_tree
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.outside_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_left_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_xmas_lights
+    entity_id: switch.sonoff135
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.toy_room_light
@@ -152,25 +113,13 @@
     entity_id: switch.living_room_light
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.kitchen_lamp
+    entity_id: switch.sonoff130
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.master_bedroom_light
- # - delay: 00:00:02
- # - service: switch.turn_off
- #   entity_id: switch.cloak_lamp
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.living_room_xmas_tree
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.outside_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_left_xmas_lights
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.cloak_xmas_lights
+    entity_id: switch.sonoff135
   id: 1fadcb826b044baebda6d4bec347ab6b
 
 

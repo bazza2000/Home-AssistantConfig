@@ -9,7 +9,7 @@
     entity_id: media_player.downstairs
     service: tts.google_say
   - delay: 00:00:02
-  - entity_id: switch.aquarium_light
+  - entity_id: switch.sonoff134
     service: switch.turn_on
 - id: 338a5aedb5024f228a66a258cb35cd93
   alias: Aquarium Light Off
@@ -17,7 +17,7 @@
   - at: '22:00:00'
     platform: time
   action:
-  - entity_id: switch.aquarium_light
+  - entity_id: switch.sonoff134
     service: switch.turn_off
   - delay: 00:00:02
   - entity_id: switch.aquarium_light

@@ -5,3 +5,14 @@
   action:
   - service: python_script.birthdays
   id: 65843369a4dd45cb8870252f43e3f845
+
+- alias: "Power state on HA start-up"
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: mqtt.publish
+      data:
+        topic: "/sonoffs/cmnd/state"
+        payload: "" 
+  id: 65843369a4dd75cb8870252f43e3f845
