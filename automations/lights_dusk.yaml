@@ -10,13 +10,13 @@
       message: Turning Lights on at dusk
   - delay: 00:00:02
   - service: switch.turn_on
-    entity_id: switch.toy_room_light
-  - delay: 00:00:02
-  - service: switch.turn_on
-    entity_id: switch.living_room_light
-  - delay: 00:00:02
-  - service: switch.turn_on
     entity_id: switch.sonoff130
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.sonoff131
+  - delay: 00:00:02
+  - service: switch.turn_on
+    entity_id: switch.sonoff133
   - delay: 00:00:02
   - service: switch.turn_on
     entity_id: switch.sonoff135
@@ -25,6 +25,29 @@
       title: Home Alert!
       message: Dusk lights activated
   id: 9befa5e676394e4286ed9c44d0159e88
+
+- id: '1571584860629'
+  alias: TV LED Lights on when baz home
+  trigger:
+  - entity_id: 'device_tracker.8c4500aad0bf'
+    from: 'not_home'
+    platform: state
+    to: 'home'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: switch.sonoff131
+        state: 'on'
+      - condition: state
+        entity_id: 'sun.sun'
+        state: 'below_horizon'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.sonoff131
+  - service: switch.turn_on
+    entity_id: switch.sonoff132
+    
 
 - alias: Bedroom Lights On
   trigger:
@@ -50,34 +73,25 @@
   action:
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.toy_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.living_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
     entity_id: switch.sonoff130
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.master_bedroom_light
+    entity_id: switch.sonoff131
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.sonoff132
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.sonoff133
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.sonoff135
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.toy_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.living_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.sonoff130
-  - delay: 00:00:02
-  - service: switch.turn_off
     entity_id: switch.master_bedroom_light
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.sonoff135
+    entity_id: switch.master_bedroom_light
   id: 8cf26a22df39486f97c5c9be129e7a92
 
 - alias: Bedtime Lights Off Weekend
@@ -92,34 +106,25 @@
   action:
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.toy_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.living_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
     entity_id: switch.sonoff130
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.master_bedroom_light
+    entity_id: switch.sonoff131
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.sonoff132
+  - delay: 00:00:02
+  - service: switch.turn_off
+    entity_id: switch.sonoff133
   - delay: 00:00:02
   - service: switch.turn_off
     entity_id: switch.sonoff135
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.toy_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.living_room_light
-  - delay: 00:00:02
-  - service: switch.turn_off
-    entity_id: switch.sonoff130
-  - delay: 00:00:02
-  - service: switch.turn_off
     entity_id: switch.master_bedroom_light
   - delay: 00:00:02
   - service: switch.turn_off
-    entity_id: switch.sonoff135
+    entity_id: switch.master_bedroom_light
   id: 1fadcb826b044baebda6d4bec347ab6b
 
 
@@ -129,6 +134,9 @@
     event: sunset
     offset: 00:00:00
   action:
+  - service: switch.turn_on
+    entity_id: switch.exterior_lights
+  - delay: 00:00:10
   - service: switch.turn_on
     entity_id: switch.exterior_lights
   - service: notify.barry
@@ -143,6 +151,9 @@
     event: sunrise
     offset: 00:00:00
   action:
+  - service: switch.turn_off
+    entity_id: switch.exterior_lights
+  - delay: 00:00:10
   - service: switch.turn_off
     entity_id: switch.exterior_lights
   - service: notify.barry

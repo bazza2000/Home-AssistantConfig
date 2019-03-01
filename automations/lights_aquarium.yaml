@@ -1,7 +1,7 @@
 - id: 07ac09c8b3d64dbd813cc63e9038649a
   alias: Aquarium Light On
   trigger:
-  - at: '18:00:00'
+  - at: '17:00:00'
     platform: time
   action:
   - data_template:

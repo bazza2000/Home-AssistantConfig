@@ -13,6 +13,7 @@ home:
     - group.living_room
     - group.external
     - group.weather
+    - group.all_lights
 external:
   name: External
   entities:
@@ -81,6 +82,8 @@ tracker:
     - device_tracker.f431c3caa767
     - device_tracker.30074dbc1fb9
     - device_tracker.dc56e78b0c83
+    - device_tracker.8cf5a3b1c667
+    - device_tracker.18810e7fab8a
 
 kitchen:
   name: Kitchen
@@ -95,7 +98,7 @@ kitchen:
 toy_room:
   name: Toy Room
   entities:
-    - switch.toy_room_light
+    - switch.sonoff133
     - device_tracker.1c5a3eb7902b
     - device_tracker.6cadf8ab9ef0
 hosts:
@@ -128,8 +131,8 @@ dusk_lights:
   name: Dusk Lights
   entities:
     - switch.sonoff130
-    - switch.toy_room_light
-    - switch.living_room_light
+    - switch.sonoff133
+    - switch.sonoff131
     - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
@@ -142,14 +145,15 @@ lights:
   name: Lights
   entities:
     - switch.sonoff130
-    - switch.toy_room_light
-    - switch.living_room_light
+    - switch.sonoff133
+    - switch.sonoff131
 #    - switch.external_lights
     - switch.master_bedroom_light
     - switch.aquarium_light
     - switch.sonoff135
     - switch.exterior_lights
     - input_select.exterior_light_type
+    - light.livingroomled
 temperature:
   view: yes
   icon: mdi:oil-temperature
@@ -170,7 +174,7 @@ temperature:
 living_room:
   name: Living Room
   entities:
-    - switch.living_room_light
+    - switch.sonoff131
     - sensor.ps4
     - sensor.ps4_today
     - sensor.ps4_today_time

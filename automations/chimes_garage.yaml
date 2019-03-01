@@ -37,6 +37,9 @@
       - condition: state
         entity_id: 'device_tracker.8cf5a3e7097b'
         state: 'not_home'
+      - condition: state
+        entity_id: 'device_tracker.58e28f6772fe'
+        state: 'not_home'
   action:
   - service: notify.barry
     data_template:

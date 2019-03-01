@@ -10,9 +10,9 @@
       minutes: 1
       seconds: 0
   condition:
-    condition: time
-    after:  '08:00'
-    before: '21:00'
+    condition: numeric_state
+    entity_id: sensor.outside_temperature
+    above: 20
   action:
   - service: media_player.volume_set
     data_template:
@@ -20,5 +20,81 @@
       volume_level: 0.5
   - data_template:
       message: "The Garage door has been open for a while and its {{states.sensor.dark_sky_temperature.state|round}} degrees outside. Can someone please close the door."
+    entity_id: media_player.kitchen
+    service: tts.google_say
+
+- id: '1551573865629'
+  alias: door open even longer
+  trigger:
+  - entity_id: binary_sensor.garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition:
+    condition: numeric_state
+    entity_id: sensor.outside_temperature
+    above: 20
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  - data_template:
+      message: "The Garage door is still open. Can someone please close the door now.  Its Freezing in here!!"
+    entity_id: media_player.kitchen
+    service: tts.google_say
+
+- id: '1561573865629'
+  alias: door open even longer
+  trigger:
+  - entity_id: binary_sensor.garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition:
+    condition: numeric_state
+    entity_id: sensor.outside_temperature
+    above: 20
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 1.0
+  - data_template:
+      message: "The Garage door has now been open for 10 minutes. Close the door NOW! or the house alarm will go off!!"
+    entity_id: media_player.kitchen
+    service: tts.google_say
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+
+- id: '1561773865629'
+  alias: door open even longer
+  trigger:
+  - entity_id: binary_sensor.garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  - data_template:
+      message: "The Garage door has now been open for 10 minutes. Can someone please close the door!!"
     entity_id: media_player.kitchen
     service: tts.google_say
