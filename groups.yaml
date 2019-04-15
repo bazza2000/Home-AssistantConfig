@@ -24,27 +24,11 @@ alarm:
   name: Alarm
   entities:
     - alarm_control_panel.home_alarm
-    - sensor.konnected_1
-    - sensor.konnected_2
     - sensor.konnected_3
-    - sensor.konnected_4
-    - switch.siren
-    - switch.beep_beep
-    - switch.chime
     - binary_sensor.office_motion
     - binary_sensor.front_door
     - binary_sensor.garage_door
-    - binary_sensor.garage
-    - binary_sensor.kitchen
-    - binary_sensor.living_room
-    - binary_sensor.hall
-    - binary_sensor.study
     - binary_sensor.study_movement
-    - binary_sensor.toy_room
-    - binary_sensor.office
-    - binary_sensor.landing
-    - binary_sensor.master_bedroom
-    - binary_sensor.lukes_room
 door_sensors:
   name: Door Sensors
   entities:
@@ -151,7 +135,7 @@ lights:
     - switch.master_bedroom_light
     - switch.aquarium_light
     - switch.sonoff135
-    - switch.exterior_lights
+#    - switch.exterior_lights
     - input_select.exterior_light_type
     - light.livingroomled
 temperature:

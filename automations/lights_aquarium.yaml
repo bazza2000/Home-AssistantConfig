@@ -4,10 +4,10 @@
   - at: '17:00:00'
     platform: time
   action:
-  - data_template:
-      message: Turning Aquarium Light on
-    entity_id: media_player.downstairs
-    service: tts.google_say
+#  - data_template:
+#      message: Turning Aquarium Light on
+#    entity_id: media_player.downstairs
+#    service: tts.google_say
   - delay: 00:00:02
   - entity_id: switch.sonoff134
     service: switch.turn_on

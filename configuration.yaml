@@ -13,6 +13,8 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+system_health:
+
 recorder:
   db_url: !secret recorder_db_url
 
@@ -125,6 +127,7 @@ camera:
   - platform: generic
     name: Fish Cam
     still_image_url: http://192.168.0.65/html/cam_pic.php
+    stream_source: http://192.168.0.65/html/status_mjpeg.php?last=ready
   - platform: yi
     name: Computer Room
     host: '192.168.0.231'
@@ -207,7 +210,7 @@ sensor:
 
   - platform: darksky
     api_key: !secret darksky_api3
-    update_interval: '00:30'
+    scan_interval: '00:30'
     monitored_conditions:
       - summary
       - precip_type
@@ -546,88 +549,27 @@ switch:
         command_state: "nc -z -w 5 192.168.0.207 9295"
         friendly_name: PS4
 
+
+
 hive:
   username: !secret hive_user
   password: !secret hive_pass
+
 
 konnected:
   api_host: !secret api_host
   access_token: !secret konnected_access_token
   devices:
-    - id: '600194744429'
+    - id: 'bcddc2018e2e'
       binary_sensors:
         - zone: 2
-          type: motion
-          name: 'Spare 1'
-        - zone: 3
-          type: motion
-          name: 'Garage'
-        - zone: 4
-          type: motion
-          name: 'Hall'
-        - zone: 5
-          type: motion
-          name: 'Kitchen'
-        - zone: 6
-          type: motion
-          name: 'Living Room'
+          type: lock
+          name: 'Alarm State'
       switches:
-        - zone: out
-          name: 'Outside Garage Door'
-          activation: low
+        - zone: 5
+          name: 'Personal Alarm'
+          activation: high
           momentary: 500
-    - id: 807d3a6ef50f
-      binary_sensors:
-        - zone: 1
-          type: motion
-          name: 'Study'
-          inverse: true
-        - zone: 2
-          type: motion
-          name: 'Toy Room'
-          inverse: true
-        - zone: 3
-          type: motion
-          name: 'Office'
-          inverse: true
-        - zone: 4
-          type: motion
-          name: 'Landing'
-          inverse: true
-        - zone: 5
-          type: motion
-          name: 'Master Bedroom'
-          inverse: true
-        - zone: 6
-          type: motion
-          name: 'Lukes Room'
-          inverse: true
-      switches:
-        - zone: out
-          name: 'Beep Beep'
-          momentary: 65
-          pause: 55
-          repeat: 4
-        - zone: out
-          name: 'Entry Exit Delay'
-          momentary: 50
-          pause: 1000
-          repeat: 5
-        - zone: out
-          name: 'Chime'
-          momentary: 200 
-        - zone: out
-          name: 'Siren'
-    - id: bcddc2018e2e
-      binary_sensors:
-        - zone: 1
-          type: motion
-          name: 'Spare 2'
-    - id: 84f3ebb35cae
-      binary_sensors:
-        - zone: 1
-          type: motion
-          name: 'Spare 3'
 
 device_tracker:
   - platform: nmap_tracker

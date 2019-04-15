@@ -1,0 +1,20 @@
+- alias: Home Greeting Julie
+  trigger:
+    platform: state
+    entity_id: device_tracker.0c8ffff7fe2c
+    from: not_home
+    to: home
+  action:
+  - service: notify.barry
+    data_template:
+      title: Home Alert!
+      message: Julie has arrived at Home
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: Hello Julie, hope you are having a great day!
+  id: bdafbbc66f41401d99c0218d3d7b37e1
