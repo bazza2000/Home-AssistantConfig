@@ -2,12 +2,8 @@
   trigger:
     platform: sun
     event: sunset
-    offset: -00:07:00
+    offset: -00:30:00
   action:
-    #  - service: tts.google_say
-    #    entity_id: media_player.downstairs
-    #    data_template:
-    #      message: Turning Lights on at dusk
     - delay: 00:00:02
     - service: switch.turn_on
       entity_id: switch.sonoff130
@@ -20,6 +16,9 @@
     - delay: 00:00:02
     - service: switch.turn_on
       entity_id: switch.sonoff135
+    - delay: 00:00:02
+    - service: switch.turn_on
+      entity_id: switch.sonoff137
     - service: notify.barry
       data_template:
         title: Home Alert!
@@ -69,6 +68,7 @@
       to: "off"
   condition:
     condition: time
+    after: '21:30:00'
     weekday:
       - sun
       - mon
@@ -97,6 +97,9 @@
     - delay: 00:00:02
     - service: switch.turn_off
       entity_id: switch.master_bedroom_light
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.sonoff137
   id: 8cf26a22df39486f97c5c9be129e7a92
 
 - alias: Bedtime Lights Off Weekend
@@ -109,6 +112,7 @@
       to: "off"
   condition:
     condition: time
+    after: '21:30:00'
     weekday:
       - fri
       - sat
@@ -128,6 +132,9 @@
     - delay: 00:00:02
     - service: switch.turn_off
       entity_id: switch.sonoff135
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.sonoff137
     - delay: 00:00:02
     - service: switch.turn_off
       entity_id: switch.master_bedroom_light

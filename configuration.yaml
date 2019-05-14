@@ -37,7 +37,7 @@ config:
 # http:
 #   base_url: example.duckdns.org:8123
 http:
-#  api_password: !secret http_api_password
+  #  api_password: !secret http_api_password
   base_url: !secret base_url
 #  ssl_certificate: /ssl/fullchain.pem
 #  ssl_key: /ssl/privkey.pem
@@ -101,7 +101,6 @@ influxdb:
   max_retries: 3
   default_measurement: state
 
-
 alarm_control_panel:
   - platform: manual
     name: Home Alarm
@@ -130,15 +129,15 @@ camera:
     stream_source: http://192.168.0.65/html/status_mjpeg.php?last=ready
   - platform: yi
     name: Computer Room
-    host: '192.168.0.231'
+    host: "192.168.0.231"
     password: !secret yi
   - platform: yi
     name: Living Room
-    host: '192.168.0.232'
-    password: !secret yi    
+    host: "192.168.0.232"
+    password: !secret yi
   - platform: yi
     name: Kitchen
-    host: '192.168.0.218'
+    host: "192.168.0.218"
     password: !secret yi
 
 ifttt:
@@ -152,11 +151,36 @@ weather:
 sensor:
   - platform: time_date
     display_options:
-      - 'time'
-      - 'date'
-      - 'date_time'
-      - 'time_date'
-      - 'time_utc'
+      - "time"
+      - "date"
+      - "date_time"
+      - "time_date"
+      - "time_utc"
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: disk_use
+        arg: /
+      - type: disk_free
+        arg: /
+      - type: memory_free
+      - type: load_1m
+      - type: load_5m
+      - type: load_15m
+      - type: swap_use_percent
+      - type: memory_use
+      - type: memory_free
+      - type: swap_use
+      - type: swap_free
+      - type: network_in
+      - type: network_out
+      - type: throughput_network_in
+      - type: throughput_network_out
+      - type: ipv4_address
+      - type: process
+      - type: last_boot
+      - type: processor_use
 
   - platform: yr
   - platform: command_line
@@ -179,38 +203,32 @@ sensor:
     command: "curl --silent -X GET http://192.168.0.63/1-wire/temp2"
     # If errors occur, remove degree symbol below
     unit_of_measurement: "°C"
+  - platform: command_line
+    name: Luke Dinner Money Balance
+    command: "curl --silent -X GET http://192.168.0.63/parentmail/luke_pm"
+  - platform: command_line
+    name: Zak Dinner Money Balance
+    command: "curl --silent -X GET http://192.168.0.63/parentmail/zak_pm"
   - platform: season
     type: astronomical
   - platform: uptime
   - platform: version
   - platform: rest
-    resource: http://192.168.0.170:15619/status
-    name: konnected 1 wifi
-    value_template: '{{ value_json.rssi }}'
-  - platform: rest
-    resource: http://192.168.0.171:15271/status
-    name: konnected 2 wifi
-    value_template: '{{ value_json.rssi }}'
-  - platform: rest
     resource: http://192.168.0.172:8101/status
     name: konnected 3 wifi
-    value_template: '{{ value_json.rssi }}'
-  - platform: rest
-    resource: http://192.168.0.173:19754/status
-    name: konnected 4 wifi
-    value_template: '{{ value_json.rssi }}'
+    value_template: "{{ value_json.rssi }}"
 
-#  - platform: template
-#    sensors:
-#      playstation:
-#        value_template: "{% if is_state('device_tracker.0cfe45d692b7', 'home') %}ON{% else %}OFF{% endif %}"
-#        friendly_name: 'Playstation 4'
-#      280dfc4c0320:
-#        value_template: "{% if is_state('device_tracker.280dfc4c0320', 'home') %}ON{% else %}OFF{% endif %}"
+  #  - platform: template
+  #    sensors:
+  #      playstation:
+  #        value_template: "{% if is_state('device_tracker.0cfe45d692b7', 'home') %}ON{% else %}OFF{% endif %}"
+  #        friendly_name: 'Playstation 4'
+  #      280dfc4c0320:
+  #        value_template: "{% if is_state('device_tracker.280dfc4c0320', 'home') %}ON{% else %}OFF{% endif %}"
 
   - platform: darksky
     api_key: !secret darksky_api3
-    scan_interval: '00:30'
+    scan_interval: "00:30"
     monitored_conditions:
       - summary
       - precip_type
@@ -241,43 +259,46 @@ sensor:
   - platform: history_stats
     name: PS4 today
     entity_id: switch.ps4
-    state: 'on'
+    state: "on"
     type: time
-    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    end: '{{ now() }}'
-
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: Zak PC today
+    entity_id: device_tracker.zak_pc
+    state: "home"
+    type: time
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
+    name: XBOX today
+    entity_id: device_tracker.xbox
+    state: "home"
+    type: time
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
 
   - platform: template
     sensors:
       ps4_today_time:
-        value_template: '{{ states.sensor.ps4_today.attributes.value }}'
+        value_template: "{{ states.sensor.ps4_today.attributes.value }}"
   - platform: template
     sensors:
-      konnected_1_wifi_strength:
-        value_template: '{{ (((( states.sensor.konnected_1_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
+      zakpc_today_time:
+        value_template: "{{ states.sensor.zak_pc_today.attributes.value }}"
   - platform: template
     sensors:
-      konnected_2_wifi_strength:
-        value_template: '{{ (((( states.sensor.konnected_2_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
+      xbox_today_time:
+        value_template: "{{ states.sensor.xbox_today.attributes.value }}"
   - platform: template
     sensors:
       konnected_3_wifi_strength:
-        value_template: '{{ (((( states.sensor.konnected_3_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
-  - platform: template
-    sensors:
-      konnected_4_wifi_strength:
-        value_template: '{{ (((( states.sensor.konnected_4_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}'
+        value_template: "{{ (((( states.sensor.konnected_3_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}"
 
   - platform: template
     sensors:
-      konnected_1:
-        value_template: "{% if is_state('device_tracker.konnected1', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
-      konnected_2:
-        value_template: "{% if is_state('device_tracker.konnected2', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       konnected_3:
         value_template: "{% if is_state('device_tracker.konnected3', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
-      konnected_4:
-        value_template: "{% if is_state('device_tracker.konnected4', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       sonoff_150:
         value_template: "{% if is_state('device_tracker.sonoff150', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       sonoff_151:
@@ -290,25 +311,33 @@ sensor:
         value_template: "{% if is_state('device_tracker.aqua', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       izzy_1:
         value_template: "{% if is_state('device_tracker.izzy', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      zak_pc_status:
+        value_template: "{% if is_state('device_tracker.zak_pc', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      xbox_status:
+        value_template: "{% if is_state('device_tracker.xbox', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      house_alarm:
+        friendly_name: "House Alarm"
+        value_template: "{% if is_state('binary_sensor.alarm_state', 'off') %}DISARMED{% else %}ARMED{% endif %}"
+        icon_template: "{% if is_state('binary_sensor.alarm_state', 'off') %}mdi:lock{% else %}lock-open-outline{% endif %}"
 
   - platform: template
     sensors:
-       hall_temperature:
-          friendly_name: "Hall Temperature"
-          value_template: "{{  states.climate.heating.attributes.current_temperature }}"
-          unit_of_measurement: "°C"
+      hall_temperature:
+        friendly_name: "Hall Temperature"
+        value_template: "{{  states.climate.heating.attributes.current_temperature }}"
+        unit_of_measurement: "°C"
 
   - platform: template
     sensors:
-       hive_battery:
-          friendly_name: "Hive Battery"
-          value_template: "{{  states.climate.heating.attributes.battery_level }}"
+      hive_battery:
+        friendly_name: "Hive Batt"
+        value_template: "{{  states.climate.heating.attributes.battery_level }}"
 
   - platform: template
     sensors:
-       hall_thermostat_temp_setting:
-          friendly_name: "Hall Thermostat Temp Setting"
-          value_template: "{{  states.climate.heating.attributes.temperature }}"
+      hall_thermostat_temp_setting:
+        friendly_name: "Hall Thermostat Temp Setting"
+        value_template: "{{  states.climate.heating.attributes.temperature }}"
 
   - platform: template
     sensors:
@@ -325,35 +354,37 @@ binary_sensor:
     sensors:
       study_movement:
         friendly_name: Study Movement
-        value_template: '{{(as_timestamp(now()) - as_timestamp(states.binary_sensor.study.last_changed) < 1800)}}'
+        value_template: "{{(as_timestamp(now()) - as_timestamp(states.binary_sensor.study.last_changed) < 1800)}}"
         device_class: motion
         entity_id: sensor.time
+  - platform: workday
+    country: UK
 
   - platform: mqtt
     state_topic: "tele/sonoff151/RESULT"
-    name: 'Office Motion'
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: 'D19A0E'
-    payload_off: 'D19A0Eoff'
+    name: "Office Motion"
+    value_template: "{{value_json.RfReceived.Data}}"
+    payload_on: "D19A0E"
+    payload_off: "D19A0Eoff"
     device_class: motion
-#    optimistic: false
+    #    optimistic: false
     qos: 1
-#    remain: false
+  #    remain: false
 
   - platform: mqtt
     state_topic: "tele/sonoff151/RESULT"
-    name: 'Front Door'
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: '14A70A'
-    payload_off: '14A70E'
+    name: "Front Door"
+    value_template: "{{value_json.RfReceived.Data}}"
+    payload_on: "14A70A"
+    payload_off: "14A70E"
     device_class: door
 
   - platform: mqtt
     state_topic: "tele/sonoff151/RESULT"
-    name: 'Garage Door'
-    value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: '168C0A'
-    payload_off: '168C0E'
+    name: "Garage Door"
+    value_template: "{{value_json.RfReceived.Data}}"
+    payload_on: "168C0A"
+    payload_off: "168C0E"
     device_class: door
 
 #  - platform: uk_transport
@@ -369,27 +400,31 @@ binary_sensor:
 #        value_template: '{{ states("media_player.kitchen") }}'
 #        friendly_name: 'Kitchen Chromecast'
 
-
-
 # Text to speech
 tts:
-  - platform: google
+  - platform: google_translate
+    service_name: google_say
 
 # Cloud
 cloud:
+
+media_player:
+  - platform: xboxone
+    device: FD00BE72E3714424
+    name: XBOX one
 
 input_select:
   exterior_light_type:
     name: Exterior Lights Settings
     options:
-     - "White"
-     - "Red"
-     - "Blue"
-     - "Green"
-     - "Flash"
-     - "Strobe"
-     - "Fade"
-     - "Smooth"
+      - "White"
+      - "Red"
+      - "Blue"
+      - "Green"
+      - "Flash"
+      - "Strobe"
+      - "Fade"
+      - "Smooth"
     initial: White
     icon: mdi:lightbulb-on-online
 
@@ -404,10 +439,10 @@ light:
     name: "LivingRoomLED"
     state_topic: "home/LivingRoomLED_ha/state/out"
     command_topic: "home/LivingRoomLED_ha/state/in"
-#    on_command_type: 'first'
+    #    on_command_type: 'first'
     effect: true
     effect_list:
-    ######
+      ######
       - "Static"
       - "Blink"
       - "Breath"
@@ -471,7 +506,7 @@ light:
     optimistic: false
     qos: 0
     retain: true
-    
+
 input_number:
   neopixel_animation_speed:
     name: NeoPixel Animation Speed
@@ -485,7 +520,6 @@ person:
     id: baz
     device_trackers:
       - device_tracker.8c4500aad0bf
-  
 
 switch:
   - platform: broadlink
@@ -497,6 +531,10 @@ switch:
         friendly_name: "Exterior Lights"
         command_on: "JgBYAAABKpQVERAUFBEVERAUFBEVERAVFDUROBI5FDURFBQ2ETgVNhQ1ETkUEREUFBEVEBEUFBEVEBEUFDYROBU2FDUROBI5FAAFOgABLUcSAAxEAAEtRxEADQU="
         command_off: "JgCQAAABKZQUEhMRFREQFhMQFRERFBQQFTYUNRE5FDYUERQ2FDUSOBUQETkRFBEUFBEUEREUFBEVNRQRETkUNRE5FTUUNhM2FQAFOgABKksUAAxCAAEpSxQADEIAASpLEwAMQQABLUkTAAxDAAEqSxQADEIAAStJEwAMQwABKksSAAxEAAEsSRIADEMAASpJFQANBQAAAAAAAAAA"
+      exterior_lights_red:
+        friendly_name: "Exterior Lights Red"
+        command_on: "JgCgAAABKZURFBQRFBIRExQRFBIRFBMRFTUSOBE4EzcUERU1FDYROBMTEhQTNREWExAVERIUExAVNhQ1ERUSNxE4FTYUNRE5FQAFOgABKksUAAxDAAEpSxQADEMAAStKFAAMQgABKksUAAxDAAEpTBQADEIAAStKFAAMQwABKUwUAAxDAAEsSBQADEMAAStKFAAMQwABK0oTAAxEAAErSRQADQUAAAAAAAAAAA=="
+        command_off: "JgC4AAABKpQRFRMRFRESFBIRFRETExIRFTYWMxE5EzcUERQ2FDUTNxU1FDYROBURExMSERUREhQREhgPEhMRNxE5FTUUNhE4FQAFOwABKUsUAAxDAAEpTBQADEIAASpLFAAMQwABKUwUAAxDAAEpSxQADEMAASpLFAAMQwABKUwUAAxDAAEpSxQADEMAAStKFAAMQwABK0kVAAxCAAErShQADEMAAStKFAAMQgABK0oUAAxDAAErSRQADQU="
   - platform: command_line
     switches:
       # toy_room_light:
@@ -511,63 +549,60 @@ switch:
       #   command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey4"
       #   command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey12"
       #   friendly_name: 'Living Room Light'
-    #  cloak_xmas_lights:
-    #    command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey6"
-    #    command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey14"
-    #    friendly_name: 'Cloak Xmas Lights'
-    #  cloak_left_xmas_lights:
-    #    command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
-    #    command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
-    #    friendly_name: 'Cloak Left Xmas Lights'
-    #  kitchen_lamp:
-    #    command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey3"
-    #    command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey11"
-    #    friendly_name: 'Kitchen Lamp'
-    #  aquarium_light:
-    #    command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
-    #    command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
-    #    friendly_name: 'Aquarium Light'
-    #  living_room_xmas_tree:
-    #    command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey5"
-    #    command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey13"
-    #    friendly_name: 'Living Room Xmas Tree'
+      #  cloak_xmas_lights:
+      #    command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey6"
+      #    command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey14"
+      #    friendly_name: 'Cloak Xmas Lights'
+      #  cloak_left_xmas_lights:
+      #    command_on: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey3"
+      #    command_off: "curl --silent -X GET http://192.168.0.150/cm?cmnd=RfKey11"
+      #    friendly_name: 'Cloak Left Xmas Lights'
+      #  kitchen_lamp:
+      #    command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey3"
+      #    command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey11"
+      #    friendly_name: 'Kitchen Lamp'
+      #  aquarium_light:
+      #    command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey4"
+      #    command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey12"
+      #    friendly_name: 'Aquarium Light'
+      #  living_room_xmas_tree:
+      #    command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey5"
+      #    command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey13"
+      #    friendly_name: 'Living Room Xmas Tree'
       master_bedroom_light:
         command_on: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey7"
         command_off: "curl --silent -X GET http://192.168.0.151/cm?cmnd=RfKey15"
-        friendly_name: 'Master Bedroom Light'
-#      outside_xmas_lights:
-#        command_on: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey1"
-#        command_off: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey9"
-#        friendly_name: 'Outside Xmas Lights'
-#      external_lights:
-#        command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
-#        command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'
-#        friendly_name: 'External Lights'
+        friendly_name: "Master Bedroom Light"
+      #      outside_xmas_lights:
+      #        command_on: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey1"
+      #        command_off: "curl --silent -X GET http://192.168.0.152/cm?cmnd=RfKey9"
+      #        friendly_name: 'Outside Xmas Lights'
+      #      external_lights:
+      #        command_on: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=On"'
+      #        command_off: 'curl -k "https://192.168.0.63/json.htm?type=command&param=switchlight&idx=4&switchcmd=Off"'
+      #        friendly_name: 'External Lights'
       ps4:
         command_on: "echo on"
         command_off: "echo off"
-        command_state: "nc -z -w 5 192.168.0.207 9295"
+        command_state: "nc -z -w 5 192.168.0.200 9295"
         friendly_name: PS4
-
-
 
 hive:
   username: !secret hive_user
   password: !secret hive_pass
 
-
 konnected:
   api_host: !secret api_host
   access_token: !secret konnected_access_token
   devices:
-    - id: 'bcddc2018e2e'
+    - id: "bcddc2018e2e"
       binary_sensors:
         - zone: 2
-          type: lock
-          name: 'Alarm State'
+          type: connectivity
+          name: "Alarm State"
       switches:
         - zone: 5
-          name: 'Personal Alarm'
+          name: "Personal Alarm"
           activation: high
           momentary: 500
 
@@ -577,45 +612,43 @@ device_tracker:
     consider_home: 180
   - platform: ping
     hosts:
-      zak_pc:     192.168.0.20
-      sonoff150:  192.168.0.150
-      sonoff151:  192.168.0.151
-      sonoff152:  192.168.0.152
-      nas:        192.168.0.100
-      izzy:       192.168.0.63
-      aqua:       192.168.0.65
+      zak_pc: 192.168.0.20
+      xbox: 192.168.0.25
+      sonoff150: 192.168.0.150
+      sonoff151: 192.168.0.151
+      sonoff152: 192.168.0.152
+      nas: 192.168.0.100
+      izzy: 192.168.0.63
+      aqua: 192.168.0.65
       virgin_router: 192.168.0.1
-      asus_router:   192.168.0.3
-      konnected1: 192.168.0.170
-      konnected2: 192.168.0.171
+      asus_router: 192.168.0.3
       konnected3: 192.168.0.172
-      konnected4: 192.168.0.173
 
 weblink:
   entities:
     - name: Aqua Cam
-      url:  http://127.0.0.1/
+      url: http://127.0.0.1/
       icon: mdi:fish
     - name: Sonoff 150
-      url:  http://192.168.0.150/
+      url: http://192.168.0.150/
       icon: mdi:wifi
     - name: Sonoff 151
-      url:  http://192.168.0.151/
+      url: http://192.168.0.151/
       icon: mdi:wifi
     - name: Sonoff 152
-      url:  http://192.168.0.152/
+      url: http://192.168.0.152/
       icon: mdi:wifi
     - name: Konnected 1
-      url:  http://192.168.0.170:15619/
+      url: http://192.168.0.170:15619/
       icon: mdi:wifi
     - name: Konnected 2
-      url:  http://192.168.0.171:15271/
+      url: http://192.168.0.171:15271/
       icon: mdi:wifi
     - name: Konnected 3
-      url:  http://192.168.0.172:8101/
+      url: http://192.168.0.172:8101/
       icon: mdi:wifi
     - name: Konnected 4
-      url:  http://192.168.0.173:19754/
+      url: http://192.168.0.173:19754/
       icon: mdi:wifi
 
 python_script:

@@ -1,0 +1,45 @@
+- id: '1540642667828'
+  alias: Zak Dinner Money Low
+  trigger:
+    platform: time
+    at: '08:30:00'
+  condition:
+    condition: numeric_state
+    entity_id: sensor.zak_dinner_money_balance
+    below: 3
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: Zaks Dinner Money Balance is low at £{{ states.sensor.zak_dinner_money_balance.state}}.
+  - service: notify.barry
+    data_template:
+      title: Dinner Money Zak!
+      message: Zaks Dinner Money Balance is low at £{{ states.sensor.zak_dinner_money_balance.state}}.
+
+- id: '1540642667829'
+  alias: Luke Dinner Money Low
+  trigger:
+    platform: time
+    at: "08:31:00"
+  condition:
+    condition: numeric_state
+    entity_id: sensor.luke_dinner_money_balance
+    below: 11
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: Lukes Dinner Money Balance is low at £{{ states.sensor.luke_dinner_money_balance.state}}.
+  - service: notify.ruth
+    data_template:
+      title: Dinner Money Luke!
+      message: Lukes Dinner Money Balance is low at £{{ states.sensor.luke_dinner_money_balance.state}}.

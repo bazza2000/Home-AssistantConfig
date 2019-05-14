@@ -1,49 +1,57 @@
-- id: '2541363072998'
+- id: "2541363072998"
   alias: Alarm Announce on Arm
   trigger:
-  - entity_id: binary_sensor.alarm_state
-    from: 'on'
-    platform: state
-    to: 'off'
+    - entity_id: binary_sensor.alarm_state
+      from: "off"
+      platform: state
+      to: "on"
   condition:
     condition: time
-    after:  '08:00'
-    before: '21:00'
+    after: "08:00"
+    before: "21:00"
   action:
-  - service: media_player.volume_set
-    data_template:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: 0.2
+    - data_template:
+        message: "The Alarm has been Armed"
       entity_id: media_player.kitchen
-      volume_level: 0.2
-  - data_template:
-      message: "The Alarm has been Armed"
-    entity_id: media_player.kitchen
-    service: tts.google_say
-  - service: notify.barry
-    data_template:
-      title: Alarm Alert!
-      message: "The House Alarm has been Armed"
-- id: '2641363072998'
+      service: tts.google_say
+    - service: notify.barry
+      data_template:
+        title: Alarm Alert!
+        message: "The House Alarm has been Armed"
+    - service: notify.ruth
+      data_template:
+        title: Alarm Alert!
+        message: "The House Alarm has been Armed"
+- id: "2641363072998"
   alias: Alarm Announce on Disarm
   trigger:
-  - entity_id: binary_sensor.alarm_state
-    from: 'off'
-    platform: state
-    to: 'on'
+    - entity_id: binary_sensor.alarm_state
+      from: "on"
+      platform: state
+      to: "off"
   condition:
     condition: time
-    after:  '08:00'
-    before: '21:00'
+    after: "08:00"
+    before: "21:00"
   action:
-  - service: media_player.volume_set
-    data_template:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: 0.2
+    - delay: 00:00:05
+    - data_template:
+        message: "The Alarm has been Disarmed"
       entity_id: media_player.kitchen
-      volume_level: 0.2
-  - delay: 00:00:05
-  - data_template:
-      message: "The Alarm has been Disarmed"
-    entity_id: media_player.kitchen
-    service: tts.google_say
-  - service: notify.barry
-    data_template:
-      title: Alarm Alert!
-      message: "The Alarm has been Disarmed"
+      service: tts.google_say
+    - service: notify.barry
+      data_template:
+        title: Alarm Alert!
+        message: "The Alarm has been Disarmed"
+    - service: notify.ruth
+      data_template:
+        title: Alarm Alert!
+        message: "The Alarm has been Disarmed"

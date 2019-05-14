@@ -96,13 +96,18 @@ clock:
 
 external_lights:
   widget_type: switch
-  title: External Lights
-  entity: switch.external_lights
+  title: Exterior Lights
+  entity: switch.exterior_lights
 
 toy_room_light:
   widget_type: switch
   title: Toy Room
-  entity: switch.toy_room_light
+  entity: switch.sonoff133
+
+cloak_room_light:
+  widget_type: switch
+  title: Cloak Light
+  entity: switch.sonoff135
 
 master_bedroom_light:
   widget_type: switch
@@ -112,12 +117,12 @@ master_bedroom_light:
 living_room_light:
   widget_type: switch
   title: Living Room
-  entity: switch.living_room_light
+  entity: switch.sonoff131
 
 aquarium_light:
   widget_type: switch
   title: Aquarium
-  entity: switch.aquarium_light
+  entity: switch.sonoff134
 
 aqua_temp_gauge:
   title: Aquarium
@@ -135,11 +140,12 @@ aqua_frame:
       - http://192.168.0.65/html/cam_pic.php
 
 alarm:
-    widget_type: alarm
+    widget_type: sensor
     title_style: "color: white"
-    state_style: "color: #00aaff;font-size: 170%;"
+#    state_text_style: "color: #00aaff;font-size: 400%;"
+    value_style: "font-size: 700%;"
     title: Alarm
-    entity: alarm_control_panel.home_alarm
+    entity: sensor.house_alarm
 
 hive_battery:
     widget_type: sensor
@@ -176,7 +182,31 @@ apparent_temp:
 study:
   title: Study
   widget_type: icon
-  entity: binary_sensor.study
+  entity: binary_sensor.study_movement
+  icons:
+    "on":
+      icon: mdi-door-open
+      style: "color: white"
+    "off":
+      icon: mdi-door-closed
+      style: "color: white"
+
+front_door:
+  title: Front Door
+  widget_type: icon
+  entity: binary_sensor.front_door
+  icons:
+    "on":
+      icon: mdi-door-open
+      style: "color: white"
+    "off":
+      icon: mdi-door-closed
+      style: "color: white"
+    
+garage_door:
+  title: Garage Door
+  widget_type: icon
+  entity: binary_sensor.garage_door
   icons:
     "on":
       icon: mdi-door-open
@@ -189,8 +219,8 @@ study:
 layout:
    - clock(2x2), sunrise, weather.weather(3x2), aqua_temp_gauge,hall_temp, thermo_temp
    - sunset, hotwater_temp, garage_temp, hive_battery
-   - external_lights, toy_room_light, living_room_light, master_bedroom_light, aquarium_light
-   - study, barry_presence, ruth_presence, zak_presence, luke_presence
+   - external_lights, toy_room_light, cloak_room_light, living_room_light, master_bedroom_light, aquarium_light
+   - study, front_door, garage_door, barry_presence, ruth_presence, zak_presence, luke_presence
    - alarm(2x2), aqua_frame(3x2), xmas_sleeps(2x2)
 
 
