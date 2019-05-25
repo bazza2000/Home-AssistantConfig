@@ -63,9 +63,9 @@
     - platform: time
       at: "22:30:00"
     - entity_id: binary_sensor.alarm_state
-      from: "on"
+      from: "off"
       platform: state
-      to: "off"
+      to: "on"
   condition:
     condition: time
     after: '21:30:00'
@@ -107,9 +107,9 @@
     - platform: time
       at: "23:00:00"
     - entity_id: binary_sensor.alarm_state
-      from: "on"
+      from: "off"
       platform: state
-      to: "off"
+      to: "on"
   condition:
     condition: time
     after: '21:30:00'

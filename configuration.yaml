@@ -17,6 +17,16 @@ system_health:
 
 recorder:
   db_url: !secret recorder_db_url
+  purge_keep_days: 2
+  exclude:
+    domains:
+      - automation
+      - weblink
+      - updater
+    entities:
+      - sun.sun # Don't record sun data
+      - sensor.last_boot # Comes from 'systemmonitor' sensor platform
+      - sensor.date
 
 logger:
   default: info
@@ -217,6 +227,16 @@ sensor:
     resource: http://192.168.0.172:8101/status
     name: konnected 3 wifi
     value_template: "{{ value_json.rssi }}"
+  - platform: rest
+    resource: http://192.168.0.174:16350/status
+    name: konnected 5 wifi
+    value_template: "{{ value_json.rssi }}"
+  - platform: rest
+    resource: http://192.168.0.175:14094/status
+    name: konnected 6 wifi
+    value_template: "{{ value_json.rssi }}"
+
+    
 
   #  - platform: template
   #    sensors:
@@ -271,6 +291,13 @@ sensor:
     start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
     end: "{{ now() }}"
   - platform: history_stats
+    name: Luke PC today
+    entity_id: device_tracker.luke_pc
+    state: "home"
+    type: time
+    start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+    end: "{{ now() }}"
+  - platform: history_stats
     name: XBOX today
     entity_id: device_tracker.xbox
     state: "home"
@@ -288,17 +315,34 @@ sensor:
         value_template: "{{ states.sensor.zak_pc_today.attributes.value }}"
   - platform: template
     sensors:
+      lukepc_today_time:
+        value_template: "{{ states.sensor.luke_pc_today.attributes.value }}"
+  - platform: template
+    sensors:
       xbox_today_time:
         value_template: "{{ states.sensor.xbox_today.attributes.value }}"
   - platform: template
     sensors:
       konnected_3_wifi_strength:
         value_template: "{{ (((( states.sensor.konnected_3_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}"
+  - platform: template
+    sensors:
+      konnected_5_wifi_strength:
+        value_template: "{{ (((( states.sensor.konnected_5_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}"
+  - platform: template
+    sensors:
+      konnected_6_wifi_strength:
+        value_template: "{{ (((( states.sensor.konnected_6_wifi.state | float + 100 ) | float * 2 ), 100 )) |min }}"
+
 
   - platform: template
     sensors:
       konnected_3:
         value_template: "{% if is_state('device_tracker.konnected3', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      konnected_5:
+        value_template: "{% if is_state('device_tracker.konnected5', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      konnected_6:
+        value_template: "{% if is_state('device_tracker.konnected6', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       sonoff_150:
         value_template: "{% if is_state('device_tracker.sonoff150', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       sonoff_151:
@@ -313,6 +357,8 @@ sensor:
         value_template: "{% if is_state('device_tracker.izzy', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       zak_pc_status:
         value_template: "{% if is_state('device_tracker.zak_pc', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
+      luke_pc_status:
+        value_template: "{% if is_state('device_tracker.luke_pc', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       xbox_status:
         value_template: "{% if is_state('device_tracker.xbox', 'home') %}ONLINE{% else %}OFFLINE{% endif %}"
       house_alarm:
@@ -329,6 +375,12 @@ sensor:
 
   - platform: template
     sensors:
+      hot_water_status:
+        friendly_name: "Hot Water Status"
+        value_template: "{{  states.climate.hot_water.attributes.aux_heat }}"
+
+  - platform: template
+    sensors:
       hive_battery:
         friendly_name: "Hive Batt"
         value_template: "{{  states.climate.heating.attributes.battery_level }}"
@@ -338,6 +390,9 @@ sensor:
       hall_thermostat_temp_setting:
         friendly_name: "Hall Thermostat Temp Setting"
         value_template: "{{  states.climate.heating.attributes.temperature }}"
+        unit_of_measurement: "°C"
+
+
 
   - platform: template
     sensors:
@@ -605,6 +660,37 @@ konnected:
           name: "Personal Alarm"
           activation: high
           momentary: 500
+    - id: "807d3a7f6c56"
+      binary_sensors:
+        - zone: 1
+          type: motion
+          name: "Hall/Garage Door"
+          inverse: true
+        - zone: 2
+          type: motion
+          name: "Garage Motion"
+          inverse: true
+        - zone: 3
+          type: motion
+          name: "Kitchen Motion"
+          inverse: true
+        - zone: 4
+          type: motion
+          name: "Living/Dining Motion"
+          inverse: true
+        - zone: 5
+          type: motion
+          name: "Study/Extension Motion"
+          inverse: true
+        - zone: 6
+          type: motion
+          name: "Upstairs Motion"
+          inverse: true
+    - id: "cc50e35cfdc7"
+      binary_sensors:
+        - zone: 1
+          type: door
+          name: "Back Gate"
 
 device_tracker:
   - platform: nmap_tracker
@@ -613,6 +699,7 @@ device_tracker:
   - platform: ping
     hosts:
       zak_pc: 192.168.0.20
+      luke_pc: 192.168.0.50
       xbox: 192.168.0.25
       sonoff150: 192.168.0.150
       sonoff151: 192.168.0.151
@@ -623,6 +710,8 @@ device_tracker:
       virgin_router: 192.168.0.1
       asus_router: 192.168.0.3
       konnected3: 192.168.0.172
+      konnected5: 192.168.0.174
+      konnected6: 192.168.0.175
 
 weblink:
   entities:
@@ -650,6 +739,12 @@ weblink:
     - name: Konnected 4
       url: http://192.168.0.173:19754/
       icon: mdi:wifi
+    - name: Konnected 5
+      url: http://192.168.0.174:16350/
+      icon: mdi:wifi
+    - name: Konnected 6
+      url: http://192.168.0.175:14094/
+      icon: mdi:wifi  
 
 python_script:
 

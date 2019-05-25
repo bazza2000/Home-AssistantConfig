@@ -1,0 +1,25 @@
+- id: '2791363860629'
+  alias: Upstairs Lights On Motion
+  trigger:
+  - entity_id: binary_sensor.upstairs_motion
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: switch.sonoff133
+        state: 'off'
+      - condition: sun
+        after: sunset
+      - condition: time
+        before: '22:30:00'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.master_bedroom_light
+    - delay: 00:10:00
+    - service: switch.turn_off
+      entity_id: switch.master_bedroom_light
+
+
