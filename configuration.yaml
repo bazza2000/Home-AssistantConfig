@@ -409,7 +409,7 @@ binary_sensor:
     sensors:
       study_movement:
         friendly_name: Study Movement
-        value_template: "{{(as_timestamp(now()) - as_timestamp(states.binary_sensor.study.last_changed) < 1800)}}"
+        value_template: "{{(as_timestamp(now()) - as_timestamp(states.binary_sensor.study_extension_motion.last_changed) < 1800)}}"
         device_class: motion
         entity_id: sensor.time
   - platform: workday
@@ -463,6 +463,12 @@ tts:
 # Cloud
 cloud:
 
+timer:
+  kitchen_lights:
+    duration: '00:30:00'
+  extension_lights:
+    duration: '00:30:00'
+
 media_player:
   - platform: xboxone
     device: FD00BE72E3714424
@@ -487,6 +493,8 @@ mqtt:
   broker: 192.168.0.63
   discovery: true
   discovery_prefix: homeassistant
+
+
 
 light:
   - platform: mqtt
@@ -656,10 +664,15 @@ konnected:
           type: connectivity
           name: "Alarm State"
       switches:
-        - zone: 5
-          name: "Personal Alarm"
+        - zone: 4
+          name: "Garage Door"
           activation: high
           momentary: 500
+        - zone: 5
+          name: "Personal Attack"
+          activation: high
+          momentary: 500
+
     - id: "807d3a7f6c56"
       binary_sensors:
         - zone: 1

@@ -7,7 +7,7 @@ widget_margins: [5, 5]
 columns: 8
 global_parameters:
     precision: 1
-    use_hass_icon: 1
+#    use_hass_icon: 1
 
 header:
     widget_type: label
@@ -53,13 +53,6 @@ thermo_temp:
   entity: sensor.hall_thermostat_temp_setting
   precision: 1
 
-xmas_sleeps:
-  widget_type: sensor
-  title: Xmas Sleeps
-  entity: sensor.christmas_day
-  value_style: "font-size: 700%;"
-  precision: 0
-  units: ""
 
 
 thermo:
@@ -99,10 +92,20 @@ external_lights:
   title: Exterior Lights
   entity: switch.exterior_lights
 
+kitchen_lamp:
+  widget_type: switch
+  title: Kitchen Lamp
+  entity: switch.sonoff130
+
 toy_room_light:
   widget_type: switch
   title: Toy Room
   entity: switch.sonoff133
+
+living_room_lantern:
+  widget_type: switch
+  title: Living Room Lantern
+  entity: switch.sonoff137
 
 cloak_room_light:
   widget_type: switch
@@ -118,6 +121,11 @@ living_room_light:
   widget_type: switch
   title: Living Room
   entity: switch.sonoff131
+
+living_room_led_light:
+  widget_type: switch
+  title: Living Room LED
+  entity: switch.sonoff132
 
 aquarium_light:
   widget_type: switch
@@ -141,11 +149,12 @@ aqua_frame:
 
 alarm:
     widget_type: sensor
-    title_style: "color: white"
-#    state_text_style: "color: #00aaff;font-size: 400%;"
-    value_style: "font-size: 700%;"
     title: Alarm
     entity: sensor.house_alarm
+    icon_on: fas-lock
+    icon_off: fas-lock-open
+    precision: 0
+    units: ""
 
 hive_battery:
     widget_type: sensor
@@ -179,17 +188,89 @@ apparent_temp:
   units: "&deg;C"
   precision: 1
 
-study:
-  title: Study
+hall_garage:
+  title: Hall/Garage
   widget_type: icon
-  entity: binary_sensor.study_movement
+  entity: binary_sensor.hall_garage_door
   icons:
     "on":
-      icon: mdi-door-open
+      icon: fas-walking
+      style: "color: #aaff00"
+    "off":
+      icon: fas-walking
+      style: "color: white"
+
+study_extension:
+  title: Study/Extension
+  widget_type: icon
+  entity: binary_sensor.study_extension_motion
+  icons:
+    "on":
+      icon: fas-walking
+      style: "color: #aaff00"
+    "off":
+      icon: fas-walking
+      style: "color: white"
+
+garage:
+  title: Garage
+  widget_type: icon
+  entity: binary_sensor.garage_motion
+  icons:
+    "on":
+      icon: fas-walking
+      style: "color: #aaff00"
+    "off":
+      icon: fas-walking
+      style: "color: white"
+
+kitchen:
+  title: Kitchen
+  widget_type: icon
+  entity: binary_sensor.kitchen_motion
+  icons:
+    "on":
+      icon: fas-walking
+      style: "color: #aaff00"
+    "off":
+      icon: fas-walking
+      style: "color: white"
+
+living_dining:
+  title: Living/Dining
+  widget_type: icon
+  entity: binary_sensor.living_dining_motion
+  icons:
+    "on":
+      icon: fas-walking
+      style: "color: #aaff00"
+    "off":
+      icon: fas-walking
+      style: "color: white"
+
+study_extension:
+  title: Study/Extension
+  widget_type: icon
+  entity: binary_sensor.study_extension_motion
+  icons:
+    "on":
+      icon: fas-walking
+      style: "color: #aaff00"
+    "off":
+      icon: fas-walking
+      style: "color: white"
+
+upstairs:
+  title: Upstairs
+  widget_type: icon
+  entity: binary_sensor.upstairs_motion
+  icons:
+    "on":
+      icon: fas-walking
       style: "color: white"
     "off":
-      icon: mdi-door-closed
-      style: "color: white"
+      icon: fas-walking
+      style: "color: #aaff00"
 
 front_door:
   title: Front Door
@@ -198,7 +279,7 @@ front_door:
   icons:
     "on":
       icon: mdi-door-open
-      style: "color: white"
+      style: "color: #aaff00"
     "off":
       icon: mdi-door-closed
       style: "color: white"
@@ -210,17 +291,28 @@ garage_door:
   icons:
     "on":
       icon: mdi-door-open
-      style: "color: white"
+      style: "color: #aaff00"
     "off":
       icon: mdi-door-closed
       style: "color: white"
-    
+
+personal_attack:
+  title: Personal Attack
+  widget_type: switch
+  widget_style: "background: red; "
+  entity: switch.sonoff133
+  icon_on: fas-exclamation
+  icon_off: fas-exclamation
+
+reload:
+    widget_type: reload
+    title: Reload
 
 layout:
    - clock(2x2), sunrise, weather.weather(3x2), aqua_temp_gauge,hall_temp, thermo_temp
    - sunset, hotwater_temp, garage_temp, hive_battery
-   - external_lights, toy_room_light, cloak_room_light, living_room_light, master_bedroom_light, aquarium_light
-   - study, front_door, garage_door, barry_presence, ruth_presence, zak_presence, luke_presence
-   - alarm(2x2), aqua_frame(3x2), xmas_sleeps(2x2)
+   - external_lights, toy_room_light, cloak_room_light, living_room_light, living_room_lantern, living_room_led_light, master_bedroom_light, kitchen_lamp, aquarium_light
+   - alarm, hall_garage, front_door, garage_door, garage, kitchen, living_dining, study_extension, upstairs
+   - barry_presence, ruth_presence, zak_presence, luke_presence, reload, personal_attack
 
 

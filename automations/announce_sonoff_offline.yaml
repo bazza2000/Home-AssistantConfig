@@ -1,0 +1,19 @@
+- id: "4551573860629"
+  alias: sonoff offline
+  trigger:
+    - entity_id: switch.sonoff130
+      platform: state
+      to: "unavailable"
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+  action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: 0.5
+    - data_template:
+        message: "The kitchen Lamp socket has been switched off, can you please turn it on again so that I can control the lights.  Thanks."
+      entity_id: media_player.kitchen
+      service: tts.google_say

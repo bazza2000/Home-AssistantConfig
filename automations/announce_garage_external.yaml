@@ -1,0 +1,34 @@
+- id: "1561873865629"
+  alias: external garage door has been open for too long
+  trigger:
+    - entity_id: binary_sensor.hall_garage_door
+      from: "off"
+      platform: state
+      to: "on"
+      for:
+        hours: 0
+        minutes: 30
+        seconds: 0
+  condition:
+    condition: state
+    entity_id: binary_sensor.alarm_state
+    state: "on"
+  action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: 1.0
+    - data_template:
+        message: "The External Garage door has been open for 30 minutes and the alarm is on, closing the door automatically."
+      entity_id: media_player.kitchen
+      service: tts.google_say
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: 0.5
+    - service: switch.turn_on
+      entity_id: switch.garage_door
+    - service: notify.barry
+      data_template:
+        title: HOME EMERGENCY!
+        message: "The External Garage door has been open for 30 minutes and the alarm is on, closing the door automatically."

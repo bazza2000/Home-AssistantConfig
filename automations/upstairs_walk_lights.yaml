@@ -9,8 +9,8 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: switch.sonoff133
-        state: 'off'
+        entity_id: switch.master_bedroom_light
+        state: "off"
       - condition: sun
         after: sunset
       - condition: time

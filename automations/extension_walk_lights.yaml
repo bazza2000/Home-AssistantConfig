@@ -1,23 +1,31 @@
-- id: '2691363860629'
-  alias: Extension Lights On Motion
+- id: '254064266782811234'
+  alias: Turn on extension lights when there is movement
   trigger:
-  - entity_id: binary_sensor.study_extension_motion
-    from: 'off'
-    platform: state
-    to: 'on'
+    - platform: state
+      entity_id: binary_sensor.study_extension_motion
+      to: 'on'
   condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: switch.sonoff133
-        state: 'off'
-      - condition: sun
-        after: sunset
+      condition: sun
+      after: sunset
+      after_offset: '00:30:00' 
   action:
     - service: switch.turn_on
       entity_id: switch.sonoff133
-    - delay: 00:05:00
+    - service: timer.cancel
+      data:
+        entity_id: timer.extension_lights
+    - service: timer.start
+      data:
+        entity_id: timer.extension_lights
+
+- id: '154364266782811234'
+  alias: Turn off extension lights 30 minutes after trigger
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.extension_lights
+  action:
     - service: switch.turn_off
       entity_id: switch.sonoff133
-
 

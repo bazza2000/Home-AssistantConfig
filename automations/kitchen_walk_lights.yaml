@@ -1,0 +1,33 @@
+- id: '154064266782811234'
+  alias: Turn on kitchen lights when there is movement
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.kitchen_motion
+      to: 'on'
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        after: "17:00"
+  action:
+    - service: switch.turn_on
+      entity_id: switch.sonoff130
+    - service: timer.cancel
+      data:
+        entity_id: timer.kitchen_lights
+    - service: timer.start
+      data:
+        entity_id: timer.kitchen_lights
+  
+
+- id: '154074266782811234'
+  alias: Turn off kitchen lights 30 minutes after trigger
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.kitchen_lights
+  action:
+    - service: switch.turn_off
+      entity_id: switch.sonoff130
+  
