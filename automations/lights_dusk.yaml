@@ -68,6 +68,7 @@
       to: "on"
   condition:
     condition: time
+    before: '06:00:00'
     after: '21:30:00'
     weekday:
       - sun
@@ -112,6 +113,7 @@
       to: "on"
   condition:
     condition: time
+    before: '06:00:00'
     after: '21:30:00'
     weekday:
       - fri

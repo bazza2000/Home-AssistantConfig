@@ -51,16 +51,19 @@
     platform: numeric_state
     entity_id: sensor.ps4_today
     value_template: '{{ states.sensor.ps4_today.state }}'
-    above: 5
+    above: 2
   condition:
     condition: time
-    after: '19:00:00'
+    after: '15:00:00'
     before: '21:00:00'
     weekday:
     - mon
     - tue
     - wed
     - thu
+    - fri
+    - sat
+    - sun
   action:
   - service: media_player.volume_set
     data_template:
@@ -69,5 +72,5 @@
   - service: tts.google_say
     entity_id: media_player.downstairs
     data_template:
-      message: The playstation has been on for more than 4 hours, please finish your
+      message: Playstation Game Time Duration Alarm.  The playstation has been on for more than 2 hours, please finish your
         game and turn it off.
