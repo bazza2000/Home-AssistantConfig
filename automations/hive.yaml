@@ -34,3 +34,44 @@
     data_template:
       title: Home Alert!
       message: Thermostat was >20C @ 00:05 set to 7C
+
+- id: "1561774865629"
+  alias: Doors open turn heating off
+  trigger:
+    - entity_id: binary_sensor.garage_door
+      from: "off"
+      platform: state
+      to: "on"
+      for:
+        hours: 0
+        minutes: 10
+        seconds: 0
+    - entity_id: binary_sensor.front_door
+      from: "off"
+      platform: state
+      to: "on"
+      for:
+        hours: 0
+        minutes: 5
+        seconds: 0
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.hall_thermostat_temp_setting
+    above: '15'
+  action:
+    - service: notify.barry
+      data_template:
+        title: Home Alert!
+        message: Thermostat was {{ states.climate.heating.attributes.temperature }} and door left open for >5mins, switched heating off.
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.kitchen
+        volume_level: 0.5
+    - data_template:
+        message: "A door has been open for more than 5 minutes and the heating is still on, turning the heating off."
+      entity_id: media_player.kitchen
+      service: tts.google_say
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.heating
+        temperature: 7

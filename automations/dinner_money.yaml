@@ -20,6 +20,10 @@
     data_template:
       title: Dinner Money Zak!
       message: Zaks Dinner Money Balance is low at £{{ states.sensor.zak_dinner_money_balance.state}}.
+  - service: notify.barry
+    data_template:
+      title: Dinner Money Balance Alert!
+      message: Zaks Dinner Money Balance is low at £{{ states.sensor.zak_dinner_money_balance.state}}.
 
 - id: '1540642667829'
   alias: Luke Dinner Money Low
@@ -42,4 +46,8 @@
   - service: notify.ruth
     data_template:
       title: Dinner Money Luke!
+      message: Lukes Dinner Money Balance is low at £{{ states.sensor.luke_dinner_money_balance.state}}.
+  - service: notify.ruth
+    data_template:
+      title: Dinner Money Balance Alert!
       message: Lukes Dinner Money Balance is low at £{{ states.sensor.luke_dinner_money_balance.state}}.

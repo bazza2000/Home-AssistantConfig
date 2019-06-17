@@ -13,6 +13,61 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+zone:
+  - name: Simpsons
+    latitude: 53.365716
+    longitude: -2.873099
+    radius: 500
+    icon: mdi:soccer
+
+  - name: Home
+    latitude: 53.388830
+    longitude: -2.890006
+    radius: 500
+    icon: mdi:account-multiple
+
+  - name: Manchester Victoria Station
+    latitude: 53.487616
+    longitude: -2.242144
+    radius: 200
+    icon: mdi:train
+
+  - name: Baz Work
+    latitude: 53.485840
+    longitude: -2.241221
+    radius: 2000
+    icon: mdi:work
+
+  - name: Ruth Work
+    latitude: 53.341837
+    longitude: -2.867373
+    radius: 500
+    icon: mdi:work
+
+  - name: Luke School
+    latitude: 53.368797
+    longitude: -2.929669
+    radius: 500
+    icon: mdi:school
+
+  - name: Grandma Home
+    latitude: 53.364013
+    longitude: -2.896650
+    radius: 500
+    icon: mdi:home
+
+  - name: Shell Home
+    latitude: 53.363811
+    longitude: -2.759421
+    radius: 500
+    icon: mdi:home
+
+  - name: Julie Phil Home
+    latitude: 53.474381
+    longitude: -2.982973
+    radius: 500
+    icon: mdi:home
+
 system_health:
 
 input_boolean:
@@ -53,7 +108,7 @@ config:
 # http:
 #   base_url: example.duckdns.org:8123
 http:
-  #  api_password: !secret http_api_password
+#  api_password: !secret http_api_password
   base_url: !secret base_url
 #  ssl_certificate: /ssl/fullchain.pem
 #  ssl_key: /ssl/privkey.pem
@@ -84,6 +139,13 @@ map:
 
 # Track the sun
 sun:
+
+# OwnTracks
+owntracks:
+  max_gps_accuracy: 500
+
+# iPhone
+ios:
 
 # Notifications
 notify:
@@ -397,6 +459,15 @@ sensor:
         friendly_name: "Hall Thermostat Temp Setting"
         value_template: "{{  states.climate.heating.attributes.temperature }}"
         unit_of_measurement: "°C"
+  
+  - platform: template
+    sensors:
+      barry_phone_battery_level:
+        friendly_name: "Barry Phone Battery Level"
+        value_template: "{{ states.device_tracker.bazza_gps.attributes.battery_level }}"
+        unit_of_measurement: "%"
+
+  
 
 
 
@@ -474,6 +545,8 @@ timer:
     duration: '00:30:00'
   extension_lights:
     duration: '00:30:00'
+  upstairs_lights:
+    duration: '00:10:00'
 
 media_player:
   - platform: xboxone

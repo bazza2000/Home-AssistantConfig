@@ -8,21 +8,29 @@
   condition:
     condition: and
     conditions:
-      - condition: state
-        entity_id: switch.master_bedroom_light
-        state: "off"
       - condition: sun
         after: sunset
-      - condition: time
-        before: '22:30:00'
       - condition: state
         entity_id: binary_sensor.alarm_state
         state: "off"
   action:
     - service: switch.turn_on
       entity_id: switch.master_bedroom_light
-    - delay: 00:10:00
+    - service: timer.cancel
+      data:
+        entity_id: timer.kitchen_lights
+    - service: timer.start
+      data:
+        entity_id: timer.kitchen_lights
+  
+- id: '194074266782811234'
+  alias: Turn off master bedroom light 10 minutes after trigger
+  trigger:
+    platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.upstairs_lights
+  action:
     - service: switch.turn_off
       entity_id: switch.master_bedroom_light
-
-
+  
