@@ -93,3 +93,31 @@
       title: Home Alert!
       message: Luke has gone out
   id: 823dc4806423463f957e0be4f22b039d
+- alias: Luke at School
+  trigger:
+    platform: state
+    entity_id: device_tracker.lukephone
+    to: "Luke School"
+  condition: []
+  action:
+  - service: notify.barry
+    data_template:
+      title: Luke Alert!
+      message: Luke has arrived at school
+  - service: notify.ruth
+    data_template:
+      title: Luke Alert!
+      message: Luke has arrived at school
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 1.0
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: Luke has arrived at school
+  - service: media_player.volume_set
+    data_template:
+      entity_id: media_player.kitchen
+      volume_level: 0.5
+  id: 823dc4806425463f957e0be4f22b039d

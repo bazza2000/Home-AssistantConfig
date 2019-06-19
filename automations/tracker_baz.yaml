@@ -1,0 +1,12 @@
+- alias: Baz at Broadgreen
+  trigger:
+    platform: state
+    entity_id: device_tracker.bazza_gps
+    to: "Broadgreen Station"
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.kitchen
+    data_template:
+      message: Barry has arrived at Broadgreen Station
+  id: 823dc4856425463f957e0be4f22b039d

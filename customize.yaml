@@ -1,0 +1,5 @@
+person.bazza: {}
+device_tracker.ruth_gps:
+  entity_picture: /local/ruth.jpg
+device_tracker.bazza_gps:
+  entity_picture: /local/barry.jpg

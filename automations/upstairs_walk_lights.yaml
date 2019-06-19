@@ -18,13 +18,13 @@
       entity_id: switch.master_bedroom_light
     - service: timer.cancel
       data:
-        entity_id: timer.kitchen_lights
+        entity_id: timer.upstairs_lights
     - service: timer.start
       data:
-        entity_id: timer.kitchen_lights
+        entity_id: timer.upstairs_lights
   
 - id: '194074266782811234'
-  alias: Turn off master bedroom light 10 minutes after trigger
+  alias: Turn off master bedroom light 2 minutes after trigger
   trigger:
     platform: event
     event_type: timer.finished

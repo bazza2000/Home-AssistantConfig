@@ -29,20 +29,20 @@ zone:
   - name: Manchester Victoria Station
     latitude: 53.487616
     longitude: -2.242144
-    radius: 200
+    radius: 100
     icon: mdi:train
 
   - name: Baz Work
     latitude: 53.485840
     longitude: -2.241221
-    radius: 2000
-    icon: mdi:work
+    radius: 100
+    icon: mdi:office
 
   - name: Ruth Work
     latitude: 53.341837
     longitude: -2.867373
     radius: 500
-    icon: mdi:work
+    icon: mdi:office
 
   - name: Luke School
     latitude: 53.368797
@@ -68,6 +68,18 @@ zone:
     radius: 500
     icon: mdi:home
 
+  - name: Broadgreen Station
+    latitude: 53.406442
+    longitude: -2.893513
+    radius: 100
+    icon: mdi:train
+
+  - name: Lime Street Station
+    latitude: 53.4077023
+    longitude: -2.9769938
+    radius: 200
+    icon: mdi:train
+
 system_health:
 
 input_boolean:
@@ -92,7 +104,13 @@ logger:
   default: info
   logs:
     homeassistant.components.sensor.hive: debug
-    homeassistant.components.konnected: debug
+#    homeassistant.components.konnected: debug
+#    homeassistant.components.cast: debug
+#    homeassistant.components.cast.media_player: debug
+#    pychromecast: debug
+#    pychromecast.discovery: debug
+#    pychromecast.socket_client: debug
+#    zeroconf: debug
 
 # Show links to resources in log and frontend
 #introduction:
@@ -536,6 +554,10 @@ binary_sensor:
 tts:
   - platform: google_translate
     service_name: google_say
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    base_url: !secret api_host
 
 # Cloud
 cloud:
@@ -546,7 +568,7 @@ timer:
   extension_lights:
     duration: '00:30:00'
   upstairs_lights:
-    duration: '00:10:00'
+    duration: '00:02:00'
 
 media_player:
   - platform: xboxone
