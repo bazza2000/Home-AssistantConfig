@@ -15,7 +15,7 @@ homeassistant:
 
 google_assistant:
   project_id: home-assistant-integrati-7a3d2
-  api_key: AIzaSyAUkMYpetfJSO_a8BKrOuXU_c4pI9X2xrY
+  api_key: !secret google_assistant_api
   exposed_domains:
     - switch
     - light
