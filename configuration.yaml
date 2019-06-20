@@ -13,6 +13,14 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
+google_assistant:
+  project_id: home-assistant-integrati-7a3d2
+  api_key: AIzaSyAUkMYpetfJSO_a8BKrOuXU_c4pI9X2xrY
+  exposed_domains:
+    - switch
+    - light
+  expose_by_default: true
+
 zone:
   - name: Simpsons
     latitude: 53.365716
@@ -277,6 +285,14 @@ sensor:
       - type: process
       - type: last_boot
       - type: processor_use
+  - platform: template
+    sensors:
+      last_update_ruth_gps:
+        value_template: '{{ as_timestamp(states.device_tracker.ruth_gps.last_changed)  | timestamp_custom("%Y%m%d-%H%M%S") }}'
+      last_update_bazza_gps:
+        value_template: '{{ as_timestamp(states.device_tracker.bazza_gps.last_changed)  | timestamp_custom("%Y%m%d-%H%M%S") }}'
+      last_update_luke_phone:
+        value_template: '{{ as_timestamp(states.device_tracker.lukephone.last_changed)  | timestamp_custom("%Y%m%d-%H%M%S") }}'
 
   - platform: yr
   - platform: command_line
